@@ -1,0 +1,98 @@
+<nb-card>
+    <nb-card-header>
+        Alistamiento
+    </nb-card-header>
+
+    <nb-card-body>
+        <form [formGroup]="dataForm">
+            <div *ngIf="contractor">
+                <div class="row">
+                    <small>Información Personal</small>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-4">
+                        <label for="" class="label">Nombre</label>
+                        <input nbInput fullWidth [value]="contractor.names" [readOnly]="true">
+                    </div>
+                    <div class="col-4">
+                        <label for="" class="label">Documento</label>
+                        <input nbInput fullWidth [value]="contractor.cc" [readOnly]="true">
+                    </div>
+                    <div class="col-4">
+                        <label for="" class="label">Tipo</label>
+                        <input nbInput fullWidth [value]="contractor.type" [readOnly]="true">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <small>Resultados Test</small>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-3">
+                        <label for="" class="label">Competencia Común</label>
+                        <input nbInput fullWidth [value]="contractor.averageCC" [readOnly]="true">
+                    </div>
+                    <div class="col-3">
+                        <label for="" class="label">Competencia Específica</label>
+                        <input nbInput fullWidth [value]="contractor.averageCE" [readOnly]="true">
+                    </div>
+                    <div class="col-3">
+                        <label for="" class="label">Test de Mesquite</label>
+                        <input nbInput fullWidth [value]="contractor.totalM" [readOnly]="true">
+                    </div>
+                    <div class="col-3">
+                        <label for="" class="label">Comportamiento</label>
+                        <input nbInput fullWidth [value]="contractor.averageAyd" [readOnly]="true">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <small>Informe Final</small>
+                </div>
+                <hr>
+                <br>
+                <div *ngIf="selectedOption === 'nuevo'">
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="" class="label">Experiencia Laboral</label>
+                            <textarea nbInput fullWidth formControlName="workExperience"></textarea>
+                        </div>
+                        <div class="col-6">
+                            <label for="" class="label">Sensatez (Personal y Laboral)</label>
+                            <textarea nbInput fullWidth formControlName="sanity"></textarea>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="" class="label">Aptitudes</label>
+                            <textarea nbInput fullWidth formControlName="aptitudes"></textarea>
+                        </div>
+                        <div class="col-6">
+                            <label for="" class="label">Comunicación no Verbal</label>
+                            <textarea nbInput fullWidth formControlName="nonVerbal"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col">
+                        <label for="" class="label">Informe Final</label>
+                        <textarea nbInput fullWidth formControlName="finalReport"></textarea>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+    <nb-card-footer>
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <button nbButton status="basic" (click)="return()">Volver</button>
+                <button nbButton status="primary" class="m-l-5" [disabled]="dataForm.invalid"
+                    (click)="createEnlistment()">Reporte</button>
+            </div>
+        </div>
+    </nb-card-footer>
+</nb-card>

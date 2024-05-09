@@ -1,0 +1,487 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="test3Form">
+            <nb-stepper orientation="horizontal">
+                <nb-step [label]="labelOne">
+                    <ng-template #labelOne>Información</ng-template>
+                    <p>Test 3</p>
+                    <h5>1. Información Personal</h5>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="label" for="">Cédula de Ciudadanía</label><span class="req"> *</span>
+                            <input nbInput fullWidth formControlName="cc" type="text">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="label" for="">Nombres y apellidos</label><span class="req"> *</span>
+                            <div class="form-group">
+                                <input nbInput fullWidth formControlName="names" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="label" for="">Título Académico</label><span class="req"> *</span>
+                            <nb-select fullWidth formControlName="academicTitle">
+                                <nb-option value="Bachillerato">Bachillerato</nb-option>
+                                <nb-option value="Formación Técnica">Formación Técnica</nb-option>
+                                <nb-option value="Formación Tecnológica">Formación Tecnológica</nb-option>
+                                <nb-option value="Profesional ">Profesional</nb-option>
+                                <nb-option value="Postgrado ">Postgrado</nb-option>
+                            </nb-select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="label" for="">Complemente la información de su título académico</label><span
+                                class="req"> *</span>
+                            <input nbInput fullWidth formControlName="complement" type="text">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="label" for="">Experiencia Laboral</label><span class="req"> *</span>
+                            <nb-select fullWidth formControlName="experienceWork">
+                                <nb-option value="De 0 a 6 meses">De 0 a 6 meses</nb-option>
+                                <nb-option value="De 6 a 12 meses">De 6 a 12 meses</nb-option>
+                                <nb-option value="De 12 a 24 meses">De 12 a 24 meses</nb-option>
+                                <nb-option value="Más de 24 meses">Más de 24 meses</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <br>
+                    <button class="m-l-5" nbButton nbStepperNext status="primary">
+                        <nb-icon icon="arrow-forward-outline"></nb-icon>
+                    </button>
+                </nb-step>
+
+                <!-- ----- COMUNES ----- -->
+
+                <nb-step [label]="labelTwo">
+                    <ng-template #labelTwo>Comunes</ng-template>
+                    <p>Test 3</p>
+                    <h5>2. Competencias Comunes</h5>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p for="" style="text-align: justify;">1. Como contratista de INDERVALLE te encuentras
+                                trabajando en un proyecto importante para la entidad. Durante la ejecución del proyecto surgen desafíos que
+                                requieren una respuesta
+                                alineada con el compromiso con la organización. ¿Cuáles de las siguientes acciones
+                                reflejarían un cumplimiento efectivo de la competencia de compromiso con la
+                                organización?<span class="req"> *</span></p>
+                            <nb-select fullWidth formControlName="cc1">
+                                <nb-option [value]="4">A. Cumplir estrictamente con las normas y procedimientos
+                                    establecidos por INDERVALLE, incluso si ello implica un esfuerzo adicional, para
+                                    garantizar el cumplimiento de las metas del proyecto</nb-option>
+                                <nb-option [value]="1">B. Priorizar tus necesidades personales y comodidad, incluso si
+                                    ello significa no cumplir completamente con las metas y normas de la
+                                    organización</nb-option>
+                                <nb-option [value]="2">C. Colaborar proactivamente con tus compañeros y con otras áreas
+                                    para abordar desafíos comunes, asegurando que el proyecto avance de manera eficiente
+                                    y efectiva</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p for="" style="text-align: justify;">2. Como contratista de INDERVALLE estás trabajando en
+                                un proyecto que requiere colaboración
+                                estrecha con un equipo multidisciplinario. ¿Cuáles de las siguientes acciones demuestran
+                                un cumplimiento efectivo?<span class="req"> *</span></p>
+                            <nb-select fullWidth formControlName="cc2">
+                                <nb-option [value]="1">A. Cumplir con los compromisos individuales sin considerar el
+                                    impacto
+                                    en el equipo, ya que cada miembro es responsable de su propia área de
+                                    trabajo</nb-option>
+                                <nb-option [value]="2">B. Respetar la diversidad de criterios y opiniones del equipo,
+                                    buscando soluciones integradas y armónicas para alcanzar las metas institucionales
+                                    comunes</nb-option>
+                                <nb-option [value]="4">C. Asumir la responsabilidad de planificar acciones que
+                                    contribuyan a
+                                    los objetivos grupales y motivar a los miembros del equipo</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p for="" style="text-align: justify;">3. Como contratista de INDERVALLE te enfrentas a un
+                                cambio significativo en el
+                                equipo y en
+                                las actividades del proyecto en el que estás involucrado. ¿Cuáles de las siguientes
+                                acciones
+                                demuestran una adaptación efectiva, un manejo positivo y constructivo de la
+                                situación?<span class="req"> *</span></p>
+                            <nb-select fullWidth formControlName="cc3">
+                                <nb-option [value]="4">A. Facilitar reuniones con el equipo para discutir abiertamente
+                                    las
+                                    preocupaciones sobre el cambio, identificar soluciones y colaborar en la
+                                    implementación
+                                    de nuevas formas de trabajo</nb-option>
+                                <nb-option [value]="1">B. Aceptar de inmediato y sin cuestionamientos las nuevas
+                                    decisiones y
+                                    objetivos, evitando cualquier expresión de desacuerdo</nb-option>
+                                <nb-option [value]="2">C. Promover la adaptación del grupo a las nuevas condiciones,
+                                    proporcionando recursos y apoyo para facilitar una transición suave</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p for="" style="text-align: justify;">4. Como contratista de INDERVALLE te encuentras
+                                trabajando en un proyecto que
+                                requiere estar
+                                al tanto de las últimas regulaciones y tecnologías en tu campo. ¿Cuál de las siguientes
+                                acciones demuestra un compromiso efectivo con la actualización de conocimientos y el
+                                aprendizaje
+                                continuo?<span class="req"> *</span></p>
+                            <nb-select fullWidth formControlName="cc4">
+                                <nb-option [value]="2">A. Asistir ocasionalmente a sesiones de capacitación programadas
+                                    por
+                                    la entidad, pero no buscar activamente otras fuentes de información fuera de estas
+                                    instancias</nb-option>
+                                <nb-option [value]="1">B. Esperar a que la administración pública indique directamente
+                                    los
+                                    cambios necesarios, sin buscar información por tu cuenta</nb-option>
+                                <nb-option [value]="4">C. Gestionar activamente tus propias fuentes de información
+                                    confiable,
+                                    participar de manera proactiva en eventos informativos y de capacitación, y
+                                    compartir
+                                    saberes y habilidades con tus compañeros</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p for="" style="text-align: justify;">5. Como contratista de INDERVALLE te enfrentas a un
+                                proyecto crucial con objetivos
+                                ambiciosos. ¿Cuál de las siguientes acciones demuestra un compromiso efectivo con la
+                                realización de funciones y el cumplimiento de compromisos organizacionales?<span
+                                    class="req"> *</span></p>
+                            <nb-select fullWidth formControlName="cc5">
+                                <nb-option [value]="1">A. Adoptar medidas para minimizar riesgos, pero sin establecer
+                                    objetivos específicos ni diseñar estrategias detalladas para la consecución de los
+                                    resultados</nb-option>
+                                <nb-option [value]="2">B. Plantear estrategias generales para alcanzar los resultados
+                                    esperados, sin trabajar con base en objetivos claramente establecidos</nb-option>
+                                <nb-option [value]="4">C. Diseñar objetivos claramente establecidos, utilizar
+                                    indicadores
+                                    para medir y comprobar los resultados, adoptar medidas para minimizar riesgos y
+                                    plantear
+                                    estrategias detalladas para alcanzar o superar los resultados esperados</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p for="" style="text-align: justify;">6. Las entidades deben revisar periódicamente los
+                                servicios y los trámites con el
+                                fin de
+                                ajustarlos, renovarlos y cambiarlos. En este caso se estaría haciendo uso de las
+                                competencias de:<span class="req"> *</span></p>
+                            <nb-select fullWidth formControlName="cc6">
+                                <nb-option [value]="4">A. La innovación y la orientación al usuario y al
+                                    ciudadano</nb-option>
+                                <nb-option [value]="1">B. Confiabilidad técnica</nb-option>
+                                <nb-option [value]="2">C. Confiabilidad técnica, orientación al usuario y al ciudadano
+                                </nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <br>
+                    <button nbButton nbStepperPrevious><nb-icon icon="arrow-back-outline"></nb-icon></button>
+                    <button class="m-l-5" nbButton nbStepperNext status="primary">
+                        <nb-icon icon="arrow-forward-outline"></nb-icon>
+                    </button>
+                </nb-step>
+
+                <!-- ----- ESPECÍFICAS ----- -->
+
+                <nb-step [label]="labelThree">
+                    <ng-template #labelThree>Específicas</ng-template>
+                    <p>Test 3</p>
+                    <h5>3. Competencias Específicas</h5>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p for="" style="text-align: justify;">1. Como parte del equipo de trabajo en los programas y proyectos de la entidad, tienes la responsabilidad de gestionar una base de datos que registre la información de la población beneficiaria en la ejecución del programa. ¿Cómo abordarías esta tarea?<span class="req"> *</span></p>
+                            <nb-select fullWidth formControlName="ce1">
+                                <nb-option [value]="1">A. Registrar la información básica de los beneficiarios, omitiendo detalles adicionales para simplificar el proceso</nb-option>
+                                <nb-option [value]="4">B. Integrar varias áreas de conocimiento para comprender las interacciones del entorno, asegurándote de registrar datos relevantes y conexiones entre variables</nb-option>
+                                <nb-option [value]="2">C. Registrar la información demográfica de la población</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p for="" style="text-align: justify;">2. Estás liderando un proyecto en el que la colaboración entre tu equipo interno y un grupo externo de expertos es esencial para el éxito del proyecto. Ambos equipos tienen enfoques y estilos de trabajo diferentes. Se presenta un desacuerdo significativo entre tu equipo interno y el grupo externo sobre la mejor estrategia a seguir para alcanzar los objetivos del proyecto ¿Cómo manejarías la siguiente situación?<span class="req"> *</span></p>
+                            <nb-select fullWidth formControlName="ce2">
+                                <nb-option [value]="1">A. Abandonar la estrategia interna y adoptar la perspectiva del grupo externo para evitar conflictos</nb-option>
+                                <nb-option [value]="2">B. Ajustar continuamente la estrategia del proyecto para satisfacer las expectativas cambiantes de ambos equipos</nb-option>
+                                <nb-option [value]="4">C. Facilitar una reunión de colaboración para entender las perspectivas de ambos equipos y encontrar un enfoque mutuo</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p for="" style="text-align: justify;">3. Trabajas en un proyecto donde manejas información personal e institucional confidencial. Se te asigna la tarea de recopilar información sobre el desempeño de algunas personas del equipo con el objetivo de realizar evaluaciones internas para mejorar el rendimiento del equipo. Un compañero de trabajo, que no está directamente involucrado en el proyecto, te pregunta casualmente sobre el desempeño de ciertos miembros del equipo. ¿Cómo manejarías la situación?<span class="req"> *</span>
+                            </p>
+                            <nb-select fullWidth formControlName="ce3">
+                                <nb-option [value]="2">A. Ignorar la pregunta del compañero y cambiar de tema para evitar el tema confidencial</nb-option>
+                                <nb-option [value]="4">B. Informar al compañero que la información es confidencial y no puede ser compartida, respetando las normas de privacidad y confidencialidad</nb-option>
+                                <nb-option [value]="1">C. Dar información selectiva sobre el desempeño de los empleados sin revelar detalles confidenciales</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p for="" style="text-align: justify;">4. Durante una reunión de equipo, un colega de otra área expresa su descontento con la forma en que se han manejado ciertos aspectos del proyecto. El colega menciona que no se siente incluido en las decisiones y que la comunicación entre las áreas no es efectiva. ¿Qué le dirías?<span class="req"> *</span></p>
+                            <nb-select fullWidth formControlName="ce4">
+                                <nb-option [value]="2">A. Pedir al colega que se comunique directamente con el líder del proyecto para abordar sus inquietudes</nb-option>
+                                <nb-option [value]="4">B. Escuchar con atención las preocupaciones del colega, mostrando empatía y buscando entender su perspectiva</nb-option>
+                                <nb-option [value]="1">C. Dar una respuesta rápida sin analizar a fondo las preocupaciones del colega</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p for="" style="text-align: justify;">5. Ante los retrasos en la entrega de algunos de los implementos para el desarrollo de las intervenciones con la población, desde la coordinación se sugiere esperar a que se resuelva la situación logística. Sin embargo, reconoces la importancia de actuar de manera proactiva para evitar impactos negativos en las comunidades beneficiarias.<span class="req"> *</span></p>
+                            <nb-select fullWidth formControlName="ce5">
+                                <nb-option [value]="1">A. Comunicar al equipo sobre los retrasos y esperar a que se resuelva la situación logística antes de proponer alternativas</nb-option>
+                                <nb-option [value]="4">B. Identificar las causas específicas de los retrasos y proponer acciones concretas para solucionarlos</nb-option>
+                                <nb-option [value]="2">C. Informar a las comunidades beneficiarias sobre los retrasos y pedirles paciencia mientras se solucionan los problemas logísticos</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p for="" style="text-align: justify;">6. Un participante envía un correo electrónico expresando su preocupación acerca de la confusión en las instrucciones dadas durante la sesión de capacitación, afectando su comprensión del contenido. El participante solicita una respuesta inmediata para aclarar la situación. ¿Tú qué harías?<span class="req"> *</span>
+                            </p>
+                            <nb-select fullWidth formControlName="ce6">
+                                <nb-option [value]="1">A. Ignorar temporalmente el correo y abordar la situación en la próxima sesión de capacitación</nb-option>
+                                <nb-option [value]="4">B. Responder al correo de manera inmediata, reconociendo la preocupación del participante y proporcionando una explicación clara y detallada</nb-option>
+                                <nb-option [value]="2">C. Enviar un mensaje breve indicando que la queja será tomada en cuenta y será abordada en la próxima sesión</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p for="" style="text-align: justify;">7. Estás a cargo en la parte de monitoreo de un proyecto en la implementación de un nuevo sistema informático en la entidad. Se detecta que algunos miembros del equipo no están siguiendo los procedimientos establecidos para la carga de datos, lo que está afectando la calidad de la información y generando demoras en el proyecto. ¿Cómo abordarías esta situación para asegurar la mejora continua y la productividad del proyecto?<span class="req"> *</span></p>
+                            <nb-select fullWidth formControlName="ce7">
+                                <nb-option [value]="1">A. Esperar a que los miembros del equipo se adapten naturalmente al nuevo sistema</nb-option>
+                                <nb-option [value]="4">B. Realizar una revisión exhaustiva de los procedimientos actuales y proponer ajustes para optimizar la carga de datos</nb-option>
+                                <nb-option [value]="2">C. Detener temporalmente el proyecto hasta que se resuelva la situación y se establezcan nuevos procedimientos</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <br>
+                    <button nbButton nbStepperPrevious><nb-icon icon="arrow-back-outline"></nb-icon></button>
+                    <button class="m-l-5" nbButton nbStepperNext status="primary">
+                        <nb-icon icon="arrow-forward-outline"></nb-icon>
+                    </button>
+                </nb-step>
+
+                <!-- ----- MESQUITE ----- -->
+
+                <nb-step [label]="labelFour">
+                    <ng-template #labelFour>Mesquite</ng-template>
+                    <p>Test 3</p>
+                    <h5>4. Test de Mesquite</h5>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p for="">1. Te encuentras en una reunión familiar o con amigos y pronto notas que la
+                                conversación ha
+                                elevado el nivel de la voz y que los participantes comienzan a enojarse. Sabiendo que
+                                conoces muy bien a ambas partes, tú ¿qué haces?<span class="req"> *</span></p>
+                            <nb-select fullWidth formControlName="tm1">
+                                <nb-option [value]="3">A. Intentas cambiar de tema</nb-option>
+                                <nb-option [value]="'0'">B. No haces nada</nb-option>
+                                <nb-option [value]="4">C. Tratas de llamar a una de las partes en privado para evitar
+                                    que la discusión salga de control</nb-option>
+                                <nb-option [value]="'0'">D. Continúas comiendo y bebiendo</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p for="">2. ¿Crees que eres una persona a la que le cuesta expresar lo que le pasa?<span
+                                    class="req"> *</span></p>
+                            <nb-select fullWidth formControlName="tm2">
+                                <nb-option [value]="'0'">A. Siempre</nb-option>
+                                <nb-option [value]="1">B. Casi siempre</nb-option>
+                                <nb-option [value]="3">C. Casi nunca</nb-option>
+                                <nb-option [value]="4">D. Nunca</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p for="">3. Una persona que se siente angustiada y triste debe:<span class="req"> *</span>
+                            </p>
+                            <nb-select fullWidth formControlName="tm3">
+                                <nb-option [value]="'0'">A. Ocultar lo que siente</nb-option>
+                                <nb-option [value]="2">B. Decir lo que siente</nb-option>
+                                <nb-option [value]="4">C. Decir lo que siente e intentar resolverlo</nb-option>
+                                <nb-option [value]="'0'">D. No debe decir nada a nadie para que no se rían de
+                                    él/ella</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p for="">4. Un amigo se ha enojado injustamente contigo, tú:<span class="req"> *</span></p>
+                            <nb-select fullWidth formControlName="tm4">
+                                <nb-option [value]="4">A. Hablas con él en privado para preguntarle qué le ha
+                                    sucedido</nb-option>
+                                <nb-option [value]="'0'">B. Te ocultas de él para no hablarle. Prefieres quedarte con la
+                                    duda de lo que le ha ofendido</nb-option>
+                                <nb-option [value]="1">C. Durante la noche recuerdas lo ocurrido y sufres</nb-option>
+                                <nb-option [value]="2">D. Le preguntas a un amigo en común si sabe las razones del enojo
+                                    de tu amigo contigo</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p for="">5. Para ti, padres e hijos deben:<span class="req"> *</span></p>
+                            <nb-select fullWidth formControlName="tm5">
+                                <nb-option [value]="'0'">A. Esconder sus sentimientos y/o pensamientos</nb-option>
+                                <nb-option [value]="4">B. Deben hablar entre ellos sobre lo que creen necesario sin
+                                    límites</nb-option>
+                                <nb-option [value]="2">C. Los padres nunca deben hablar con los hijos de sus angustias o
+                                    problemas pero los hijos sí deben hacerlo</nb-option>
+                                <nb-option [value]="'0'">D. Nunca te lo habías preguntado y no sabes qué
+                                    responder</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p for="">6. Cuando tienes que aguardar a que otros terminen de hablar, tú:<span
+                                    class="req"> *</span></p>
+                            <nb-select fullWidth formControlName="tm6">
+                                <nb-option [value]="'0'">A. Te impacientas</nb-option>
+                                <nb-option [value]="2">B. Comienzas a caminar ansiosamente</nb-option>
+                                <nb-option [value]="4">C. Aguardas a que terminen y das tu opinión o dices aquello que
+                                    tengas que decir</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p for="">7. Cuando has cometido un error, tú:<span class="req"> *</span></p>
+                            <nb-select fullWidth formControlName="tm7">
+                                <nb-option [value]="2">A. Lo sabes porque tu conciencia te lo dice</nb-option>
+                                <nb-option [value]="'0'">B. No sientes nada malo</nb-option>
+                                <nb-option [value]="4">C. Te arrepientes y pides perdón a quien corresponda</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p for="">8. Un amigo tuyo llega a la escuela completamente desconsolado y llorando. Tú ¿qué
+                                haces?<span class="req"> *</span></p>
+                            <nb-select fullWidth formControlName="tm8">
+                                <nb-option [value]="'0'">A. Solamente le miras</nb-option>
+                                <nb-option [value]="2">B. Te sientas a tu lado y simplemente aguardas a que él te
+                                    hable</nb-option>
+                                <nb-option [value]="4">C. Le preguntas qué le ha pasado y esperas a qué el responda. Si
+                                    no lo hace, simplemente colocas tu brazo en su hombro en señal de apoyo y
+                                    comprensión</nb-option>
+                                <nb-option [value]="1">D. Le preguntas insistentemente cada 5 minutos qué es lo que le
+                                    ocurre</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <br>
+                    <button nbButton nbStepperPrevious><nb-icon icon="arrow-back-outline"></nb-icon></button>
+                    <button class="m-l-5" nbButton nbStepperNext status="primary">
+                        <nb-icon icon="arrow-forward-outline"></nb-icon>
+                    </button>
+                </nb-step>
+
+                <!-- ----- COMPORTAMIENTO ----- -->
+
+                <nb-step [label]="labelFive">
+                    <ng-template #labelFive>Comportamiento</ng-template>
+                    <p>Test 3</p>
+                    <h5>5. Comportamiento</h5>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p for="">1. Tengo dificultades de concentración para memorizar cosas<span class="req">
+                                    *</span></p>
+                            <nb-select fullWidth formControlName="ayd1">
+                                <nb-option [value]="4">A. Ninguna</nb-option>
+                                <nb-option [value]="2">B. Leve</nb-option>
+                                <nb-option [value]="1">C. Moderada</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p for="">2. ¿Me siento preocupado(a), temoroso(a), irritable?<span class="req"> *</span>
+                            </p>
+                            <nb-select fullWidth formControlName="ayd2">
+                                <nb-option [value]="4">A. Ninguna</nb-option>
+                                <nb-option [value]="2">B. Leve</nb-option>
+                                <nb-option [value]="1">C. Moderada</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p for="">3. Por la mañana es cuando me siento mejor<span class="req"> *</span></p>
+                            <nb-select fullWidth formControlName="ayd3">
+                                <nb-option [value]="1">A. Poco tiempo</nb-option>
+                                <nb-option [value]="4">B. Una buena parte del tiempo</nb-option>
+                                <nb-option [value]="2">C. La mayor parate del tiempo</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p for="">4. Me es fácil tomar decisiones<span class="req"> *</span></p>
+                            <nb-select fullWidth formControlName="ayd4">
+                                <nb-option [value]="1">A. Poco tiempo</nb-option>
+                                <nb-option [value]="2">B. Una buena parte del tiempo</nb-option>
+                                <nb-option [value]="4">C. La mayor parate del tiempo</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <br>
+                    <div *ngIf="test3Form.invalid">
+                        <input nbInput fullWidth status="danger" placeholder="Faltan preguntas por responder" [readOnly]="true">
+                    </div>
+                    <br>
+                    <button nbButton nbStepperPrevious class="b-w-115">Regresar
+                        <!-- <nb-icon icon="arrow-ios-back-outline"></nb-icon> -->
+                    </button>
+                    <button class="m-l-5 b-w-115" nbButton status="primary" [disabled]="test3Form.invalid" (click)="save()">Finalizar</button>
+                </nb-step>
+            </nb-stepper>
+        </form>
+    </nb-card-body>
+</nb-card>

@@ -1,0 +1,46 @@
+.progress-line,
+.progress-line:before {
+  height: 6px;
+  width: 100%;
+  margin-bottom: 5px;
+}
+.progress-line {
+  background-color: transparent;
+  display: -webkit-flex;
+  display: flex;
+}
+.progress-line:before {
+  background-color: #3C40B0;
+  border-radius: 10px;
+  content: "";
+  -webkit-animation: running-progress 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation: running-progress 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@-webkit-keyframes running-progress {
+  0% {
+    margin-left: 0px;
+    margin-right: 100%;
+  }
+  50% {
+    margin-left: 25%;
+    margin-right: 25%;
+  }
+  100% {
+    margin-left: 100%;
+    margin-right: 0;
+  }
+}
+@keyframes running-progress {
+  0% {
+    margin-left: 0px;
+    margin-right: 100%;
+  }
+  50% {
+    margin-left: 25%;
+    margin-right: 25%;
+  }
+  100% {
+    margin-left: 100%;
+    margin-right: 0;
+  }
+}

@@ -1,0 +1,9 @@
+.custom-dp {
+    width: 200px !important;
+}
+
+nb-select ::ng-deep {
+    .select-button {
+      min-width: 133px;
+    }
+  }

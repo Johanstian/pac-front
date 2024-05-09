@@ -1,0 +1,16 @@
+.empty-message {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    // font-size: 18px;
+    color: #888;
+}
+
+
+.p-r {
+    position: relative;
+  }

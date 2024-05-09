@@ -1,0 +1,169 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="arlForm">
+
+            <ng-template #labelOne>Información</ng-template>
+            <h5>Afiliación a la Administradora de Riesgos Laborales - ARL</h5><br>
+            <p style="text-align: justify;">Por favor, complete todos los apartados del formulario de afiliación con
+                información clara y precisa. La
+                información que proporcione será utilizada por la subgerencia para su afiliación a la ARL. Su
+                colaboración es vital. ¡Gracias!</p>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="label" for="">ARL</label><span class="req"> *</span>
+                    <nb-select fullWidth formControlName="arlName">
+                        <nb-option value="Positiva">Positiva</nb-option>
+                        <nb-option value="SURA">SURA</nb-option>
+                    </nb-select>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="label" for="">Tipo de Documento</label><span class="req"> *</span>
+                    <div class="form-group">
+                        <nb-select fullWidth formControlName="documentType">
+                            <nb-option value="C">Cédula de Ciudadanía</nb-option>
+                            <nb-option value="E">Cédula de Extranjería</nb-option>
+                            <nb-option value="L">Permiso Temportal</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="label" for="">Cédula</label><span class="req"> *</span>
+                    <input nbInput fullWidth formControlName="cc" type="text">
+                </div>
+            </div>
+
+
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="label" for="">Primer nombre</label><span class="req"> *</span>
+                    <input nbInput fullWidth formControlName="firstName" type="text">
+                </div>
+                <div class="col-md-6">
+                    <label class="label" for="">Segundo nombre</label><span class="req"> *</span>
+                    <input nbInput fullWidth formControlName="secondName" type="text">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="label" for="">Primer apellido</label><span class="req"> *</span>
+                    <input nbInput fullWidth formControlName="firstSurname" type="text">
+                </div>
+                <div class="col-md-6">
+                    <label class="label" for="">Segundo apellido</label><span class="req"> *</span>
+                    <input nbInput fullWidth formControlName="secondSurname" type="text">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="label" for="">Fecha de Nacimiento</label><span class="req"> *</span>
+                    <input nbInput fullWidth placeholder="" type="date" formControlName="birthday"
+                        status="primary">
+                    <!-- <nb-datepicker #datepicker locale="'es-CO'"></nb-datepicker> -->
+                </div>
+                <div class="col-md-6">
+                    <label class="label" for="">Sexo</label><span class="req"> *</span>
+                    <nb-select fullWidth formControlName="sex">
+                        <nb-option value="F">F. Femenino</nb-option>
+                        <nb-option value="M">M. Masculino</nb-option>
+                    </nb-select>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="label" for="">Correo electrónico</label><span class="req"> *</span>
+                    <input nbInput fullWidth formControlName="email" type="text">
+                </div>
+                <div class="col-md-6">
+                    <label class="label" for="">Celular</label><span class="req"> *</span>
+                    <input nbInput fullWidth formControlName="cellphone" type="text">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="label" for="">Dirección de Residencia</label><span class="req"> *</span>
+                    <input nbInput fullWidth formControlName="address" type="text">
+                </div>
+                <div class="col-md-6">
+                    <label class="label" for="">Ciudad</label><span class="req"> *</span>
+                    <input nbInput fullWidth formControlName="city" type="text">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="label" for="">EPS</label><span class="req"> *</span>
+                    <nb-select fullWidth formControlName="eps">
+                        <nb-option value="800088702">800088702 - SUSALUD SURA SURAMERICANA E.P.S.</nb-option>
+                        <nb-option value="800112806">800112806
+                            - FONDO DE PASIVO SOCIAL DE LOS FERROCARRILES NACIONALES</nb-option>
+                        <nb-option value="800130907">800130907 - SALUD TOTAL S.A. E.P.S.</nb-option>
+                        <nb-option value="800249241">800249241 - COOSALUD</nb-option>
+                        <nb-option value="800251440">800251440 - E.P.S. SANITAS S.A.</nb-option>
+                        <nb-option value="805001157">805001157 - E.P.S. SERVICIO OCCIDENTAL DE SALUD S.A. S.O.S.</nb-option>
+                        <nb-option value="814000337">814000337 - ASOCIACION MUTUAL EMPRESA SOLIDARIA DE SALUD EMSSANAR EPS</nb-option>
+                        <nb-option value="817000248">817000248 - ASOCIACION MUTUAL LA ESPERANZA ASMET SALUD ESS ESP S</nb-option>
+                        <nb-option value="830079672">830079672 - REG. EXECEP (FOSYGA)</nb-option>
+                        <nb-option value="837000084">837000084 - MALLAMAS</nb-option>
+                        <nb-option value="839000495">839000495 - ANASWAYUU</nb-option>
+                        <nb-option value="860066942">860066942 - COMPENSAR E.P.S.</nb-option>
+                        <nb-option value="890303093">890303093 - COMFENALCO VALLE E.P.S.</nb-option>
+                        <nb-option value="900156264">900156264 - NUEVA EPS</nb-option>
+                        <nb-option value="901097473">901097473 - MEDIMAS EPS SAS</nb-option>
+                    </nb-select>
+                </div>
+                <div class="col-md-6">
+                    <label class="label" for="">Pensión</label><span class="req"> *</span>
+                    <nb-select fullWidth formControlName="afp">
+                        <nb-option value="0">Pensionado</nb-option>
+                        <nb-option value="800224808">800224808 - PORVENIR</nb-option>
+                        <nb-option value="800227940">800227940 - COLFONDOS S.A. PENSIONES Y CESANTIAS</nb-option>
+                        <nb-option value="800229739">800229739 - PROTECCION</nb-option>
+                        <nb-option value="830125132">830125132 - OLD MUTUAL (ANTES SKANDIA)</nb-option>
+                        <nb-option value="900336004">900336004 - COLPENSIONES ADMINISTRADORA COLOMBIANA DE PENSIONES</nb-option>
+                    </nb-select>
+                </div>
+            </div>
+            <br>
+            <nb-card-footer>
+                <button nbButton status="primary" style="float: right;" [disabled]="arlForm.invalid" (click)="create()">Registrar
+                </button>
+            </nb-card-footer>
+        </form>
+    </nb-card-body>
+</nb-card>
+
+
+
+
+
+
+<!-- <nb-select fullWidth formControlName="eps">
+    <nb-option value="800088702 - SURA">800088702 - SUSALUD SURA SURAMERICANA E.P.S.</nb-option>
+    <nb-option value="800112806 - FONDO DE PASIVO SOCIAL DE LOS FERROCARRILES NACIONALES">800112806
+        - FONDO DE PASIVO SOCIAL DE LOS FERROCARRILES NACIONALES</nb-option>
+    <nb-option value="800130907 - SALUD TOTAL">800130907 - SALUD TOTAL S.A. E.P.S.</nb-option>
+    <nb-option value="800249241 - COOSALUD">800249241 - COOSALUD</nb-option>
+    <nb-option value="800251440 - SANITAS">800251440 - E.P.S. SANITAS S.A.</nb-option>
+    <nb-option value="805001157 - S.O.S.">805001157 - E.P.S. SERVICIO OCCIDENTAL DE SALUD S.A.
+        S.O.S.</nb-option>
+    <nb-option value="814000337 - EMSSANAR">814000337 - ASOCIACION MUTUAL EMPRESA SOLIDARIA DE SALUD
+        EMSSANAR EPS</nb-option>
+    <nb-option value="817000248 - ASMET">817000248 - ASOCIACION MUTUAL LA ESPERANZA ASMET SALUD ESS
+        ESP S</nb-option>
+    <nb-option value="830079672 - FOSYGA">830079672 - REG. EXECEP (FOSYGA)</nb-option>
+    <nb-option value="837000084 - MALLAMAS">837000084 - MALLAMAS</nb-option>
+    <nb-option value="839000495 - ANASWAYUU">839000495 - ANASWAYUU</nb-option>
+    <nb-option value="860066942 - COMPENSAR">860066942 - COMPENSAR E.P.S.</nb-option>
+    <nb-option value="890303093 - COMFENALCO VALLE">890303093 - COMFENALCO VALLE E.P.S.</nb-option>
+    <nb-option value="900156264 - NUEVA EPS">900156264 - NUEVA EPS</nb-option>
+    <nb-option value="901097473 - MEDIMAS">901097473 - MEDIMAS EPS SAS</nb-option>
+</nb-select> -->

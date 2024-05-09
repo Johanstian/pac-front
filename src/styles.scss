@@ -1,0 +1,138 @@
+@use 'themes' as *;
+
+@use '@nebular/theme/styles/globals' as *;
+
+@include nb-install() {
+  @include nb-theme-global();
+}
+
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
+
+.m-l-5 {
+  margin-left: 5px;
+}
+
+.m-l-10 {
+  margin-left: 10px;
+}
+
+.req {
+  color: red;
+}
+
+.b-w-115 {
+  width: 115px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.w-600 {
+  width: 600px;
+}
+
+.m-b-50 {
+  margin-bottom: 50px;
+  /* Añade margen inferior */
+}
+
+.page-b-i-a {
+  page-break-inside: avoid;
+}
+
+.cdk-global-scrollblock {
+  position: initial;
+  width: initial;
+  overflow: hidden;
+}
+
+.b-t-left {
+  border-top-left-radius: 10px;
+}
+
+.b-t-right {
+  border-top-right-radius: 10px;
+}
+
+.t-t-c {
+  text-transform: capitalize;
+}
+
+.lotti-row {
+  display: table-row;
+
+  &:nth-of-type(odd) {}
+
+  &.header {
+    font-weight: 900;
+    color: #ffffff;
+    // background: #3C40B0;
+    background: #3366FF;
+    height: 40px;
+  }
+
+  &.blue {
+    // background: #3C40B0;
+    background: #3366FF;
+  }
+
+  @media screen and (max-width: 580px) {
+    padding: 14px 0 7px;
+    display: block;
+
+    &.header {
+      padding: 0;
+      height: 6px;
+
+      .cell {
+        display: none;
+      }
+    }
+
+    .cell {
+      margin-bottom: 10px;
+
+      &:before {
+        margin-bottom: 3px;
+        content: attr(data-title);
+        min-width: 98px;
+        font-weight: bold;
+        text-transform: uppercase;
+        display: block;
+      }
+    }
+  }
+}
+
+.table-full-width {
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+.lotti-table {
+  margin: 0 0 10px 0;
+  width: 100%;
+  display: table;
+
+  @media screen and (max-width: 580px) {
+    display: block;
+  }
+}
+
+.cell {
+  padding: 6px 12px;
+  display: table-cell;
+  border-top: 0.5px solid lightgray;
+
+  @media screen and (max-width: 580px) {
+    border: none;
+    padding: 2px 16px;
+    display: block;
+  }
+}

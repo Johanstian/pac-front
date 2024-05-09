@@ -1,0 +1,170 @@
+<nb-card>
+    <nb-card-header>
+        <div class="row">
+            <div class="col">
+                <h2>Entrevista</h2>
+            </div>
+        </div>
+    </nb-card-header>
+
+    <nb-card-body>
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
+                <div class="scroll-container-tables">
+                    <div class="table-full-width text-center">
+                        <div class="lotti-table shadow p-3 mb-5 rounded">
+                            <div class="lotti-row header">
+                                <div class="cell b-t-left">Fecha</div>
+                                <div class="cell">Documento</div>
+                                <div class="cell">Nombres</div>
+                                <div class="cell">Psicóloga/o</div>
+                                <div class="cell">Test</div>
+                                <div class="cell">Revisó</div>
+                                <div class="cell b-t-right">Celular</div>
+                            </div>
+                          
+                            <div class="lotti-row" *ngFor="let interview of interviews">
+                                <div class="cell">{{interview.date | date:'yyyy-MM-dd HH:mm'}}</div>
+                                <div class="cell">{{interview.cc}}</div>
+                                <div class="cell">{{interview.names}}</div>
+                                <div class="cell">{{interview.interview}}</div>
+                                <div class="cell">{{interview.test}}</div>
+                                <div class="cell">{{interview.review}}</div>
+                                <div class="cell">{{interview.cellphone}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="!interviews || interviews.length === 0"
+            style="text-align: center;">
+            <p>No hay entrevistas en el momento.</p>
+        </div>
+        </div>
+        <!-- <strong> {{ interviews?.length }} </strong> -->
+        <div class="row justify-content-between">
+            <div class="col-auto">
+                <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="size" [maxSize]="3"
+                    [rotate]="true" [ellipses]="false" [boundaryLinks]="true" (pageChange)="nextPage()">
+                    <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+                </ngb-pagination>
+            </div>
+            <div class="col-auto">
+                <nb-select [(selected)]="selectedItem" [(ngModel)]="size" (ngModelChange)="nextPage()">
+                    <nb-option [value]="5">Mostrar 5</nb-option>
+                    <nb-option [value]="10">Mostrar 10</nb-option>
+                    <nb-option [value]="15">Mostrar 15</nb-option>
+                </nb-select>
+            </div>
+        </div>
+    </nb-card-body>
+
+    <nb-card-footer>
+        <div class="row">
+            <div class="col">
+                <button nbButton status="primary" (click)="create(dialog)" style="float: right;">Programar</button>
+            </div>
+        </div>
+    </nb-card-footer>
+</nb-card>
+
+
+<ng-template #dialog let-ref="dialogRef">
+    <nb-card>
+        <nb-card-header>
+            Programar Entrevista
+        </nb-card-header>
+
+        <nb-card-body>
+            <form [formGroup]="dataForm">
+                <div class="row">
+                    <div class="col-4">
+                        <label class="label" for="date">Fecha Entrevista</label><br>
+                        <input nbInput fullWidth placeholder="" [nbDatepicker]="dateTimePicker" formControlName="date"
+                            status="primary">
+                        <nb-date-timepicker #dateTimePicker></nb-date-timepicker>
+
+                    </div>
+                    <div class="col-4">
+                        <label class="label" for="">Documento</label><br>
+                        <input nbInput fullWidth type="number" placeholder="C.C." formControlName="cc" status="primary">
+                    </div>
+                    <div class="col-4">
+                        <label class="label" for="">Nombres</label><br>
+                        <input nbInput fullWidth type="text" formControlName="names" status="primary">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-4">
+                        <label class="label" for="">Celular</label><br>
+                        <input nbInput fullWidth status="primary" formControlName="cellphone" type="text">
+                    </div>
+                    <div class="col-4">
+                        <label class="label" for="">Test</label><br>
+                        <nb-select fullWidth formControlName="test" status="primary">
+                            <nb-option value="Test 1">Test 1</nb-option>
+                            <nb-option value="Test 2">Test 2</nb-option>
+                            <nb-option value="Test 3">Test 3</nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="col-4">
+                        <label class="label" for="">Revisó</label><br>
+                        <nb-select fullWidth formControlName="review" status="primary">
+                            <nb-option value="Lizeth Calderón">Lizeth Calderón</nb-option>
+                            <nb-option value="Jorge Tello">Jorge Tello</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="label" for="">Coordinador Técnico y Línea</label><br>
+                        <nb-select fullWidth formControlName="techLead" status="primary">
+                            <nb-option value="Deporte Formativo - Jhon Gonzáles">Deporte Formativo - Jhon Gonzáles</nb-option>
+                            <nb-option value="DSC - Gustavo Ospina">DSC - Gustavo Ospina</nb-option>
+                            <nb-option value="HEVS - Julián Uzuga">HEVS - Julián Uzuga</nb-option>
+                            <nb-option value="Recreación - Lina Agudelo">Recreación - Lina Agudelo</nb-option>
+                        </nb-select>
+                    </div>
+                    <!-- <div class="col-md-4">
+                        <label class="label" for="">Línea</label><br>
+                        <nb-select fullWidth formControlName="line" status="primary">
+                            <nb-option value="Recreación">Recreación</nb-option>
+                            <nb-option value="Activiad Física">Activiad Física</nb-option>
+                            <nb-option value="DSC">DSC</nb-option>
+                        </nb-select>
+                    </div> -->
+                    <div class="col-md-6">
+                        <label class="label" for="">Psicóloga(o)</label><br>
+                        <nb-select fullWidth formControlName="interview" status="primary">
+                            <nb-option value="Adriana Barandica">Adriana Barandica</nb-option>
+                            <nb-option value="Jhon Mackenzie">Carolina Olave</nb-option>
+                            <nb-option value="Jhon Mackenzie">John Mackenzie</nb-option>
+                            <nb-option value="Jhon Mackenzie">Juliana Herrera</nb-option>
+                            <nb-option value="Jhon Mackenzie">Lina María Díaz</nb-option>
+                            <nb-option value="Jhon Mackenzie">Sandra Ramírez</nb-option>
+                            <!-- <nb-option value="Jhon Mackenzie">Sandra Rincones</nb-option> -->
+                        </nb-select>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col">
+                        <label class="label" for="">Observaciones</label><br>
+                        <input nbInput fullWidth type="text" formControlName="observations" status="primary">
+                    </div>
+                </div>
+            </form>
+        </nb-card-body>
+
+        <nb-card-footer>
+            <div class="row">
+                <div class="col center">
+                    <button nbButton status="basic" (click)="ref.close()">Cerrar</button>
+                    <button [nbSpinner]="loading" nbSpinnerStatus="primary" nbButton status="primary" class="m-l-10" [disabled]="dataForm.invalid" (click)="createInterview()">Crear</button>
+                </div>
+            </div>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>

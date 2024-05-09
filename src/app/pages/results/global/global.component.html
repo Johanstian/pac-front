@@ -1,0 +1,22 @@
+<nb-card>
+    <nb-card-header>
+        <h4>Resultados Globales</h4>
+    </nb-card-header>
+    <nb-card-body>
+        <div>
+            <div class="row">
+                <div class="col-3">
+                    <div appearance="outline" class="example-form-field">
+                        <label class="label" for="">Cédula</label>
+                        <input nbInput fullWidth type="number" [(ngModel)]="value">
+                    </div>
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                    <button nbButton status="basic" (click)="reset()">Limpiar</button>
+                    <button nbButton status="primary" class="m-l-10" [disabled]="!value"
+                        (click)="searching()">Buscar</button>
+                </div>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>

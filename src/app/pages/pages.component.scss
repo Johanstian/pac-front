@@ -1,0 +1,111 @@
+@import '../../themes';
+
+@include nb-install-component() {
+  ::ng-deep router-outlet+* {
+    display: block;
+    animation: fade 1s;
+
+    @keyframes fade {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+@include nb-install-component() {
+  nb-card-body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  nb-icon {
+    margin: 1rem;
+  }
+
+  nb-card-footer {
+    text-align: right;
+  }
+}
+
+// nb-menu .menu-item a {
+//   color: white !important;
+//   transition: color 0.3s;
+// }
+
+// ::ng-deep .menu-item a:hover {
+//   color: #3C40B0 !important;
+//   color: blue !important;
+// }
+
+
+// ::ng-deep .menu-item a .menu-icon {
+//   color: black !important;
+// }
+
+// ::ng-deep .menu-item a .menu-icon:active {
+//   color: green !important;
+// }
+
+
+
+
+// ::ng-deep .menu-item:hover nb-icon {
+//   color: #3C40B0 !important;
+//   color: blue !important;
+// }
+
+// ::ng-deep .menu-item:active nb-icon:after {
+//   color: green !important;
+// }
+
+
+::ng-deep .menu-item::content nb-icon {
+  color: #000 !important;
+}
+
+// ::ng-deep .menu-item icon-active-color {
+//   color: blue !important;
+// }
+
+
+
+
+// .menu-item.nb-menu-item.selected nb-icon {
+//   color: #3C40B0 !important;
+// }
+
+
+
+
+// nb-menu nb-icon {
+//   color: white !important;
+// }
+
+
+
+nb-menu .menu-item a {
+  color: white !important;
+  transition: color 0.3s;
+}
+
+::ng-deep .menu-item a:hover nb-icon {
+  color: green !important;
+}
+
+::ng-deep .menu-item .nb-icon:after {
+  color: #3C40B0 !important;
+}
+
+::ng-deep .menu-item::after nb-icon {
+  color: red !important;
+}
+
+nb-menu nb-icon {
+  color: white !important;
+}

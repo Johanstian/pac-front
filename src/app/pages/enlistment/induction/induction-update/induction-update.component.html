@@ -1,0 +1,91 @@
+<nb-card>
+    <nb-card-header>
+        Concepto técnico
+    </nb-card-header>
+
+    <nb-card-body>
+        <form [formGroup]="dataForm">
+            <!-- <div class="row">
+            <div class="col-6">
+                <table class="table table-striped" aria-label="cc">
+                    <thead>
+                        <tr>
+                            <th scope="col">Competencia Común - <span><small style="font-style: italic;">Promedio: {{interviews?.averageCC}} - {{ccStringResult}}</small></span></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <br>
+                    <tbody *ngFor="let ccData of ccData">
+                        <td>{{ccData.name}}</td>
+                        <td>{{ccData.value}}</td>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-6">
+                <p><strong>Fortalecer:</strong></p>
+                <input nbInput fullWidth type="text" placeholder="Fortalecer Competencia Común en...">
+            </div>
+        </div> -->
+            <!-- <br><br> -->
+            <!-- <div class="row">
+            <div class="col-6">
+                <table class="table table-striped" aria-label="cc">
+                    <thead>
+                        <tr>
+                            <th scope="col">Competencia Específica - <span><small style="font-style: italic;">Promedio: {{interviews?.averageCE}} - {{ccStringResult}}</small></span></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <br>
+                    <tbody *ngFor="let ceData of ceData">
+                        <td>{{ceData.name}}</td>
+                        <td>{{ceData.value}}</td>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-6">
+                <p><strong>Fortalecer:</strong></p>
+                <input nbInput fullWidth type="text" placeholder="Fortalecer Competencia Específica en...">
+            </div>
+        </div> -->
+            <!-- <br><br> -->
+            <!-- <div class="row">
+            <div class="col-6">
+                <table class="table table-striped" aria-label="cc">
+                    <thead>
+                        <tr>
+                            <th scope="col">Ansiedad y Depresión - <span><small style="font-style: italic;">Promedio: {{interviews?.averageAyd}} - {{aydStringResult}}</small></span></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <br>
+                    <tbody *ngFor="let formattedData of formattedData">
+                        <td>{{formattedData.name}}</td>
+                        <td>{{formattedData.value}}</td>
+                    </tbody>
+                </table>
+           
+            </div>
+            <div class="col-6">
+                <p><strong>Fortalecer:</strong></p>
+                <input nbInput fullWidth type="text" placeholder="Fortalecer Comportamiento en...">
+            </div>
+        </div> -->
+
+            <div class="row">
+                <div class="col-12">
+                    <!-- <label for="" class="label">Experiencia Laboral</label> -->
+                    <textarea nbInput fullWidth formControlName="technical"></textarea>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+    <nb-card-footer>
+        <div class="row">
+            <div class="col">
+                <button nbButton status="primary" class="m-l-10" style="float: right;" (click)="createTechField()" [disabled]="dataForm.invalid">Guardar</button>
+                <button nbButton status="basic" style="float: right;" (click)="back()">Volver</button>
+            </div>
+        </div>
+    </nb-card-footer>
+</nb-card>

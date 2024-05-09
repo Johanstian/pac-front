@@ -1,0 +1,143 @@
+<div class="container">
+    <nb-card>
+        <nb-card-header>
+            <img src="assets/logo.png" alt="" style="width: 400px; height: 382px; margin-bottom: 50px;">
+        </nb-card-header>
+
+        <nb-card-body>
+            <form [formGroup]="signInForm">
+                <div class="row">
+                    <nb-form-field>
+                        <nb-icon style="margin-top: 20px;" nbPrefix icon="person" pack="eva"></nb-icon>
+                        <label for="">Usuario</label><br>
+                        <input nbInput fullWidth formControlName="username" type="text">
+                    </nb-form-field>
+                </div>
+                <br>
+                <div class="row">
+                    <nb-form-field>
+                        <nb-icon style="margin-top: 20px;" nbPrefix icon="lock" pack="eva"></nb-icon>
+                        <label for="">Contraseña</label>
+                        <input [type]="getInputType()" nbInput fullWidth formControlName="password">
+                        <button style="margin-top: 20px;" nbSuffix nbButton ghost (click)="toggleShowPassword()">
+                            <nb-icon [icon]="showPassword ? 'eye' : 'eye-off'"
+                                     pack="eva"
+                                     [attr.aria-label]="showPassword ? 'hide password' : 'show password'">
+                            </nb-icon>
+                        </button>
+                    </nb-form-field>
+                    
+                </div>
+            </form>
+        </nb-card-body>
+        <nb-card-footer>
+            <div class="row" class="d-flex justify-content-center">
+                <button nbButton status="primary" [disabled]="signInForm.invalid" (click)="signIn()">Ingresar</button>
+            </div>
+        </nb-card-footer>
+    </nb-card>
+</div>
+
+
+
+
+<!-- <h1 id="title" class="title">Login</h1>
+<p class="sub-title">Hello! Log in with your email.</p>
+
+<form (ngSubmit)="login()" #form="ngForm" aria-labelledby="title">
+
+  <div class="form-control-group">
+    <label class="label" for="input-email">Email address:</label>
+    <input nbInput
+           fullWidth
+           [(ngModel)]="password"
+
+           name="email"
+           id="input-email"
+           pattern=".+@.+\..+"
+           placeholder="Email address"
+           fieldSize="large"
+           autofocus
+           [status]="password.dirty ? (password.invalid  ? 'danger' : 'success') : 'basic'"
+           [required]="getConfigValue('forms.validation.email.required')">
+    <ng-container *ngIf="password.invalid && password.touched">
+      <p class="caption status-danger" *ngIf="password.errors">
+        Email is required!
+      </p>
+      <p class="caption status-danger" *ngIf="password.errors">
+        Email should be the real one!
+      </p>
+    </ng-container>
+  </div>
+
+  <div class="form-control-group">
+    <span class="label-with-link">
+      <label class="label" for="input-password">Password:</label>
+      <a class="forgot-password caption-2" routerLink="../request-password">Forgot Password?</a>
+    </span>
+    <input nbInput
+           fullWidth
+           [(ngModel)]="username"
+
+           name="password"
+           type="password"
+           id="input-password"
+           placeholder="Password"
+           fieldSize="large"
+           [status]="username.dirty ? (username.invalid  ? 'danger' : 'success') : 'basic'"
+           [required]="getConfigValue('forms.validation.password.required')"
+           [minlength]="getConfigValue('forms.validation.password.minLength')"
+           [maxlength]="getConfigValue('forms.validation.password.maxLength')">
+    <ng-container *ngIf="username.invalid && username.touched ">
+      <p class="caption status-danger" *ngIf="username.errors?.minlength">
+        Password is required!
+      </p>
+      <p class="caption status-danger" *ngIf="username.errors?.minlength">
+        Password should contain
+        from {{ getConfigValue('forms.validation.password.minLength') }}
+        to {{ getConfigValue('forms.validation.password.maxLength') }}
+        characters
+      </p>
+    </ng-container>
+  </div>
+
+  <div class="form-control-group accept-group">
+    <nb-checkbox name="rememberMe" [(ngModel)]="user.rememberMe">Remember me</nb-checkbox>
+  </div>
+
+  <button nbButton
+          fullWidth
+          status="primary"
+          size="large"
+          [disabled]="signInForm.invalid">
+    Log In
+  </button>
+</form>
+
+<section class="links" aria-label="Social sign in">
+  or enter with:
+  <div class="socials">
+    <ng-container *ngFor="let socialLink of socialLinks">
+      <a *ngIf="socialLink.link"
+         [routerLink]="socialLink.link"
+         [attr.target]="socialLink.target"
+         [attr.class]="socialLink.icon"
+         [class.with-icon]="socialLink.icon">
+        <nb-icon *ngIf="socialLink.icon; else title" [icon]="socialLink.icon"></nb-icon>
+        <ng-template #title>{{ socialLink.title }}</ng-template>
+      </a>
+      <a *ngIf="socialLink.url"
+         [attr.href]="socialLink.url"
+         [attr.target]="socialLink.target"
+         [attr.class]="socialLink.icon"
+         [class.with-icon]="socialLink.icon">
+        <nb-icon *ngIf="socialLink.icon; else title" [icon]="socialLink.icon"></nb-icon>
+        <ng-template #title>{{ socialLink.title }}</ng-template>
+      </a>
+    </ng-container>
+  </div>
+</section>
+
+<section class="another-action" aria-label="Register">
+  Don't have an account? <a class="text-link" routerLink="../register">Register</a>
+</section> -->
