@@ -59,7 +59,7 @@ export class Retest2Component implements OnInit {
   }
 
   save() {
-    this.testService.createTest(this.test2Form.value).subscribe({
+    this.testService.createRetest(this.test2Form.value).subscribe({
       next: () => {
         this.test2Form.reset();
         this.alertService.success('¡Correcto!', 'Post Test 2 completado.');
@@ -67,7 +67,6 @@ export class Retest2Component implements OnInit {
       },
       error: (error) => {
         this.alertService.error('¡Error!', error.error.message)
-        alert('NO NADA')
       }
     })
   }
