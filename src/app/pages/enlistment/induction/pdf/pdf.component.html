@@ -1,0 +1,44 @@
+<div [hidden]="true" #pdfContent *ngIf="enlistment">
+    <div style="position: relative;">
+        <div style="position: absolute; top: 0; right: 0;">
+            <span><small>Impresión: {{ currentDate }}</small></span>
+        </div>
+        <div class="center">
+            <h1><strong>ANÁLISIS FINAL</strong></h1>
+        </div>
+    </div>
+    <!-- <div style="font-size: 16px; font-style: italic;">Nombre: {{result.names}} </div> -->
+    <!-- <div style="font-size: 16px; font-style: italic;">C.C.: {{result.cc}}</div> -->
+    <!-- <div style="font-size: 16px; font-style: italic;">Test: {{result.type}}</div> -->
+    <div class="row" style="margin-top: 30px;">
+        <div class="row m-b-50 page-b-i-a">
+            <div class="col-12">
+                <h3><strong></strong></h3>
+                <table class="table table-striped" aria-label="cc">
+                    <thead>
+                        <!-- <tr>
+                            <th scope="col">Competencia Común</th>
+                            <th scope="col">Puntaje</th>
+                        </tr> -->
+                    </thead>
+                    <div class="info"><strong>Nombres: </strong>{{enlistment.names}}</div>
+                    <div class="info"><strong>CC:</strong> {{enlistment.cc}}</div>
+                    <div class="info"><strong>Test:</strong> {{enlistment.test}}</div>
+                    <br>
+                    <div class="info"><strong>Experiencia laboral:</strong>{{enlistment.workExperience}}</div>
+                    <br>
+                    <div class="info"><strong>Sensatez (Personal y Laboral):</strong>{{enlistment.sanity}}</div>
+                    <br>
+                    <div class="info"><strong>Aptitudes:</strong>{{enlistment.aptitudes}}</div>
+                    <br>
+                    <div class="info"><strong>Comunicación no Verbal:</strong>{{enlistment.nonVerbal}}</div>
+                    <br>
+                    <div class="info"><strong>Informe Final:</strong>{{enlistment.finalReport}}</div>
+                    <br>
+                    <div class="info"><strong>Informe Técnico:</strong>{{enlistment.technical}}</div>
+                </table>
+                <!-- <strong>Promedio: {{result.averageCC}} - {{ccStringResult}}</strong> -->
+            </div>
+        </div>
+    </div>
+</div>

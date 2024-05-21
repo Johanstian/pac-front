@@ -1,0 +1,222 @@
+<nb-card>
+    <nb-card-header>
+        <h4>Resultados Post Individuales</h4>
+    </nb-card-header>
+    <nb-card-body>
+        <div>
+            <div class="row">
+                <div class="col-3">
+                    <div appearance="outline" class="example-form-field">
+                        <label class="label" for="">Cédula</label>
+                        <input nbInput fullWidth type="number" [(ngModel)]="value">
+                    </div>
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                    <button nbButton status="basic" (click)="reset()">Limpiar</button>
+                    <button nbButton status="primary" class="m-l-10" [disabled]="!value" (click)="searching()">Buscar</button>
+                </div>
+            </div>
+            
+
+            <div class="row" style="margin-top: 50px;">
+                <div *ngIf="loading && result">
+                    <div class="row">
+                        <div class="row">
+                            <div class="col" style="display: flex; justify-content: center;">
+                                <h2>{{result.names | titlecase}} - C.C. {{result.cc}} - {{result.type | titlecase}}</h2>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 50px;">
+                            <div class="col"
+                                style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                                <h4>Competencias Comunes</h4>
+                                <ngx-charts-bar-horizontal [view]="view" [scheme]="colorScheme" [results]="ccData"
+                                    [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+                                    [legendTitle]="legendTitle" [showXAxisLabel]="showXAxisLabel"
+                                    [showYAxisLabel]="showYAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="true">
+                                </ngx-charts-bar-horizontal>
+                                <strong>Promedio: {{result.averageCC}} - {{ccStringResult}}</strong>
+                                <div class="center">
+                                    <p style="text-align: justify;"><strong>Resultado: </strong>{{ getResultParagraph()
+                                        }}</p>
+                                </div>
+                            </div>
+                            <div class="col"
+                                style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                                <h4>Competencias Específicas</h4>
+                                <ngx-charts-bar-horizontal [view]="view" [scheme]="colorScheme" [results]="ceData"
+                                    [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+                                    [legendTitle]="legendTitle" [showXAxisLabel]="showXAxisLabel"
+                                    [showYAxisLabel]="showYAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="true">
+                                </ngx-charts-bar-horizontal>
+                                <strong>Promedio: {{result.averageCE}} - {{ccStringResult}}</strong>
+                                <div class="center">
+                                    <p style="text-align: justify;"><strong>Resultado: </strong>{{ getResultParagraph()
+                                        }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 50px;">
+                            <div class="col"
+                                style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                                <h4>Test de Mesquite</h4>
+                                <ngx-charts-bar-horizontal [view]="view" [scheme]="colorScheme" [results]="tdmData"
+                                    [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+                                    [legendTitle]="legendTitle" [showXAxisLabel]="showXAxisLabel"
+                                    [showYAxisLabel]="showYAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="true">
+                                </ngx-charts-bar-horizontal>
+                                <strong>Total: {{result.totalM}} - {{tdmStringResult}}</strong>
+                                <div class="center">
+                                    <p style="text-align: justify;"><strong>Resultado: </strong>{{ getMesquite() }}</p>
+                                </div>
+                            </div>
+                            <div class="col"
+                                style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                                <h4>Comportamiento</h4>
+                                <ngx-charts-bar-horizontal [view]="view" [scheme]="colorScheme" [results]="formattedData"
+                                    [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+                                    [legendTitle]="legendTitle" [showXAxisLabel]="showXAxisLabel"
+                                    [showYAxisLabel]="showYAxisLabel" [yAxisLabel]="yAxisLabel" [showDataLabel]="true">
+                                </ngx-charts-bar-horizontal>
+                                <strong>Promedio: {{result.averageAyd}} - {{aydStringResult}}</strong>
+                                <div class="center">
+                                    <p style="text-align: justify;"><strong>Resultado: </strong>{{ getBehavior() }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nb-card-body>
+    <nb-card-footer *ngIf="loading && result">
+        <div class="row">
+            <div class="col" style="display: flex; justify-content: center;">
+                <button nbButton status="danger" (click)="pdfReport()">PDF</button>
+            </div>
+        </div>
+    </nb-card-footer>
+</nb-card>
+
+
+
+
+
+
+
+
+<div [hidden]="true" #reportContent *ngIf="result">
+    <div style="position: relative;">
+        <div style="position: absolute; top: 0; right: 0;">
+            <span><small>Impresión: {{ currentDate }}</small></span>
+        </div>
+        <div class="center">
+            <h1><strong>ANÁLISIS DE RESULTADOS</strong></h1>
+        </div>
+    </div>
+    <div style="font-size: 16px; font-style: italic;">Nombre: {{result.names}} </div>
+    <div style="font-size: 16px; font-style: italic;">C.C.: {{result.cc}}</div>
+    <div style="font-size: 16px; font-style: italic;">Test: {{result.type}}</div>
+    <div class="row" style="margin-top: 30px;">
+        <div class="row m-b-50 page-b-i-a">
+            <div class="col-6"
+                style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                <h3><strong>Competencias Comunes</strong></h3>
+                <table class="table table-striped" aria-label="cc">
+                    <thead>
+                        <tr>
+                            <th scope="col">Competencia Común</th>
+                            <th scope="col">Puntaje</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let ccData of ccData">
+                        <td>{{ccData.name}}</td>
+                        <td>{{ccData.value}}</td>
+                    </tbody>
+                </table>
+                <strong>Promedio: {{result.averageCC}} - {{ccStringResult}}</strong>
+            </div>
+            <div class="col-6">
+                <h3 class="center"><strong>Resultado</strong></h3>
+                <div class="center">
+                    <p>{{ getResultParagraph() }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row m-b-50 page-b-i-a">
+            <div class="col-6"
+                style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                <h3><strong>Competencias Específicas</strong></h3>
+                <table class="table table-striped" aria-label="cc">
+                    <thead>
+                        <tr>
+                            <th scope="col">Competencia Específica</th>
+                            <th scope="col">Puntaje</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let ceData of ceData">
+                        <td>{{ceData.name}}</td>
+                        <td>{{ceData.value}}</td>
+                    </tbody>
+                </table>
+                <strong>Promedio: {{result.averageCE}} - {{ccStringResult}}</strong>
+            </div>
+            <div class="col-6">
+                <h3 class="center"><strong>Resultado</strong></h3>
+                <div class="center">
+                    <p>{{ getResultParagraph() }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row m-b-50 page-b-i-a">
+            <div class="col-6"
+                style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                <h3><strong>Test de Mesquite</strong></h3>
+                <table class="table table-striped" aria-label="cc">
+                    <thead>
+                        <tr>
+                            <th scope="col">Respuestas</th>
+                            <th scope="col">Puntaje</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let tdmData of tdmData">
+                        <td>{{tdmData.name}}</td>
+                        <td>{{tdmData.value}}</td>
+                    </tbody>
+                </table>
+                <strong>Promedio: {{result.totalM}} - {{tdmStringResult}}</strong>
+            </div>
+            <div class="col-6">
+                <h3 class="center"><strong>Resultado</strong></h3>
+                <div class="center">
+                    <p>{{ getMesquite() }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row m-b-50 page-b-i-a">
+            <div class="col-6"
+                style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                <h3><strong>Ansiedad y Depresión</strong></h3>
+                <table class="table table-striped" aria-label="cc">
+                    <thead>
+                        <tr>
+                            <th scope="col">Respuestas</th>
+                            <th scope="col">Puntaje</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let formattedData of formattedData">
+                        <td>{{formattedData.name}}</td>
+                        <td>{{formattedData.value}}</td>
+                    </tbody>
+                </table>
+                <strong>Promedio: {{result.averageAyd}} - {{aydStringResult}}</strong>
+            </div>
+            <div class="col-6">
+                <h3 class="center"><strong>Resultado</strong></h3>
+                <div class="center">
+                    <p>{{ getBehavior() }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

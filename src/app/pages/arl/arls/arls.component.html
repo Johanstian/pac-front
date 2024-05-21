@@ -2,7 +2,7 @@
     <nb-card-header>
         <div class="row">
             <div class="col">
-                <h4>Listado ARL</h4>
+                <h5>Listado ARL</h5>
             </div>
         </div>
     </nb-card-header>
@@ -14,29 +14,23 @@
                     <div class="table-full-width text-center">
                         <div class="lotti-table shadow p-3 mb-5 rounded">
                             <div class="lotti-row header">
-                                <div class="cell b-t-left">Fecha</div>
-                                <div class="cell">No.</div>
+                                <div class="cell b-t-left">Documento</div>
                                 <div class="cell">P. Nombre</div>
                                 <div class="cell">S. Nombre</div>
                                 <div class="cell">P. Apellido</div>
                                 <div class="cell">S. Apellido</div>
                                 <div class="cell">F. Nac</div>
                                 <div class="cell">Celular</div>
-                                <div class="cell">Eps</div>
-                                <div class="cell">Pensión</div>
                                 <div class="cell b-t-right"></div>
                             </div>
                             <div class="lotti-row" *ngFor="let arl of arls">
-                                <div class="cell">{{arl.documentType}}</div>
                                 <div class="cell">{{arl.cc}}</div>
-                                <div class="cell">{{arl.firstName}}</div>
-                                <div class="cell">{{arl.firstSurname}}</div>
-                                <div class="cell">{{arl.secondName}}</div>
-                                <div class="cell">{{arl.secondSurname}}</div>
+                                <div class="cell">{{arl.firstName | titlecase}}</div>
+                                <div class="cell">{{arl.secondName | titlecase}}</div>
+                                <div class="cell">{{arl.firstSurname | titlecase}}</div>
+                                <div class="cell">{{arl.secondSurname | titlecase}}</div>
                                 <div class="cell">{{arl.birthday | date:'yyyy-MM-dd'}}</div>
                                 <div class="cell">{{arl.cellphone}}</div>
-                                <div class="cell">{{arl.eps}}</div>
-                                <div class="cell">{{arl.afp}}</div>
                                 <div class="cell">{{arl.review}}</div>
                                 <!-- <div class="cell">
                                     <button nbButton ghost hero status="primary" [routerLink]="['/pages/enlistment/enlistment-stage/', arl.cc]">
@@ -52,7 +46,7 @@
                 </div>
             </div>
         </div>
-        <strong>ARL: {{ arls?.length }} </strong>
+        <strong>ARL: {{ collectionSize }} </strong>
         <div class="row justify-content-between">
             <div class="col-auto">
                 <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="size" [maxSize]="3"
@@ -62,7 +56,7 @@
             </div>
             <div class="col-auto">
                 <nb-select [(selected)]="selectedItem" [(ngModel)]="size" (ngModelChange)="nextPage()">
-                    <nb-option [value]="5">Mostrar 5</nb-option>
+                    <!-- <nb-option [value]="5">Mostrar 5</nb-option> -->
                     <nb-option [value]="10">Mostrar 10</nb-option>
                     <nb-option [value]="15">Mostrar 15</nb-option>
                 </nb-select>

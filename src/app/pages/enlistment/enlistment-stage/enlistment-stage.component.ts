@@ -65,21 +65,24 @@ export class EnlistmentStageComponent implements OnInit {
 
   getInterviews() {
     this.interviewService.getAllInterviews(this.page, this.size).subscribe({
-      next: (data) => {
-        this.interviews = data.interviews;
-        console.log('entrevistas', this.interviews)
-        this.collectionSize = data.totalPages;
-      },
-      error: (err) => {
-      }
-    })
-  }
+        next: (data) => {
+            this.interviews = data.interviews
+                .filter((interview: any) => interview.initialInterview === "yes") // Filtrar entrevistas
+                .sort((a: any, b: any) => {
+                    return new Date(b.date).getTime() - new Date(a.date).getTime();
+                });
+            this.collectionSize = data.totalPages;
+        },
+        error: (err) => {
+        }
+    });
+}
+
 
   getTests() {
     this.testService.getAllTests().subscribe({
       next: (data) => {
         this.tests = data;
-        console.log('tests', this.tests)
       },
       error: (err) => {
         this.alertService.error('¡Error!', err.error.message)

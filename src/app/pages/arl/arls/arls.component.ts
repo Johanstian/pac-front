@@ -10,8 +10,8 @@ export class ArlsComponent implements OnInit {
 
   arls: any;
   page: number = 1;
-  size: number = 5;
-  selectedItem: number = 5;
+  size: number = 10;
+  selectedItem: number = 10;
   collectionSize: number = 0;
   loading: boolean = false;
 
@@ -20,13 +20,14 @@ export class ArlsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllArls();
+    this.getAllArlsByPaging();
   }
 
-  getAllArls() {
-    this.arlService.getAllArls().subscribe({
+  getAllArlsByPaging() {
+    this.arlService.getAllArls(this.page, this.size).subscribe({
       next: (data) => {
         this.arls = data.arls;
+        this.collectionSize = data.totalPages;
       },
       error: () => {
       }
@@ -34,7 +35,7 @@ export class ArlsComponent implements OnInit {
   }
 
   nextPage() {
-    this.getAllArls();
+    this.getAllArlsByPaging();
   }
 
   excel() {
@@ -44,14 +45,11 @@ export class ArlsComponent implements OnInit {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'arls.xlsx'; // Nombre del archivo Excel descargado
+        a.download = 'arls.xlsx';
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
       },
-      error => {
-        console.error('Error al descargar el archivo Excel:', error);
-      }
     );
   }
 

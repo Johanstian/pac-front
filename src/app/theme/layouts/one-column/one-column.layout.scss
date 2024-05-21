@@ -1,42 +1,101 @@
 @import "../../../../themes";
 @import "@nebular/theme/styles/global/breakpoints";
 
+// @include nb-install-component() {
+//   .menu-sidebar ::ng-deep .scrollable {
+//     padding-top: nb-theme(layout-padding-top);
+//   }
+
+//   .menu-sidebar ::ng-deep .menu-item a {
+//     border-bottom: none;
+//     transition: background 0.3s ease;
+//   }
+  
+//   .menu-sidebar ::ng-deep .menu-item a:hover {
+//     background: #ffffff;
+//   }
+  
+//   .menu-sidebar ::ng-deep .menu-item nb-icon {
+//     color: #ffffff;
+//   }
+
+//   .menu-sidebar ::ng-deep .menu-item nb-icon:hover {
+//     color: #ffffff;
+//   }
+
+//   .menu-sidebar ::ng-deep .menu-item .menu-items a:hover {
+//     background: #ffffff;
+//     border-radius: 5px;
+//   }
+
+//   .menu-sidebar ::ng-deep .menu-item .menu-items nb-icon:hover {
+//     background: #ffffff;
+//   }
+
+//   .menu-sidebar ::ng-deep nb-menu ul li {
+//     border-bottom: none;
+//   }
+// }
+
+// .absolute-progress {
+//   position: absolute;
+//   z-index: 10000 !important;
+//   width: 100%;
+//   top: 76px;
+// }
+
+
+
+
+
+
+
+
 @include nb-install-component() {
   .menu-sidebar ::ng-deep .scrollable {
     padding-top: nb-theme(layout-padding-top);
     // background: #3C40B0;
-  }
-
-  .menu-sidebar ::ng-deep .menu-item a {
-    // color: #ffffff;
-    border-bottom: none;
-    transition: background 0.3s ease;
-  }
-  
-  .menu-sidebar ::ng-deep .menu-item a:hover {
-    background: #ffffff;
-  }
-  
-  .menu-sidebar ::ng-deep .menu-item nb-icon {
-    color: #ffffff;
-  }
-
-  .menu-sidebar ::ng-deep .menu-item nb-icon:hover {
-    color: #ffffff;
+    // background: #3366FF;
   }
 
   .menu-sidebar ::ng-deep .menu-item .menu-items a:hover {
-    background: #ffffff;
+    // background: #FFFFFF;
     border-radius: 5px;
   }
 
-  .menu-sidebar ::ng-deep .menu-item .menu-items nb-icon:hover {
-    background: #ffffff;
+  .menu-sidebar ::ng-deep nb-menu .menu-item a.active .menu-icon {
+    color: #002299 !important;
   }
 
-  .menu-sidebar ::ng-deep nb-menu ul li {
-    border-bottom: none;
+  .menu-sidebar ::ng-deep nb-menu .menu-item a.active .menu-title {
+    color: #002299 !important;
   }
+
+}
+
+.menu-sidebar ::ng-deep .menu-item a {
+  color: #3366FF;
+  // border-bottom: none;
+  transition: background 0.3s ease;
+}
+
+.menu-sidebar ::ng-deep .menu-item a:hover {
+  // background: #ffffff;
+  color: #002299;
+}
+
+.menu-sidebar ::ng-deep .menu-item a:hover nb-icon {
+  color: #002299;
+}
+
+.menu-sidebar ::ng-deep .menu-item nb-icon {
+  color: #3366FF;
+}
+
+.menu-sidebar ::ng-deep nb-menu ul li ul li a:hover span {
+  // border-bottom: none;
+  // background-color: #FFFFFF;
+  color: #002299;
 }
 
 .absolute-progress {

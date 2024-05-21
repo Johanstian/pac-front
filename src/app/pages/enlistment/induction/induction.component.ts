@@ -1,10 +1,12 @@
-import { Component, Optional } from '@angular/core';
+import { Component, ElementRef, Optional, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { InterviewService } from 'src/app/core/services/interview.service';
 import { EnlistmentStageComponent } from '../enlistment-stage/enlistment-stage.component';
 import { EnlistmentService } from 'src/app/core/services/enlistment.service';
+import { PdfComponent } from './pdf/pdf.component';
+declare const html2pdf: any;
 
 @Component({
   selector: 'app-induction',
@@ -13,14 +15,14 @@ import { EnlistmentService } from 'src/app/core/services/enlistment.service';
 })
 export class InductionComponent {
 
+  @ViewChild('reportContent', { static: false }) reportContent!: ElementRef;
   dataForm!: FormGroup;
   interviews: any;
   page: number = 1;
-  size: number = 5;
+  size: number = 10;
   selectedItem: number = 5;
   collectionSize: number = 0;
   loading: boolean = false;
-
   cc: any;
   enlistments: any;
 
@@ -69,7 +71,9 @@ export class InductionComponent {
     this.enlistmentService.getAllEnlistment().subscribe({
       next: (data) => {
         this.enlistments = data.enlistment;
-        console.log('this.enlistments', this.enlistments)
+        this.collectionSize = data.totalPages
+      },
+      error: () => {
       }
     })
   }
@@ -96,6 +100,15 @@ export class InductionComponent {
       window.open(url);
     });
   }
+
+  pdfReport(cc: any) {
+    this.nbDialogService.open(PdfComponent, {
+      context: {
+        cc: cc
+      }
+    })
+  }
+
 
 
 }

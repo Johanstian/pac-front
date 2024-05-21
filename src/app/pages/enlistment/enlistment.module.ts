@@ -13,6 +13,9 @@ import { InductionComponent } from './induction/induction.component';
 import { InductionUpdateComponent } from './induction/induction-update/induction-update.component';
 import { EnlistmentStagePermanentComponent } from './enlistment-stage-permanent/enlistment-stage-permanent.component';
 import { EnlistmentStagePermanentUpdateComponent } from './enlistment-stage-permanent/enlistment-stage-permanent-update/enlistment-stage-permanent-update.component';
+import { PdfComponent } from './induction/pdf/pdf.component';
+import { StrengthComponent } from './strength/strength.component';
+import { StrengthUpdateComponent } from './strength/strength-update/strength-update.component';
 
 
 @NgModule({
@@ -24,7 +27,10 @@ import { EnlistmentStagePermanentUpdateComponent } from './enlistment-stage-perm
     InductionComponent,
     InductionUpdateComponent,
     EnlistmentStagePermanentComponent,
-    EnlistmentStagePermanentUpdateComponent
+    EnlistmentStagePermanentUpdateComponent,
+    PdfComponent,
+    StrengthComponent,
+    StrengthUpdateComponent
   ],
   imports: [
     CommonModule,

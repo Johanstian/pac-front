@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NbDialogService, NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService,
+import {
+  NbDialogService, NbMediaBreakpointsService, NbMenuItem, NbMenuService, NbSidebarService, NbThemeService,
 } from '@nebular/theme';
 
-import { map, takeUntil } from 'rxjs/operators';
+import { filter, map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -17,15 +18,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   user: any;
   companies: any;
   loading: boolean = false;
-  themes = [
-    {
-      value: 'default',
-      name: 'Light',
-    },
-    {
-      value: 'dark',
-      name: 'Dark',
-    },
+  items = [
+    // { title: 'Mi cuenta', icon: 'people-outline' },
+    { title: 'Cerrar sesión', icon: 'power-outline' },
   ];
 
   currentTheme = 'default';
@@ -43,14 +38,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private themeService: NbThemeService,
     private breakpointService: NbMediaBreakpointsService,
     private router: Router,
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
+    private nbMenuService: NbMenuService,
   ) { }
 
   ngOnInit() {
     const token = localStorage.getItem('token');
-    if(token) {
+    if (token) {
       const tokenObj = JSON.parse(token)
-      if(tokenObj.hasOwnProperty('username')){
+      if (tokenObj.hasOwnProperty('username')) {
         const username = tokenObj.username
         this.storedUsername = username;
       }
@@ -59,9 +55,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.companyName = localStorage.getItem('selectedCompanyName') || null;
     this.selectedCompanyId = localStorage.getItem('selectedCompanyId') || null;
     this.currentTheme = this.themeService.currentTheme;
-    const { xl } = this.breakpointService.getBreakpointsMap();
-    this.themeService.onMediaQueryChange().pipe(map(([, currentBreakpoint]) => currentBreakpoint.width < xl), takeUntil(this.destroy$)).subscribe((isLessThanXl: boolean) => (this.userPictureOnly = isLessThanXl));
-    this.themeService.onThemeChange().pipe(map(({ name }) => name), takeUntil(this.destroy$)).subscribe((themeName) => (this.currentTheme = themeName));
+    this.nbMenuService.onItemClick()
+      .pipe(filter(({ tag }) => tag === 'my-context-menu'), map(({ item }) => item), takeUntil(this.destroy$)).subscribe((menuItem: NbMenuItem) => {
+        if (menuItem.title === 'Cerrar sesión') {
+          this.logOut();
+        }
+      });
   }
 
   ngOnDestroy() {

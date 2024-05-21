@@ -86,13 +86,11 @@ export class IndividualComponent {
     this.loading = false;
     this.testService.getGeneralTest(this.value).subscribe({
       next: (data) => {
-        console.log(data)
         this.loading = true;
         this.result = data;
         this.ccResult = data.averageCC;
         this.ceResult = data.averageCE;
         this.tdmResult = data.totalM;
-        console.log(this.tdmResult)
         this.aydResult = data.averageAyd;
         this.type = data.type
         this.cc = data;
@@ -166,7 +164,6 @@ export class IndividualComponent {
         
 
         if (this.tdmResult >= 0 && this.tdmResult <= 6) {
-          console.log('asd', this.tdmResult)
           this.tdmStringResult = 'Escasa';
         } else if (this.tdmResult >= 7 && this.tdmResult <= 15) {
           this.tdmStringResult = 'Moderada';
@@ -201,7 +198,6 @@ export class IndividualComponent {
   }
 
   pdfReport() {
-
       const contentHtml = this.reportContent.nativeElement.innerHTML;
       const contentElement = document.createElement('div');
       contentElement.innerHTML = contentHtml;

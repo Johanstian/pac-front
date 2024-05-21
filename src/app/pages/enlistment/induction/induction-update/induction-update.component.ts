@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { AlertService } from 'src/app/core/services/alert.service';
 import { EnlistmentService } from 'src/app/core/services/enlistment.service';
 import { InterviewService } from 'src/app/core/services/interview.service';
 
@@ -19,8 +20,6 @@ export class InductionUpdateComponent implements OnInit {
   page: any = 1
   size: any = 5;
   response: any;
-
-
   ccResult: any;
   ceResult: any;
   tdmResult: any;
@@ -38,10 +37,10 @@ export class InductionUpdateComponent implements OnInit {
   tdmStringResult: any;
   aydStringResult: any;
 
-
   constructor
     (
       private activatedRoute: ActivatedRoute,
+      private alertService: AlertService,
       private enlistmentService: EnlistmentService,
       private formBuilder: FormBuilder,
       private interviewService: InterviewService,
@@ -54,10 +53,11 @@ export class InductionUpdateComponent implements OnInit {
       this.cc = params['cc'];
       this.getEnlistment();
       this.initForm();
+      this.getInterviews();
     });
   }
 
-  initForm () {
+  initForm() {
     this.dataForm = this.formBuilder.group({
       names: [''],
       cc: [''],
@@ -75,7 +75,6 @@ export class InductionUpdateComponent implements OnInit {
     this.enlistmentService.getEnlistmentById(this.cc).subscribe({
       next: (data) => {
         this.response = data;
-        console.log('data', data);
         this.dataForm = this.formBuilder.group({
           names: [this.response.names],
           cc: [this.response.cc],
@@ -92,10 +91,10 @@ export class InductionUpdateComponent implements OnInit {
   }
 
   createTechField() {
-    console.log()
     this.enlistmentService.addTechnicalToEnlistment(this.dataForm.value).subscribe({
       next: () => {
-        alert('¡Campo técnico agregado exitosamente!');
+        this.alertService.success('¡Correcto!', 'Concepto técnico agredado');
+        this.location.back();
         this.dataForm.reset();
       },
       error: (err) => {
@@ -107,7 +106,6 @@ export class InductionUpdateComponent implements OnInit {
   getInterviews() {
     this.interviewService.getInterviewsByCC(this.cc).subscribe({
       next: (data) => {
-        console.log(data)
         this.interviews = data;
         this.ccResult = data.averageCC;
         this.ceResult = data.averageCE;

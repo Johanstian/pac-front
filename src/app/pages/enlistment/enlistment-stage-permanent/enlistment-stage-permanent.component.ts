@@ -81,7 +81,6 @@ export class EnlistmentStagePermanentComponent implements OnInit {
     this.testService.getAllTests().subscribe({
       next: (data) => {
         this.tests = data;
-        console.log('tests', this.tests)
       },
       error: (err) => {
         this.alertService.error('¡Error!', err.error.message)

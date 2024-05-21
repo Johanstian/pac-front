@@ -1,0 +1,142 @@
+<nb-card>
+    <nb-card-header>
+        <div class="row">
+            <div class="col">
+                <h5>Proceso Post Psicosocial</h5>
+            </div>
+        </div>
+    </nb-card-header>
+
+    <nb-card-body>
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
+                <div class="scroll-container-tables">
+                    <div class="table-full-width text-center">
+                        <div class="lotti-table shadow p-3 mb-5 rounded">
+                            <div class="lotti-row header">
+                                <div class="cell b-t-left">Documento</div>
+                                <!-- <div class="cell">Documento</div> -->
+                                <div class="cell">Nombres</div>
+                                <div class="cell">Test</div>
+                                <!-- <div class="cell">Test</div> -->
+                                <!-- <div class="cell">Revisó</div> -->
+                                <div class="cell">Estado</div>
+                                <div class="cell b-t-right"></div>
+                            </div>
+                            <div class="lotti-row" *ngFor="let interview of tests">
+                                <div class="cell">{{interview.cc}}</div>
+                                <div class="cell">{{interview.names}}</div>
+                                <div class="cell">{{interview.type}}</div>
+                                <div class="cell">{{interview.status}}</div>
+                                <div class="cell">
+                                    <button nbButton ghost hero status="primary" [routerLink]="['/pages/follow-up/post-psychosocial-update/', interview.cc]" [disabled]="interview.status === 'Concluido'">
+                                        <nb-icon icon="checkmark-outline"></nb-icon>
+                                    </button>
+                                    <!-- <button *ngIf="interview.status === 'Concluido'" nbButton ghost hero status="danger" class="m-l-5" (click)="pdfReport(interview.cc)">
+                                        <nb-icon icon="file-outline"></nb-icon>
+                                    </button> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <strong>Resultados: {{ interviews?.length }} </strong>
+        <div class="row justify-content-between">
+            <div class="col-auto">
+                <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="size" [maxSize]="3"
+                    [rotate]="true" [ellipses]="false" [boundaryLinks]="true" (pageChange)="nextPage()">
+                    <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+                </ngb-pagination>
+            </div>
+            <div class="col-auto">
+                <nb-select [(selected)]="selectedItem" [(ngModel)]="size" (ngModelChange)="nextPage()">
+                    <!-- <nb-option [value]="5">Mostrar 5</nb-option> -->
+                    <nb-option [value]="10">Mostrar 10</nb-option>
+                    <nb-option [value]="15">Mostrar 15</nb-option>
+                </nb-select>
+            </div>
+        </div>
+    </nb-card-body>
+
+    <!-- <nb-card-footer>
+        <div class="row">
+            <div class="col">
+                <button nbButton status="primary" (click)="create(dialog)" style="float: right;">Programar</button>
+            </div>
+        </div>
+    </nb-card-footer> -->
+</nb-card>
+
+
+<ng-template #dialog let-ref="dialogRef">
+    <nb-card>
+        <nb-card-header>
+            Programar Entrevista
+        </nb-card-header>
+
+        <nb-card-body>
+            <form [formGroup]="dataForm">
+                <div class="row">
+                    <div class="col-4">
+                        <label class="label" for="">Fecha</label><br>
+                        <!-- <input type="datetime-local" formControlName="date"> -->
+                        <input nbInput fullWidth placeholder="" [nbDatepicker]="dateTimePicker" formControlName="date" status="primary">
+                        <nb-date-timepicker #dateTimePicker locale="'es-CO'" format="dd/MM/yyyy HH:mm"></nb-date-timepicker>
+
+                    </div>
+                    <div class="col-4">
+                        <label class="label" for="">Documento</label><br>
+                        <input nbInput fullWidth type="number" placeholder="C.C." formControlName="cc" status="primary">
+                    </div>
+                    <div class="col-4">
+                        <label class="label" for="">Nombres</label><br>
+                        <input nbInput fullWidth type="text" formControlName="names" status="primary">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-4">
+                        <label class="label" for="">Entrevista</label><br>
+                        <nb-select fullWidth formControlName="interview" status="primary">
+                            <nb-option value="Adriana Barandica">Adriana Barandica</nb-option>
+                            <nb-option value="Jhon Mackenzie">John Mackenzie</nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="col-4">
+                        <label class="label" for="">Test</label><br>
+                        <nb-select fullWidth formControlName="test" status="primary">
+                            <nb-option value="Test 1">Test 1</nb-option>
+                            <nb-option value="Test 2">Test 2</nb-option>
+                            <nb-option value="Test 3">Test 3</nb-option>
+                        </nb-select>
+                    </div>
+                    <div class="col-4">
+                        <label class="label" for="">Revisó</label><br>
+                        <nb-select fullWidth formControlName="review" status="primary">
+                            <nb-option value="Lizeth Calderón">Lizeth Calderón</nb-option>
+                            <nb-option value="Jorge Tello">Jorge Tello</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col">
+                        <label class="label" for="">Observaciones</label><br>
+                        <input nbInput fullWidth type="text" formControlName="observations" status="primary">
+                    </div>
+                </div>
+            </form>
+        </nb-card-body>
+
+        <nb-card-footer>
+            <div class="row">
+                <div class="col center">
+                    <button nbButton status="basic" (click)="ref.close()" class="t-t-c">Cerrar</button>
+                    <button [nbSpinner]="loading" nbSpinnerStatus="primary" nbButton status="primary" class="m-l-10 t-t-c" [disabled]="dataForm.invalid">Crear</button>
+                </div>
+            </div>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>

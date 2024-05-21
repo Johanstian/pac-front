@@ -5,8 +5,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./one-column.layout.scss'],
   template: `
     <app-progress-bar class="absolute-progress"></app-progress-bar>
-    <nb-layout>
-      <nb-layout-header fixed>
+    <nb-layout windowMode>
+      <nb-layout-header fixed style="background: #3366FF;">
         <ngx-header></ngx-header>
       </nb-layout-header>
       <nb-sidebar class="menu-sidebar" tag="menu-sidebar" responsive>

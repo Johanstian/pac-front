@@ -2,7 +2,7 @@
     <nb-card-header>
         <div class="row">
             <div class="col">
-                <h2>Entrevista</h2>
+                <h5>Entrevista</h5>
             </div>
         </div>
     </nb-card-header>
@@ -22,7 +22,7 @@
                                 <div class="cell">Revisó</div>
                                 <div class="cell b-t-right">Celular</div>
                             </div>
-                          
+
                             <div class="lotti-row" *ngFor="let interview of interviews">
                                 <div class="cell">{{interview.date | date:'yyyy-MM-dd HH:mm'}}</div>
                                 <div class="cell">{{interview.cc}}</div>
@@ -36,12 +36,11 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="!interviews || interviews.length === 0"
-            style="text-align: center;">
-            <p>No hay entrevistas en el momento.</p>
+            <div *ngIf="!interviews || interviews.length === 0" style="text-align: center;">
+                <p>No hay información disponible.</p>
+            </div>
         </div>
-        </div>
-        <!-- <strong> {{ interviews?.length }} </strong> -->
+        <strong>Resultados: {{ interviews?.length }} </strong>
         <div class="row justify-content-between">
             <div class="col-auto">
                 <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="size" [maxSize]="3"
@@ -51,7 +50,7 @@
             </div>
             <div class="col-auto">
                 <nb-select [(selected)]="selectedItem" [(ngModel)]="size" (ngModelChange)="nextPage()">
-                    <nb-option [value]="5">Mostrar 5</nb-option>
+                    <!-- <nb-option [value]="5">Mostrar 5</nb-option> -->
                     <nb-option [value]="10">Mostrar 10</nb-option>
                     <nb-option [value]="15">Mostrar 15</nb-option>
                 </nb-select>
@@ -121,7 +120,8 @@
                     <div class="col-md-6">
                         <label class="label" for="">Coordinador Técnico y Línea</label><br>
                         <nb-select fullWidth formControlName="techLead" status="primary">
-                            <nb-option value="Deporte Formativo - Jhon Gonzáles">Deporte Formativo - Jhon Gonzáles</nb-option>
+                            <nb-option value="Deporte Formativo - Jhon Gonzáles">Deporte Formativo - Jhon
+                                Gonzáles</nb-option>
                             <nb-option value="DSC - Gustavo Ospina">DSC - Gustavo Ospina</nb-option>
                             <nb-option value="HEVS - Julián Uzuga">HEVS - Julián Uzuga</nb-option>
                             <nb-option value="Recreación - Lina Agudelo">Recreación - Lina Agudelo</nb-option>
@@ -162,7 +162,8 @@
             <div class="row">
                 <div class="col center">
                     <button nbButton status="basic" (click)="ref.close()">Cerrar</button>
-                    <button [nbSpinner]="loading" nbSpinnerStatus="primary" nbButton status="primary" class="m-l-10" [disabled]="dataForm.invalid" (click)="createInterview()">Crear</button>
+                    <button [nbSpinner]="loading" nbSpinnerStatus="primary" nbButton status="primary" class="m-l-10"
+                        [disabled]="dataForm.invalid" (click)="createInterview()">Crear</button>
                 </div>
             </div>
         </nb-card-footer>

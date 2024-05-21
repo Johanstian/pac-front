@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ResultsComponent } from './results.component';
 import { IndividualComponent } from './individual/individual.component';
 import { GlobalComponent } from './global/global.component';
+import { PostIndividualComponent } from './post-individual/post-individual.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
       {
         path: 'individual',
         component: IndividualComponent
+      },
+      {
+        path: 'post-individual',
+        component: PostIndividualComponent
       },
       {
         path: 'global',

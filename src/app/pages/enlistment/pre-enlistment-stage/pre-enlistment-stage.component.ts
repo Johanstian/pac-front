@@ -14,8 +14,8 @@ export class PreEnlistmentStageComponent implements OnInit {
   dataForm!: FormGroup;
   interviews: any;
   page: number = 1;
-  size: number = 5;
-  selectedItem: number = 5;
+  size: number = 10;
+  selectedItem: number = 10;
   collectionSize: number = 0;
   loading: boolean = false;
 
@@ -54,9 +54,6 @@ export class PreEnlistmentStageComponent implements OnInit {
 
   close() {
     this.nbDialogRef.close()
-  }
-
-  console() {
   }
 
   getInterviews() {

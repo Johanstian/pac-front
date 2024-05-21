@@ -31,6 +31,9 @@ export class EnlistmentService {
     return this.httpClient.put<any>(this.devUrl + this.proUrl + '/enlistment/updateEnlistment', request);
   }
 
+  addCompetencesToEnlistment(request: any) {
+    return this.httpClient.put<any>(this.devUrl + this.proUrl + '/enlistment/updateCompetencias', request);
+  }
 
   pdf(cc: any): Observable<Blob> {
     return this.httpClient.get((this.devUrl + this.proUrl + "/enlistment/getEnlistmentInfoAndDownloadPDF/" + cc), { responseType: 'blob' });

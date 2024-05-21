@@ -8,6 +8,8 @@ import { InductionComponent } from './induction/induction.component';
 import { InductionUpdateComponent } from './induction/induction-update/induction-update.component';
 import { EnlistmentStagePermanentComponent } from './enlistment-stage-permanent/enlistment-stage-permanent.component';
 import { EnlistmentStagePermanentUpdateComponent } from './enlistment-stage-permanent/enlistment-stage-permanent-update/enlistment-stage-permanent-update.component';
+import { StrengthComponent } from './strength/strength.component';
+import { StrengthUpdateComponent } from './strength/strength-update/strength-update.component';
 
 const routes: Routes = [
   {
@@ -41,6 +43,14 @@ const routes: Routes = [
       {
         path: 'induction-update/:cc',
         component: InductionUpdateComponent
+      },
+      {
+        path: 'strength',
+        component: StrengthComponent
+      },
+      {
+        path: 'strength-update/:cc',
+        component: StrengthUpdateComponent
       }
     ]
   }
