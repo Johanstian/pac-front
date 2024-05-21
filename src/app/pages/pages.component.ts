@@ -55,22 +55,22 @@ export class PagesComponent {
         {
           title: 'Alistamiento',
           icon: 'swap-outline',
-          hidden: !isAdmin && !userRoles.includes('Tech'),
+          hidden: !isAdmin && !userRoles.includes('Antiguo'),
           children: [
             {
               title: 'Entrevista',
               link: '/pages/enlistment/pre-enlistment-stage',
-              hidden: !isAdmin
+              hidden: !isAdmin && !userRoles.includes('Antiguo')
             },
             {
               title: 'Psicosocial',
               link: '/pages/enlistment/enlistment-stage',
-              hidden: !isAdmin
+              hidden: !isAdmin && !userRoles.includes('Antiguo')
             },
             {
               title: 'Fortalecimiento',
               link: '/pages/enlistment/strength',
-              hidden: !isAdmin
+              hidden: !isAdmin && !userRoles.includes('Antiguo')
             },
             // {
             //   title: 'Antiguos',
@@ -80,24 +80,24 @@ export class PagesComponent {
             {
               title: 'Técnico',
               link: '/pages/enlistment/induction',
-              hidden: !isTech && !isAdmin
+              hidden: !isTech && !isAdmin && !userRoles.includes('Antiguo')
             },
           ],
         },
         {
           title: 'Seguimiento',
           icon: 'sync-outline',
-          hidden: !isAdmin && !userRoles.includes('Tech'),
+          hidden: !isAdmin && !userRoles.includes('Tech') && !userRoles.includes('Antiguo'),
           children: [
             {
               title: 'Psicosocial',
               link: '/pages/follow-up/post-psychosocial',
-              hidden: !isAdmin
+              hidden: !isAdmin && !userRoles.includes('Antiguo')
             },
             {
               title: 'Fortalecimiento',
               link: '/pages/follow-up/post-strength',
-              hidden: !isAdmin
+              hidden: !isAdmin && !userRoles.includes('Antiguo')
             },
             // {
             //   title: 'Antiguos',
@@ -153,17 +153,17 @@ export class PagesComponent {
         {
           title: 'Resultados',
           icon: 'checkmark-square-2-outline',
-          hidden: !userRoles.includes('Admin'),
+          hidden: !userRoles.includes('Admin') && !userRoles.includes('Antiguo'),
           children: [
             {
               title: 'Individuales',
               link: '/pages/results/individual',
-              hidden: !userRoles.includes('Admin')
+              hidden: !userRoles.includes('Admin') && !userRoles.includes('Antiguo')
             },
             {
               title: 'Post-Individuales',
               link: '/pages/results/post-individual',
-              hidden: !userRoles.includes('Admin')
+              hidden: !userRoles.includes('Admin') && !userRoles.includes('Antiguo')
             },
             {
               title: 'Globales',
