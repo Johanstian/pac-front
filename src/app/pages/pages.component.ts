@@ -20,8 +20,11 @@ export class PagesComponent {
     const userRoles: any[] = this.identityService.getRoles();
     const isAdmin: any = userRoles.includes('Admin');
     const isTest1: any = userRoles.includes('Test1');
+    const isPost1: any = userRoles.includes('Post1');
     const isTest2: any = userRoles.includes('Test2');
+    const isPost2: any = userRoles.includes('Post2');
     const isTest3: any = userRoles.includes('Test3');
+    const isPost3: any = userRoles.includes('Post3');
     const isTech: any = userRoles.includes('Tech');
     const isAntiguo: any = userRoles.includes('Antiguo');
     this.menuService.addItems(
@@ -127,23 +130,23 @@ export class PagesComponent {
         },
         {
           title: 'Post-Tests',
-          hidden: !isAdmin && !isTest1 && !isTest2 && !isTest3,
+          hidden: !isAdmin && !isPost1 && !isPost2 && !isPost3,
           icon: 'layers-outline',
           children: [
             {
               title: 'Post-Test 1',
               link: '/pages/retests/retest1',
-              hidden: !isAdmin && !userRoles.includes('Test1')
+              hidden: !isAdmin && !userRoles.includes('Post1')
             },
             {
               title: 'Post-Test 2',
               link: '/pages/retests/retest2',
-              hidden: !isAdmin && !userRoles.includes('Test2')
+              hidden: !isAdmin && !userRoles.includes('Post2')
             },
             {
               title: 'Post-Test 3',
               link: '/pages/retests/retest3',
-              hidden: !isAdmin && !userRoles.includes('Test3')
+              hidden: !isAdmin && !userRoles.includes('Post3')
             },
           ],
         },

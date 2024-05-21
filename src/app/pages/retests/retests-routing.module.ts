@@ -15,19 +15,19 @@ const routes: Routes = [
         path: 'retest1',
         component: Retest1Component,
         canActivate: [RoleGuard],
-        data: {role: ['Test1', 'Admin']}
+        data: {role: ['Post1', 'Admin']}
       },
       {
         path: 'retest2',
         component: Retest2Component,
         canActivate: [RoleGuard],
-        data: {role: ['Test2', 'Admin']}
+        data: {role: ['Post2', 'Admin']}
       },
       {
         path: 'retest3',
         component: Retest3Component,
         canActivate: [RoleGuard],
-        data: {role: ['Test3', 'Admin']}
+        data: {role: ['Post3', 'Admin']}
       },
     ]
   }
