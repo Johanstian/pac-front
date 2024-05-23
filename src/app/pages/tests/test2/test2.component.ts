@@ -67,7 +67,6 @@ export class Test2Component implements OnInit {
       },
       error: (error) => {
         this.alertService.error('¡Error!', error.error.message)
-        alert('NO NADA')
       }
     })
   }
