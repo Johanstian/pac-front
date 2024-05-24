@@ -26,7 +26,7 @@
                             <div class="lotti-row" *ngFor="let interview of interviews">
                                 <div class="cell">{{interview.date | date:'yyyy-MM-dd HH:mm'}}</div>
                                 <div class="cell">{{interview.cc}}</div>
-                                <div class="cell">{{interview.names}}</div>
+                                <div class="cell">{{interview.names | titlecase}}</div>
                                 <div class="cell">{{interview.interview}}</div>
                                 <div class="cell">{{interview.test}}</div>
                                 <div class="cell">{{interview.review}}</div>

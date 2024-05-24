@@ -58,7 +58,7 @@ export class Retest3Component implements OnInit {
   }
 
   save() {
-    this.testService.createTest(this.test3Form.value).subscribe({
+    this.testService.createRetest(this.test3Form.value).subscribe({
       next: () => {
         this.test3Form.reset();
         this.alertService.success('¡Correcto!', 'Post Test 3 completado.');
