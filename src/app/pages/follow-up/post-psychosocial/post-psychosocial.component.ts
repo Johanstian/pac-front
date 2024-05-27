@@ -19,11 +19,11 @@ export class PostPsychosocialComponent implements OnInit {
   dataForm!: FormGroup;
   interviews: any;
   page: number = 1;
-  size: number = 5;
-  selectedItem: number = 5;
+  size: number = 10;
+  selectedItem: number = 10;
   collectionSize: number = 0;
   loading: boolean = false;
-  tests: any;
+  retests: any;
   currentDate: any;
 
   constructor(
@@ -61,16 +61,16 @@ export class PostPsychosocialComponent implements OnInit {
         this.collectionSize = data.totalPages;
       },
       error: (err) => {
-        console.error(err);
       }
     });
   }
 
 
   getTests() {
-    this.testService.getAllRetests().subscribe({
+    this.testService.getAllRetests(this.page, this.size).subscribe({
       next: (data) => {
-        this.tests = data;
+        this.retests = data.retests;
+        this.collectionSize = data.totalPages;
       },
       error: (err) => {
         this.alertService.error('¡Error!', err.error.message)

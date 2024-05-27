@@ -5,12 +5,17 @@ import { PostPsychosocialComponent } from './post-psychosocial/post-psychosocial
 import { PostStrengthComponent } from './post-strength/post-strength.component';
 import { PostPsychosocialUpdateComponent } from './post-psychosocial/post-psychosocial-update/post-psychosocial-update.component';
 import { PostStrengthUpdateComponent } from './post-strength/post-strength-update/post-strength-update.component';
+import { FollowUpListComponent } from './follow-up-list/follow-up-list.component';
 
 const routes: Routes = [
   {
     path: '',
     component: FollowUpComponent,
     children: [
+      {
+        path: 'follow-up-list',
+        component: FollowUpListComponent
+      },
       {
         path: 'post-psychosocial',
         component: PostPsychosocialComponent

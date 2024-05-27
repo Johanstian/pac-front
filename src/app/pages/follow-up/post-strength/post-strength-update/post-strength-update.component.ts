@@ -94,7 +94,7 @@ export class PostStrengthUpdateComponent implements OnInit {
   }
 
   getTests() {
-    this.testService.getAllRetests().subscribe({
+    this.testService.getAllRetests(this.page -1 , this.size).subscribe({
       next: (data) => {
         this.tests = data;
       },

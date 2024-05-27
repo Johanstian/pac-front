@@ -90,6 +90,11 @@ export class PagesComponent {
           hidden: !isAdmin && !userRoles.includes('Tech') && !userRoles.includes('Antiguo'),
           children: [
             {
+              title: 'Listado',
+              link: '/pages/follow-up/follow-up-list',
+              hidden: !isAdmin && !userRoles.includes('Antiguo')
+            },
+            {
               title: 'Psicosocial',
               link: '/pages/follow-up/post-psychosocial',
               hidden: !isAdmin && !userRoles.includes('Antiguo')

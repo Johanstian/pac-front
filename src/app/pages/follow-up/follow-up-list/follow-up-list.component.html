@@ -1,0 +1,58 @@
+<nb-card>
+    <nb-card-header>
+        <div class="row">
+            <div class="col">
+                <h5>Listado Post</h5>
+            </div>
+        </div>
+    </nb-card-header>
+
+    <nb-card-body>
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
+                <div class="scroll-container-tables">
+                    <div class="table-full-width text-center">
+                        <div class="lotti-table shadow p-3 mb-5 rounded">
+                            <div class="lotti-row header">
+                                <div class="cell b-t-left">Documento</div>
+                                <div class="cell">Nombres</div>
+                                <div class="cell">Test</div>
+                                <div class="cell b-t-right"></div>
+                            </div>
+                            <div class="lotti-row" *ngFor="let retest of retests">
+                                <div class="cell">{{retest.cc}}</div>
+                                <div class="cell">{{retest.names | titlecase}}</div>
+                                <div class="cell">{{retest.type | titlecase}}</div>
+                                <div class="cell">{{retest.firstSurname | titlecase}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <strong>Resultados: {{ collectionSize }} </strong>
+        <div class="row justify-content-between">
+            <div class="col-auto">
+                <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="size" [maxSize]="3"
+                    [rotate]="true" [ellipses]="false" [boundaryLinks]="true" (pageChange)="nextPage()">
+                    <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+                </ngb-pagination>
+            </div>
+            <div class="col-auto">
+                <nb-select [(selected)]="selectedItem" [(ngModel)]="size" (ngModelChange)="nextPage()">
+                    <!-- <nb-option [value]="5">Mostrar 5</nb-option> -->
+                    <nb-option [value]="10">Mostrar 10</nb-option>
+                    <nb-option [value]="15">Mostrar 15</nb-option>
+                </nb-select>
+            </div>
+        </div>
+    </nb-card-body>
+
+    <nb-card-footer>
+        <div class="row">
+            <div class="col">
+                <button nbButton status="primary" (click)="excel()" style="float: right;">Excel</button>
+            </div>
+        </div>
+    </nb-card-footer>
+</nb-card>

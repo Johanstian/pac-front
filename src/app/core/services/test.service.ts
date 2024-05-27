@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -32,12 +32,27 @@ export class TestService {
     return this.httpClient.post<any>(this.devUrl + this.proUrl + '/retests/recreateTest', request)
   }
 
-  getAllRetests(): Observable<any> {
-    return this.httpClient.get<any>(this.devUrl + this.proUrl + '/retests/getAllRetests')
-  }
+  // getAllRetests(): Observable<any> {
+  //   return this.httpClient.get<any>(this.devUrl + this.proUrl + '/retests/getAllRetests')
+  // }
 
   getGeneralRetest(cc: number): Observable<any> {
     return this.httpClient.get<any>(this.devUrl + this.proUrl + '/retests/getRetestByCC/' + cc)
+  }
+
+  getAllRetests(page: number, limit: number): Observable<any> {
+    const params = new HttpParams().set('page', page).set('limit', limit);
+    return this.httpClient.get<any>(this.devUrl + this.proUrl + '/retests/getAllRetests', {params: params});
+  }
+
+  getExcel():Observable<any> {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    const options = {
+      headers: headers,
+      responseType: 'blob' as 'json',
+    };
+
+    return this.httpClient.get<any>(this.devUrl + this.proUrl + '/retests/exportToExcel', options) as Observable<Blob>;
   }
   
 

@@ -9,6 +9,7 @@ import { ThemeModule } from 'src/app/theme/theme.module';
 import { NbDatepickerModule, NbTimepickerModule } from '@nebular/theme';
 import { PostStrengthUpdateComponent } from './post-strength/post-strength-update/post-strength-update.component';
 import { PostPsychosocialUpdateComponent } from './post-psychosocial/post-psychosocial-update/post-psychosocial-update.component';
+import { FollowUpListComponent } from './follow-up-list/follow-up-list.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { PostPsychosocialUpdateComponent } from './post-psychosocial/post-psycho
     PostPsychosocialComponent,
     PostStrengthComponent,
     PostStrengthUpdateComponent,
-    PostPsychosocialUpdateComponent
+    PostPsychosocialUpdateComponent,
+    FollowUpListComponent
   ],
   imports: [
     CommonModule,

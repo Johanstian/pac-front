@@ -15,26 +15,20 @@
                         <div class="lotti-table shadow p-3 mb-5 rounded">
                             <div class="lotti-row header">
                                 <div class="cell b-t-left">Documento</div>
-                                <!-- <div class="cell">Documento</div> -->
                                 <div class="cell">Nombres</div>
                                 <div class="cell">Test</div>
-                                <!-- <div class="cell">Test</div> -->
-                                <!-- <div class="cell">Revisó</div> -->
                                 <div class="cell">Estado</div>
                                 <div class="cell b-t-right"></div>
                             </div>
-                            <div class="lotti-row" *ngFor="let interview of tests">
-                                <div class="cell">{{interview.cc}}</div>
-                                <div class="cell">{{interview.names}}</div>
-                                <div class="cell">{{interview.type}}</div>
-                                <div class="cell">{{interview.status}}</div>
+                            <div class="lotti-row" *ngFor="let retest of retests">
+                                <div class="cell">{{retest.cc}}</div>
+                                <div class="cell">{{retest.names | titlecase}}</div>
+                                <div class="cell">{{retest.type}}</div>
+                                <div class="cell">{{retest.status}}</div>
                                 <div class="cell">
-                                    <button nbButton ghost hero status="primary" [routerLink]="['/pages/follow-up/post-psychosocial-update/', interview.cc]" [disabled]="interview.status === 'Concluido'">
+                                    <button nbButton ghost hero status="primary" [routerLink]="['/pages/follow-up/post-psychosocial-update/', retest.cc]" [disabled]="retest.status === 'Concluido'">
                                         <nb-icon icon="checkmark-outline"></nb-icon>
                                     </button>
-                                    <!-- <button *ngIf="interview.status === 'Concluido'" nbButton ghost hero status="danger" class="m-l-5" (click)="pdfReport(interview.cc)">
-                                        <nb-icon icon="file-outline"></nb-icon>
-                                    </button> -->
                                 </div>
                             </div>
                         </div>
@@ -42,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <strong>Resultados: {{ interviews?.length }} </strong>
+        <strong>Resultados: {{ retests?.length }} </strong>
         <div class="row justify-content-between">
             <div class="col-auto">
                 <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="size" [maxSize]="3"
