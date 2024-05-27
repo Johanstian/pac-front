@@ -79,7 +79,7 @@ export class PostPsychosocialComponent implements OnInit {
   }
 
   nextPage() {
-    this.getInterviews();
+    this.getTests();
   }
 
   // pdfReport() {
