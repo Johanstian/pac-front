@@ -1,0 +1,95 @@
+<nb-card>
+    <nb-card-header>
+        Actualizar Entrevista
+    </nb-card-header>
+
+    <nb-card-body>
+        <form [formGroup]="dataForm">
+            <div class="row">
+                <div class="col-4">
+                    <label class="label" for="">Documento</label><br>
+                    <input nbInput fullWidth type="number" placeholder="C.C." formControlName="cc" status="primary">
+                </div>
+                <div class="col-4">
+                    <label class="label" for="date">Fecha Entrevista</label><br>
+                    <input nbInput fullWidth placeholder="" [nbDatepicker]="dateTimePicker" formControlName="date"
+                        status="primary">
+                    <nb-date-timepicker #dateTimePicker></nb-date-timepicker>
+
+                </div>
+                <div class="col-4">
+                    <label class="label" for="">Nombres</label><br>
+                    <input nbInput fullWidth type="text" formControlName="names" status="primary">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-4">
+                    <label class="label" for="">Celular</label><br>
+                    <input nbInput fullWidth status="primary" formControlName="cellphone" type="text">
+                </div>
+                <div class="col-4">
+                    <label class="label" for="">Test</label><br>
+                    <nb-select fullWidth formControlName="test" status="primary">
+                        <nb-option value="Test 1">Test 1</nb-option>
+                        <nb-option value="Test 2">Test 2</nb-option>
+                        <nb-option value="Test 3">Test 3</nb-option>
+                    </nb-select>
+                </div>
+                <div class="col-4">
+                    <label class="label" for="">Revisó</label><br>
+                    <nb-select fullWidth formControlName="review" status="primary">
+                        <nb-option value="Lizeth Calderón">Lizeth Calderón</nb-option>
+                        <nb-option value="Jorge Tello">Jorge Tello</nb-option>
+                    </nb-select>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="label" for="">Coordinador Técnico y Línea</label><br>
+                    <nb-select fullWidth formControlName="techLead" status="primary">
+                        <nb-option value="Deporte Formativo - Jhon Gonzáles">Deporte Formativo - Jhon
+                            Gonzáles</nb-option>
+                        <nb-option value="DSC - Gustavo Ospina">DSC - Gustavo Ospina</nb-option>
+                        <nb-option value="HEVS - Julián Uzuga">HEVS - Julián Uzuga</nb-option>
+                        <nb-option value="Recreación - Lina Agudelo">Recreación - Lina Agudelo</nb-option>
+                        <nb-option value="Talentos - Johathan Santiago Muñoz">Talentos - Johathan Santiago
+                            Muñoz</nb-option>
+                        <nb-option value="Valle en Movimiento - Johan Sebastián Ocampo">Valle en Movimiento - Johan
+                            Sebastián Ocampo</nb-option>
+                    </nb-select>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="label" for="">Psicóloga(o)</label><br>
+                    <nb-select fullWidth formControlName="interview" status="primary">
+                        <nb-option value="Adriana Barandica">Adriana Barandica</nb-option>
+                        <nb-option value="Carolina Olave">Carolina Olave</nb-option>
+                        <nb-option value="Jhon Mackenzie">John Mackenzie</nb-option>
+                        <nb-option value="Juliana Herrera">Juliana Herrera</nb-option>
+                        <nb-option value="Lina María Díaz">Lina María Díaz</nb-option>
+                        <nb-option value="Sandra Ramírez">Sandra Ramírez</nb-option>
+                    </nb-select>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <label class="label" for="">Observaciones</label><br>
+                    <input nbInput fullWidth type="text" formControlName="observations" status="primary">
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+
+    <nb-card-footer>
+        <div class="row">
+            <div class="col center">
+                <button nbButton status="basic" (click)="close()">Cerrar</button>
+                <button [nbSpinner]="loading" nbSpinnerStatus="primary" nbButton status="primary" class="m-l-10"
+                    [disabled]="dataForm.invalid" (click)="update()">Actualizar</button>
+            </div>
+        </div>
+    </nb-card-footer>
+</nb-card>

@@ -16,6 +16,7 @@ import { EnlistmentStagePermanentUpdateComponent } from './enlistment-stage-perm
 import { PdfComponent } from './induction/pdf/pdf.component';
 import { StrengthComponent } from './strength/strength.component';
 import { StrengthUpdateComponent } from './strength/strength-update/strength-update.component';
+import { UpdateInterviewComponent } from './pre-enlistment-stage/update-interview/update-interview.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { StrengthUpdateComponent } from './strength/strength-update/strength-upd
     EnlistmentStagePermanentUpdateComponent,
     PdfComponent,
     StrengthComponent,
-    StrengthUpdateComponent
+    StrengthUpdateComponent,
+    UpdateInterviewComponent
   ],
   imports: [
     CommonModule,

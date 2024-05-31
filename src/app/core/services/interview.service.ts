@@ -28,5 +28,13 @@ export class InterviewService {
     return this.httpClient.get<any>(this.devUrl + this.proUrl + '/tests/getTestByCC/' + cc);
   }
 
+  getInterByCc(cc: number) {
+    return this.httpClient.get<any>(this.devUrl + this.proUrl + '/interview/getInterviewByCC/' + cc)
+  }
+
+  updateInterview(cc: any, request: any) {
+    return this.httpClient.put<any>(this.devUrl + this.proUrl + '/interview/updateInterview/' + cc, request)
+  }
+
 
 }

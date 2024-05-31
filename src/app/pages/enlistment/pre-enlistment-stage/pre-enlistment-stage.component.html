@@ -20,7 +20,8 @@
                                 <div class="cell">Psicóloga/o</div>
                                 <div class="cell">Test</div>
                                 <div class="cell">Revisó</div>
-                                <div class="cell b-t-right">Celular</div>
+                                <div class="cell">Celular</div>
+                                <div class="cell b-t-right"></div>
                             </div>
 
                             <div class="lotti-row" *ngFor="let interview of interviews">
@@ -31,6 +32,11 @@
                                 <div class="cell">{{interview.test}}</div>
                                 <div class="cell">{{interview.review}}</div>
                                 <div class="cell">{{interview.cellphone}}</div>
+                                <div class="cell">
+                                    <button nbButton status="primary" (click)="updates(interview.cc)">
+                                        <nb-icon icon="checkmark-outline"></nb-icon>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -111,7 +117,7 @@
                         <label class="label" for="">Revisó</label><br>
                         <nb-select fullWidth formControlName="review" status="primary">
                             <nb-option value="Lizeth Calderón">Lizeth Calderón</nb-option>
-                            <nb-option value="Jorge Tello">Jorge Tello</nb-option>
+                            <nb-option value="Yamileth Ruíz">Yamileth Ruíz</nb-option>
                         </nb-select>
                     </div>
                 </div>

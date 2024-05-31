@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { InterviewService } from 'src/app/core/services/interview.service';
+import { UpdateInterviewComponent } from './update-interview/update-interview.component';
 
 @Component({
   selector: 'app-pre-enlistment-stage',
@@ -50,6 +51,17 @@ export class PreEnlistmentStageComponent implements OnInit {
 
   create(dialog: any) {
     this.nbDialogRef = this.nbDialogService.open(dialog)
+  }
+
+  updates(cc: any) {
+    const modal = this.nbDialogService.open(UpdateInterviewComponent, {
+      context: {
+        cc: cc
+      }
+    });
+    modal.onClose.subscribe(() => {
+      this.getInterviews();
+    })
   }
 
   close() {
