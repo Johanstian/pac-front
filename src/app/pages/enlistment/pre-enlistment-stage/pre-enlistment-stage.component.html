@@ -65,9 +65,14 @@
     </nb-card-body>
 
     <nb-card-footer>
-        <div class="row">
+        <div class="row" style="float: right;">
             <div class="col">
-                <button nbButton status="primary" (click)="create(dialog)" style="float: right;">Programar</button>
+                <button class="s-w-130" nbButton status="primary" (click)="create(dialog)">Programar</button>
+            </div>
+            <div class="col">
+                <button class="s-w-130" nbButton status="success" (click)="excel()">Excel
+                <nb-icon icon="download"></nb-icon>
+            </button>
             </div>
         </div>
     </nb-card-footer>

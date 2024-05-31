@@ -67,7 +67,7 @@ export class EnlistmentStageComponent implements OnInit {
     this.interviewService.getAllInterviews(this.page, this.size).subscribe({
         next: (data) => {
             this.interviews = data.interviews
-                .filter((interview: any) => interview.initialInterview === "yes") // Filtrar entrevistas
+                .filter((interview: any) => interview.initialInterview === "yes")
                 .sort((a: any, b: any) => {
                     return new Date(b.date).getTime() - new Date(a.date).getTime();
                 });

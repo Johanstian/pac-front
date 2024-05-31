@@ -99,5 +99,20 @@ export class PreEnlistmentStageComponent implements OnInit {
     })
   }
 
+  excel() {
+    this.interviewService.getExcel().subscribe(
+      (excelBlob: Blob) => {
+        const blob = new Blob([excelBlob], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Entrevistas.xlsx';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+    );
+  }
+
 
 }
