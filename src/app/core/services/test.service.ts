@@ -32,9 +32,9 @@ export class TestService {
     return this.httpClient.post<any>(this.devUrl + this.proUrl + '/retests/recreateTest', request)
   }
 
-  // getAllRetests(): Observable<any> {
-  //   return this.httpClient.get<any>(this.devUrl + this.proUrl + '/retests/getAllRetests')
-  // }
+  getAll(): Observable<any> {
+    return this.httpClient.get<any>(this.devUrl + this.proUrl + '/retests/getAll')
+  }
 
   getGeneralRetest(cc: number): Observable<any> {
     return this.httpClient.get<any>(this.devUrl + this.proUrl + '/retests/getRetestByCC/' + cc)

@@ -25,6 +25,7 @@ export class PostPsychosocialComponent implements OnInit {
   loading: boolean = false;
   retests: any;
   currentDate: any;
+  search: any = '';
 
   constructor(
     private alertService: AlertService,
@@ -66,8 +67,21 @@ export class PostPsychosocialComponent implements OnInit {
   }
 
 
+  // getTests() {
+  //   this.testService.getAllRetests(this.page, this.size).subscribe({
+  //     next: (data) => {
+  //       this.retests = data.retests;
+  //       console.log('ret', this.retests)
+  //       this.collectionSize = data.totalPages;
+  //     },
+  //     error: (err) => {
+  //       this.alertService.error('¡Error!', err.error.message)
+  //     }
+  //   })
+  // }
+
   getTests() {
-    this.testService.getAllRetests(this.page, this.size).subscribe({
+    this.testService.getAll().subscribe({
       next: (data) => {
         this.retests = data.retests;
         this.collectionSize = data.totalPages;
@@ -103,6 +117,11 @@ export class PostPsychosocialComponent implements OnInit {
         cc: cc
       }
     })
+  }
+
+  getList() {
+    return this.search !== '' ?
+    this.retests.filter((e: any) => e.cc.includes(this.search) || e.names.includes(this.search)) : this.retests;
   }
 
 
