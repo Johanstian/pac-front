@@ -39,5 +39,17 @@ export class EnlistmentService {
     return this.httpClient.get((this.devUrl + this.proUrl + "/enlistment/getEnlistmentInfoAndDownloadPDF/" + cc), { responseType: 'blob' });
   }
 
+  getExcel(): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    const options = {
+      headers: headers,
+      responseType: 'blob' as 'json',
+    };
+
+    return this.httpClient.get<any>(this.devUrl + this.proUrl + '/enlistment/exportToExcel', options) as Observable<Blob>;
+  }
+
 
 }
