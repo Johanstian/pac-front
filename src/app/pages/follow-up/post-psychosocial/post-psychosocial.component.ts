@@ -66,20 +66,6 @@ export class PostPsychosocialComponent implements OnInit {
     });
   }
 
-
-  // getTests() {
-  //   this.testService.getAllRetests(this.page, this.size).subscribe({
-  //     next: (data) => {
-  //       this.retests = data.retests;
-  //       console.log('ret', this.retests)
-  //       this.collectionSize = data.totalPages;
-  //     },
-  //     error: (err) => {
-  //       this.alertService.error('¡Error!', err.error.message)
-  //     }
-  //   })
-  // }
-
   getTests() {
     this.testService.getAll().subscribe({
       next: (data) => {
@@ -121,7 +107,22 @@ export class PostPsychosocialComponent implements OnInit {
 
   getList() {
     return this.search !== '' ?
-    this.retests.filter((e: any) => e.cc.includes(this.search) || e.names.includes(this.search)) : this.retests;
+      this.retests.filter((e: any) => e.cc.includes(this.search) || e.names.includes(this.search)) : this.retests;
+  }
+
+  excel() {
+    this.testService.getExcel().subscribe(
+      (excelBlob: Blob) => {
+        const blob = new Blob([excelBlob], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Proceso Post Psicosocial.xlsx';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+    );
   }
 
 

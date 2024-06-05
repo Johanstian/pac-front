@@ -42,11 +42,11 @@ export class TestService {
 
   getAllRetests(page: number, limit: number): Observable<any> {
     const params = new HttpParams().set('page', page).set('limit', limit);
-    return this.httpClient.get<any>(this.devUrl + this.proUrl + '/retests/getAllRetests', {params: params});
+    return this.httpClient.get<any>(this.devUrl + this.proUrl + '/retests/getAllRetests', { params: params });
   }
 
-  getExcel():Observable<any> {
-    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+  getExcel(): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = {
       headers: headers,
       responseType: 'blob' as 'json',
@@ -54,6 +54,6 @@ export class TestService {
 
     return this.httpClient.get<any>(this.devUrl + this.proUrl + '/retests/exportToExcel', options) as Observable<Blob>;
   }
-  
+
 
 }
