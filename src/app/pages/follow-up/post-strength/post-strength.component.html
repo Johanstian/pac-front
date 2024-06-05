@@ -2,7 +2,14 @@
     <nb-card-header>
         <div class="row">
             <div class="col">
-                <h5>Post Fortalecimiento</h5>
+                <h5>Fortalecimiento Antiguos</h5>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-5">
+                <label for="codigo" class="label"></label>
+                <input placeholder="Cédula o nombres..." type="text" nbInput [(ngModel)]="search" (keyup)="getList()" fullWidth>
             </div>
         </div>
     </nb-card-header>
@@ -10,25 +17,27 @@
     <nb-card-body>
         <div class="row">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
-                <div class="scroll-container-tables">
+                <div class="scroll-container">
                     <div class="table-full-width text-center">
                         <div class="lotti-table shadow p-3 mb-5 rounded">
                             <div class="lotti-row header">
                                 <div class="cell b-t-left">Documento</div>
                                 <div class="cell">Nombres</div>
                                 <div class="cell">Test</div>
+                                <div class="cell">Estado</div>
                                 <div class="cell b-t-right">Fortalecimiento</div>
                             </div>
 
-                            <div class="lotti-row" *ngFor="let enlistment of enlistments">
-                                <div class="cell">{{enlistment.cc}}</div>
-                                <div class="cell">{{enlistment.names}}</div>
-                                <div class="cell">{{enlistment.test}}</div>
+                            <div class="lotti-row" *ngFor="let retest of getList()">
+                                <div class="cell">{{retest.cc}}</div>
+                                <div class="cell">{{retest.names | titlecase}}</div>
+                                <div class="cell">{{retest.test}}</div>
+                                <div class="cell">{{retest.status}}</div>
                                 <div class="cell">
-                                    <button nbButton ghost hero status="primary" [routerLink]="['/pages/follow-up/post-strength-update/', enlistment.cc]" [disabled]="enlistment?.status === 'Concluido'">
+                                    <button nbButton ghost hero status="primary" [routerLink]="['/pages/follow-up/post-strength-update/', retest.cc]" [disabled]="retest?.status === 'Concluido'">
                                         <nb-icon icon="checkmark-outline"></nb-icon>
                                     </button>
-                                    <button *ngIf="enlistment.status === 'Concluido'" nbButton ghost hero status="danger" class="m-l-5" (click)="pdfReport(enlistment.cc)">
+                                    <button *ngIf="retest.status === 'Concluido'" nbButton ghost hero status="danger" class="m-l-5" (click)="pdfReport(retest.cc)" nbTooltip=".PDF" nbTooltipPlacement="bottom">
                                         <nb-icon icon="file-outline"></nb-icon>
                                     </button>
                                 </div>
@@ -37,12 +46,12 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="!enlistments || enlistments.length === 0" style="text-align: center;">
+            <div *ngIf="!retests || retests.length === 0" style="text-align: center;">
                 <p>No hay información disponible.</p>
             </div>
         </div>
-        <strong>Resultados: {{ enlistments?.length }} </strong>
-        <div class="row justify-content-between">
+        <strong>Resultados: {{ this.retests?.length }} </strong>
+        <!-- <div class="row justify-content-between">
             <div class="col-auto">
                 <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="size" [maxSize]="3"
                     [rotate]="true" [ellipses]="false" [boundaryLinks]="true" (pageChange)="nextPage()">
@@ -55,13 +64,15 @@
                     <nb-option [value]="15">Mostrar 15</nb-option>
                 </nb-select>
             </div>
-        </div>
+        </div> -->
     </nb-card-body>
 
     <nb-card-footer>
         <div class="row">
             <div class="col">
-                <!-- <button nbButton status="primary" (click)="create(dialog)" style="float: right;">Programar</button> -->
+                <button class="s-w-130" style="float: right;" nbButton status="success" (click)="excel()">Excel
+                    <nb-icon icon="download"></nb-icon>
+                </button>
             </div>
         </div>
     </nb-card-footer>

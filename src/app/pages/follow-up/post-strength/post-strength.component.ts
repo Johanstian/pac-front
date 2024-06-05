@@ -23,7 +23,8 @@ export class PostStrengthComponent implements OnInit {
   collectionSize: number = 0;
   loading: boolean = false;
   cc: any;
-  enlistments: any;
+  retests: any;
+  search: any = '';
 
   constructor(
     private alertService: AlertService,
@@ -65,19 +66,30 @@ export class PostStrengthComponent implements OnInit {
     this.nbDialogRef.close()
   }
 
-  console() {
-  }
-
   getInterviews() {
-    this.psicosocialService.getAllPsicosocial().subscribe({
+    this.psicosocialService.getAllPsico().subscribe({
       next: (data) => {
-        this.enlistments = data.enlistment;
+        console.log('data', data)
+        this.retests = data.retests
+        console.log('this.retests', this.retests)
         this.collectionSize = data.totalPages
       },
-       error: () => {
-       }
+      error: () => {
+      }
     })
   }
+
+  // getInterviews() {
+  //   this.psicosocialService.getAllPsicosocial().subscribe({
+  //     next: (data) => {
+  //       this.enlistments = data.enlistment;
+  //       console.log('this.enlistments', this.enlistments)
+  //       this.collectionSize = data.totalPages
+  //     },
+  //     error: () => {
+  //     }
+  //   })
+  // }
 
   nextPage() {
     this.getInterviews();
@@ -108,6 +120,25 @@ export class PostStrengthComponent implements OnInit {
         cc: cc
       }
     })
+  }
+
+  getList() {
+    return this.search !== '' ? this.retests.filter((e: any) => e.cc.toLocaleString().includes(this.search) || e.names.includes(this.search)) : this.retests;
+  }
+
+  excel() {
+    this.psicosocialService.getExcel().subscribe(
+      (excelBlob: Blob) => {
+        const blob = new Blob([excelBlob], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Proceso Psicosocial Antiguos.xlsx';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+    );
   }
 
 

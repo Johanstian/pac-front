@@ -14,6 +14,7 @@ export class FollowUpListComponent {
   selectedItem: number = 10;
   collectionSize: number = 0;
   loading: boolean = false;
+  search: any = '';
 
   constructor(private testService: TestService) {
 
@@ -24,9 +25,11 @@ export class FollowUpListComponent {
   }
 
   getAllArlsByPaging() {
-    this.testService.getAllRetests(this.page, this.size).subscribe({
+    this.testService.getAll().subscribe({
       next: (data) => {
+        console.log('data', data)
         this.retests = data.retests
+        console.log(' this.retests', this.retests)
         this.collectionSize = data.totalPages;
       },
       error: () => {
@@ -39,18 +42,22 @@ export class FollowUpListComponent {
   }
 
   excel() {
-    this.testService.getExcel().subscribe(
+    this.testService.getListForExcel().subscribe(
       (excelBlob: Blob) => {
         const blob = new Blob([excelBlob], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'arls.xlsx';
+        a.download = 'Listado antiguos.xlsx';
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
       },
     );
+  }
+
+  getList() {
+    return this.search !== '' ? this.retests.filter((a: any) => a.cc.includes(this.search) || a.names.includes(this.search)) : this.retests
   }
 
 }

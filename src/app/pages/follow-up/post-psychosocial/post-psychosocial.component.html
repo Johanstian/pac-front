@@ -2,7 +2,7 @@
     <nb-card-header>
         <div class="row">
             <div class="col">
-                <h5>Proceso Post Psicosocial</h5>
+                <h5>Proceso Psicosocial Antiguos</h5>
             </div>
         </div>
         <br>
@@ -10,7 +10,6 @@
             <div class="col-md-5">
                 <label for="codigo" class="label"></label>
                 <input placeholder="Cédula o nombres..." type="text" nbInput [(ngModel)]="search" (keyup)="getList()" fullWidth>
-
             </div>
         </div>
     </nb-card-header>
@@ -34,7 +33,9 @@
                                 <div class="cell">{{retest.type}}</div>
                                 <div class="cell">{{retest.status}}</div>
                                 <div class="cell">
-                                    <button nbButton ghost hero status="primary" [routerLink]="['/pages/follow-up/post-psychosocial-update/', retest.cc]" [disabled]="retest.status === 'Concluido'">
+                                    <button nbButton ghost hero status="primary"
+                                        [routerLink]="['/pages/follow-up/post-psychosocial-update/', retest.cc]"
+                                        [disabled]="retest.status === 'Concluido'">
                                         <nb-icon icon="checkmark-outline"></nb-icon>
                                     </button>
                                 </div>
@@ -44,29 +45,15 @@
                 </div>
             </div>
         </div>
-        <!-- <strong>Resultados: {{ collectionSize }} </strong> -->
-        <!-- <div class="row justify-content-between">
-            <div class="col-auto">
-                <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="size" [maxSize]="3"
-                    [rotate]="true" [ellipses]="false" [boundaryLinks]="true" (pageChange)="nextPage()">
-                    <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
-                </ngb-pagination>
-            </div>
-            <div class="col-auto">
-                <nb-select [(selected)]="selectedItem" [(ngModel)]="size" (ngModelChange)="nextPage()">
-                    <nb-option [value]="10">Mostrar 10</nb-option>
-                    <nb-option [value]="15">Mostrar 15</nb-option>
-                </nb-select>
-            </div>
-        </div> -->
+        <strong>Resultados: {{ this.retests?.length }} </strong>
     </nb-card-body>
 
     <nb-card-footer>
         <div class="row">
             <div class="col">
                 <button class="s-w-130" style="float: right;" nbButton status="success" (click)="excel()">Excel
-                <nb-icon icon="download"></nb-icon>
-            </button>
+                    <nb-icon icon="download"></nb-icon>
+                </button>
             </div>
         </div>
     </nb-card-footer>
@@ -84,9 +71,10 @@
                 <div class="row">
                     <div class="col-4">
                         <label class="label" for="">Fecha</label><br>
-                        <!-- <input type="datetime-local" formControlName="date"> -->
-                        <input nbInput fullWidth placeholder="" [nbDatepicker]="dateTimePicker" formControlName="date" status="primary">
-                        <nb-date-timepicker #dateTimePicker locale="'es-CO'" format="dd/MM/yyyy HH:mm"></nb-date-timepicker>
+                        <input nbInput fullWidth placeholder="" [nbDatepicker]="dateTimePicker" formControlName="date"
+                            status="primary">
+                        <nb-date-timepicker #dateTimePicker locale="'es-CO'"
+                            format="dd/MM/yyyy HH:mm"></nb-date-timepicker>
 
                     </div>
                     <div class="col-4">
@@ -137,7 +125,8 @@
             <div class="row">
                 <div class="col center">
                     <button nbButton status="basic" (click)="ref.close()" class="t-t-c">Cerrar</button>
-                    <button [nbSpinner]="loading" nbSpinnerStatus="primary" nbButton status="primary" class="m-l-10 t-t-c" [disabled]="dataForm.invalid">Crear</button>
+                    <button [nbSpinner]="loading" nbSpinnerStatus="primary" nbButton status="primary"
+                        class="m-l-10 t-t-c" [disabled]="dataForm.invalid">Crear</button>
                 </div>
             </div>
         </nb-card-footer>

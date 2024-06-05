@@ -70,6 +70,7 @@ export class PostPsychosocialComponent implements OnInit {
     this.testService.getAll().subscribe({
       next: (data) => {
         this.retests = data.retests;
+        console.log('retests', this.retests)
         this.collectionSize = data.totalPages;
       },
       error: (err) => {
@@ -106,8 +107,7 @@ export class PostPsychosocialComponent implements OnInit {
   }
 
   getList() {
-    return this.search !== '' ?
-      this.retests.filter((e: any) => e.cc.includes(this.search) || e.names.includes(this.search)) : this.retests;
+    return this.search !== '' ? this.retests.filter((e: any) => e.cc.includes(this.search) || e.names.includes(this.search)) : this.retests;
   }
 
   excel() {
@@ -117,7 +117,7 @@ export class PostPsychosocialComponent implements OnInit {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'Proceso Post Psicosocial.xlsx';
+        a.download = 'Proceso Psicosocial Antiguos.xlsx';
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);

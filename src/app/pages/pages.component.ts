@@ -53,7 +53,7 @@ export class PagesComponent {
           ]
         },
         {
-          title: 'Alistamiento',
+          title: 'PAC Nuevos',
           icon: 'swap-outline',
           hidden: !isAdmin && !userRoles.includes('Antiguo'),
           children: [
@@ -72,11 +72,6 @@ export class PagesComponent {
               link: '/pages/enlistment/strength',
               hidden: !isAdmin && !userRoles.includes('Antiguo')
             },
-            // {
-            //   title: 'Antiguos',
-            //   link: '/pages/enlistment/enlistment-stage-permanent',
-            //   hidden: !isAdmin && !userRoles.includes('Antiguo'),
-            // },
             {
               title: 'Técnico',
               link: '/pages/enlistment/induction',
@@ -85,7 +80,7 @@ export class PagesComponent {
           ],
         },
         {
-          title: 'Seguimiento',
+          title: 'PAC Antiguos',
           icon: 'sync-outline',
           hidden: !isAdmin && !userRoles.includes('Tech') && !userRoles.includes('Antiguo'),
           children: [
@@ -104,11 +99,6 @@ export class PagesComponent {
               link: '/pages/follow-up/post-strength',
               hidden: !isAdmin && !userRoles.includes('Antiguo')
             },
-            // {
-            //   title: 'Antiguos',
-            //   link: '/pages/enlistment/enlistment-stage-permanent',
-            //   hidden: !isAdmin && !userRoles.includes('Antiguo'),
-            // },
           ],
         },
         {
@@ -161,12 +151,12 @@ export class PagesComponent {
           hidden: !userRoles.includes('Admin') && !userRoles.includes('Antiguo'),
           children: [
             {
-              title: 'Individuales',
+              title: 'Nuevos',
               link: '/pages/results/individual',
               hidden: !userRoles.includes('Admin') && !userRoles.includes('Antiguo')
             },
             {
-              title: 'Post-Individuales',
+              title: 'Antiguos',
               link: '/pages/results/post-individual',
               hidden: !userRoles.includes('Admin') && !userRoles.includes('Antiguo')
             },

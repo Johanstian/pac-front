@@ -51,8 +51,16 @@ export class TestService {
       headers: headers,
       responseType: 'blob' as 'json',
     };
-
     return this.httpClient.get<any>(this.devUrl + this.proUrl + '/retests/exportToExcel', options) as Observable<Blob>;
+  }
+
+  getListForExcel(): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const options = {
+      headers: headers,
+      responseType: 'blob' as 'json',
+    };
+    return this.httpClient.get<any>(this.devUrl + this.proUrl + '/retests/getExcelList', options) as Observable<Blob>;
   }
 
 
