@@ -69,27 +69,13 @@ export class PostStrengthComponent implements OnInit {
   getInterviews() {
     this.psicosocialService.getAllPsico().subscribe({
       next: (data) => {
-        console.log('data', data)
         this.retests = data.retests
-        console.log('this.retests', this.retests)
         this.collectionSize = data.totalPages
       },
       error: () => {
       }
     })
   }
-
-  // getInterviews() {
-  //   this.psicosocialService.getAllPsicosocial().subscribe({
-  //     next: (data) => {
-  //       this.enlistments = data.enlistment;
-  //       console.log('this.enlistments', this.enlistments)
-  //       this.collectionSize = data.totalPages
-  //     },
-  //     error: () => {
-  //     }
-  //   })
-  // }
 
   nextPage() {
     this.getInterviews();

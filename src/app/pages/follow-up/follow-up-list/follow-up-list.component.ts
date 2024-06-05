@@ -27,9 +27,7 @@ export class FollowUpListComponent {
   getAllArlsByPaging() {
     this.testService.getAll().subscribe({
       next: (data) => {
-        console.log('data', data)
         this.retests = data.retests
-        console.log(' this.retests', this.retests)
         this.collectionSize = data.totalPages;
       },
       error: () => {

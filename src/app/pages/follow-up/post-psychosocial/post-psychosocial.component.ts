@@ -70,7 +70,6 @@ export class PostPsychosocialComponent implements OnInit {
     this.testService.getAll().subscribe({
       next: (data) => {
         this.retests = data.retests;
-        console.log('retests', this.retests)
         this.collectionSize = data.totalPages;
       },
       error: (err) => {

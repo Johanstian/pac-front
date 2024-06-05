@@ -46,7 +46,7 @@ export class PagesComponent {
               hidden: !isAdmin && !userRoles.includes('Arlfomento'),
             },
             {
-              title: 'ARL',
+              title: 'Listado ARL',
               link: '/pages/arl/arl-list',
               hidden: !isAdmin,
             }
@@ -160,11 +160,11 @@ export class PagesComponent {
               link: '/pages/results/post-individual',
               hidden: !userRoles.includes('Admin') && !userRoles.includes('Antiguo')
             },
-            {
-              title: 'Globales',
-              link: '/pages/results/global',
-              hidden: !userRoles.includes('Admin')
-            },
+            // {
+            //   title: 'Globales',
+            //   link: '/pages/results/global',
+            //   hidden: !userRoles.includes('Admin')
+            // },
           ],
         },
       ],
