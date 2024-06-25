@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { LegendPosition } from '@swimlane/ngx-charts';
 import { AlertService } from 'src/app/core/services/alert.service';
+import { EnlistmentService } from 'src/app/core/services/enlistment.service';
 import { TestService } from 'src/app/core/services/test.service';
 declare const html2pdf: any;
 
@@ -67,16 +68,19 @@ export class IndividualComponent {
   tdmStringResult: any;
   aydStringResult: any;
   currentDate: any;
+  enlistments: any;
+  search: any = '';
 
   constructor(
     private alertService: AlertService,
+    private enlistmentService: EnlistmentService,
     private testService: TestService
   ) {
     this.currentDate = new Date().toLocaleString();
   }
 
   ngOnInit(): void {
-
+    this.getEnlist();
   }
 
   searching() {
@@ -241,6 +245,21 @@ export class IndividualComponent {
     } else {
       return 'Moderadamente.';
     }
+  }
+
+  getEnlist() {
+    this.enlistmentService.getAll().subscribe({
+      next: (data) => {
+        this.enlistments = data
+      },
+      error: () => {
+      }
+    })
+  }
+
+  getList() {
+    const searchLower = this.search.toLowerCase();
+    return this.search !== '' ? this.enlistments.filter((a: any)=> a.cc.toLocaleString().toLowerCase().includes(searchLower) || a.names.toLocaleString().toLowerCase().includes(searchLower)) : [];
   }
 
 

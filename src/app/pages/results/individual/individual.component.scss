@@ -8,3 +8,9 @@
 // ::ng-deep .legend-wrap ul.legend-labels {
 //     min-width: 300%;
 // }
+
+.scroll-container {
+    max-height: 200px;
+    width: 100%;
+    overflow-y: scroll;
+}

@@ -5,18 +5,52 @@
     <nb-card-body>
         <div>
             <div class="row">
-                <div class="col-3">
+                <div class="col-md-3">
                     <div appearance="outline" class="example-form-field">
-                        <label class="label" for="">Cédula</label>
-                        <input nbInput fullWidth type="number" [(ngModel)]="value">
+                        <input nbInput fullWidth type="number" [(ngModel)]="value" placeholder="Cédula...">
                     </div>
                 </div>
-                <div class="col-md-3 d-flex align-items-end">
+                <div class="col-md-3 justify-content-center">
                     <button nbButton status="basic" (click)="reset()">Limpiar</button>
-                    <button nbButton status="primary" class="m-l-10" [disabled]="!value" (click)="searching()">Buscar</button>
+                    <button nbButton status="primary" class="m-l-5" [disabled]="!value" (click)="searching()">Buscar</button>
+                </div>
+
+                <div class="col-md-6">
+                    <input type="text" nbInput fullWidth [(ngModel)]="search" (keyup)="getList()" placeholder="Digita la cédula o los nombres aquí...">
+                    <br><br>
+                    <div class="scroll-container">
+                        <table class="table-primary">
+                            <!-- <thead style="width: 150px;">
+                                <tr style="width: 150px;">
+                                    <th style="width: 150px;">Documento</th>
+                                    <th>Nombres</th>
+                                </tr>
+                            </thead> -->
+                            <tbody *ngFor="let enlistment of getList()">
+                                <tr style="width: 150px;">
+                                    <td style="width: 150px;">{{enlistment.cc}}</td>
+                                    <td>{{enlistment.names}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- <div class="scroll-container">
+                        <div class="table-full-width">
+                            <div class="lotti-table shadow p-3 mb-5 rounded">
+                                <div class="lotti-row header">
+                                    <div class="cell b-t-left">Documento</div>
+                                    <div class="cell b-t-right">Nombres</div>
+                                </div>
+    
+                                <div class="lotti-row" *ngFor="let enlistment of getList()">
+                                    <div class="cell">{{enlistment.cc}}</div>
+                                    <div class="cell">{{enlistment.names | titlecase}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
                 </div>
             </div>
-            
 
             <div class="row" style="margin-top: 50px;">
                 <div *ngIf="loading && result">

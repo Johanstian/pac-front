@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { LegendPosition } from '@swimlane/ngx-charts';
 import { AlertService } from 'src/app/core/services/alert.service';
+import { PsicosocialService } from 'src/app/core/services/psicosocial.service';
 import { TestService } from 'src/app/core/services/test.service';
 declare const html2pdf: any;
 
@@ -67,16 +68,19 @@ export class PostIndividualComponent {
   tdmStringResult: any;
   aydStringResult: any;
   currentDate: any;
+  retests: any;
+  search: any = '';
 
   constructor(
     private alertService: AlertService,
-    private testService: TestService
+    private testService: TestService,
+    private psicosocialService: PsicosocialService
   ) {
     this.currentDate = new Date().toLocaleString();
   }
 
   ngOnInit(): void {
-
+    this.getPost();
   }
 
   searching() {
@@ -241,6 +245,21 @@ export class PostIndividualComponent {
     } else {
       return 'Moderadamente.';
     }
+  }
+
+  getPost() {
+    this.psicosocialService.getAllPsico().subscribe({
+      next: (data) => {
+        this.retests = data.retests
+      },
+      error: () => {
+      }
+    })
+  }
+
+  getList() {
+    const searchLower = this.search.toLowerCase();
+    return this.search !== '' ? this.retests.filter((a: any) => a.cc.toLocaleString().toLowerCase().includes(searchLower) || a.names.toLocaleString().toLowerCase().includes(searchLower)) : [];
   }
 
 

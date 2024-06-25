@@ -1,10 +1,10 @@
 <nb-card>
     <nb-card-header>
-        <h4>Resultados Post Individuales</h4>
+        <h4>Resultados Individuales Antiguos</h4>
     </nb-card-header>
     <nb-card-body>
         <div>
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-3">
                     <div appearance="outline" class="example-form-field">
                         <label class="label" for="">Cédula</label>
@@ -14,6 +14,39 @@
                 <div class="col-md-3 d-flex align-items-end">
                     <button nbButton status="basic" (click)="reset()">Limpiar</button>
                     <button nbButton status="primary" class="m-l-10" [disabled]="!value" (click)="searching()">Buscar</button>
+                </div>
+            </div> -->
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div appearance="outline" class="example-form-field">
+                        <input nbInput fullWidth type="number" [(ngModel)]="value" placeholder="Cédula...">
+                    </div>
+                </div>
+                <div class="col-md-3 justify-content-center">
+                    <button nbButton status="basic" (click)="reset()">Limpiar</button>
+                    <button nbButton status="primary" class="m-l-5" [disabled]="!value" (click)="searching()">Buscar</button>
+                </div>
+
+                <div class="col-md-6">
+                    <input type="text" nbInput fullWidth [(ngModel)]="search" (keyup)="getList()" placeholder="Digita la cédula o los nombres aquí...">
+                    <br><br>
+                    <div class="scroll-container">
+                        <table class="table-primary">
+                            <!-- <thead style="width: 150px;">
+                                <tr style="width: 150px;">
+                                    <th style="width: 150px;">Documento</th>
+                                    <th>Nombres</th>
+                                </tr>
+                            </thead> -->
+                            <tbody *ngFor="let enlistment of getList()">
+                                <tr style="width: 150px;">
+                                    <td style="width: 150px;">{{enlistment.cc}}</td>
+                                    <td>{{enlistment.names}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             
