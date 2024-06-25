@@ -23,6 +23,7 @@ export class StrengthComponent {
   loading: boolean = false;
   cc: any;
   enlistments: any;
+  search: any = '';
 
   constructor(
     private alertService: AlertService,
@@ -35,24 +36,8 @@ export class StrengthComponent {
   }
 
   ngOnInit(): void {
-    // this.initForm();
     this.getInterviews();
   }
-
-  // initForm() {
-  //   this.dataForm = this.formBuilder.group({
-  //     names: ['', Validators.required],
-  //     cc: ['', Validators.required],
-  //     test: ['', Validators.required],
-  //     workExperience: ['', Validators.required],
-  //     sanity: ['', Validators.required],
-  //     aptitudes: ['', Validators.required],
-  //     nonVerbal: ['', Validators.required],
-  //     finalReport: ['', Validators.required],
-  //     strength: ['', Validators.required],
-  //     techConcept: ['', Validators.required],
-  //   })
-  // }
 
   create(dialog: any) {
     this.nbDialogRef = this.nbDialogService.open(dialog)
@@ -62,17 +47,13 @@ export class StrengthComponent {
     this.nbDialogRef.close()
   }
 
-  console() {
-  }
-
   getInterviews() {
-    this.enlistmentService.getAllEnlistment().subscribe({
+    this.enlistmentService.getAll().subscribe({
       next: (data) => {
-        this.enlistments = data.enlistment;
-        this.collectionSize = data.totalPages
+        this.enlistments = data
       },
-       error: () => {
-       }
+      error: () => {
+      }
     })
   }
 
@@ -105,6 +86,10 @@ export class StrengthComponent {
         cc: cc
       }
     })
+  }
+
+  getList() {
+    return this.search !== '' ? this.enlistments.filter((a: any) => a.cc.toLocaleString().includes(this.search) || a.names.includes(this.search)) : this.enlistments
   }
 
 

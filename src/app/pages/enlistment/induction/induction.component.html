@@ -5,12 +5,19 @@
                 <h5>Técnico</h5>
             </div>
         </div>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="" class="label">Buscar</label>
+                <input nbInput fullWidth type="text" placeholder="Cédula o nombres..." [(ngModel)]="search" (keyup)="getList()">
+            </div>
+        </div>
     </nb-card-header>
 
     <nb-card-body>
         <div class="row">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
-                <div class="scroll-container-tables">
+                <div class="scroll-container">
                     <div class="table-full-width text-center">
                         <div class="lotti-table shadow p-3 mb-5 rounded">
                             <div class="lotti-row header">
@@ -20,7 +27,7 @@
                                 <div class="cell b-t-right">Concepto</div>
                             </div>
 
-                            <div class="lotti-row" *ngFor="let enlistment of enlistments">
+                            <div class="lotti-row" *ngFor="let enlistment of getList()">
                                 <div class="cell">{{enlistment.cc}}</div>
                                 <div class="cell">{{enlistment.names}}</div>
                                 <div class="cell">{{enlistment.test}}</div>
@@ -40,8 +47,9 @@
                 <p>No hay información disponible.</p>
             </div>
         </div>
+        <br>
         <strong>Resultados: {{ enlistments?.length }} </strong>
-        <div class="row justify-content-between">
+        <!-- <div class="row justify-content-between">
             <div class="col-auto">
                 <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="size" [maxSize]="3"
                     [rotate]="true" [ellipses]="false" [boundaryLinks]="true" (pageChange)="nextPage()">
@@ -54,7 +62,7 @@
                     <nb-option [value]="15">Mostrar 15</nb-option>
                 </nb-select>
             </div>
-        </div>
+        </div> -->
     </nb-card-body>
 
     <nb-card-footer>

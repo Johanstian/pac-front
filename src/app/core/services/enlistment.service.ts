@@ -51,5 +51,9 @@ export class EnlistmentService {
     return this.httpClient.get<any>(this.devUrl + this.proUrl + '/enlistment/exportToExcel', options) as Observable<Blob>;
   }
 
+  getAll(): Observable<any> {
+    return this.httpClient.get<any>(this.devUrl + this.proUrl + '/enlistment/getAll');
+  }
+
 
 }
