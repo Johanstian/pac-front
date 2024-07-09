@@ -37,6 +37,10 @@ const routes: Routes = [
         loadChildren: () => import('./follow-up/follow-up.module').then(m => m.FollowUpModule)
       },
       {
+        path: 'undertake',
+        loadChildren: () => import('./undertake/undertake.module').then(m => m.UndertakeModule)
+      },
+      {
         path: '**', pathMatch: 'full', redirectTo: 'home'
       }
     ]

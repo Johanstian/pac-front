@@ -36,6 +36,11 @@ export class PagesComponent {
           home: true,
         },
         {
+          title: 'Emprende',
+          link: '/pages/undertake',
+          icon: 'layout-outline',
+        },
+        {
           title: 'ARL',
           hidden: !isAdmin && !userRoles.includes('Arlfomento'),
           icon: 'activity-outline',
