@@ -39,6 +39,7 @@ export class PagesComponent {
           title: 'Emprende',
           link: '/pages/undertake',
           icon: 'layout-outline',
+          hidden: !isAdmin,
         },
         {
           title: 'ARL',
