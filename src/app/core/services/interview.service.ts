@@ -15,16 +15,20 @@ export class InterviewService {
 
   }
 
-  create(request: any):Observable<any> {
+  create(request: any): Observable<any> {
     return this.httpClient.post(this.devUrl + this.proUrl + '/interview/createInterview', request);
   }
 
-  getAllInterviews(page: number, limit: number = 5):Observable<any> {
+  getAllInterviews(page: number, limit: number = 5): Observable<any> {
     const params = new HttpParams().set('page', page).set('limit', limit);
-    return this.httpClient.get<any>(this.devUrl + this.proUrl + '/interview/getAllInterviews', {params: params});
+    return this.httpClient.get<any>(this.devUrl + this.proUrl + '/interview/getAllInterviews', { params: params });
   }
 
-  getInterviewsByCC(cc: number):Observable<any> {
+  allInterviews(): Observable<any> {
+    return this.httpClient.get<any>(this.devUrl + this.proUrl + '/interview/getAll');
+  }
+
+  getInterviewsByCC(cc: number): Observable<any> {
     return this.httpClient.get<any>(this.devUrl + this.proUrl + '/tests/getTestByCC/' + cc);
   }
 
@@ -36,7 +40,7 @@ export class InterviewService {
     return this.httpClient.put<any>(this.devUrl + this.proUrl + '/interview/updateInterview/' + cc, request)
   }
 
-  getExcel():Observable<any> {
+  getExcel(): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
@@ -44,7 +48,6 @@ export class InterviewService {
       headers: headers,
       responseType: 'blob' as 'json',
     };
-
     return this.httpClient.get<any>(this.devUrl + this.proUrl + '/interview/exportToExcel', options) as Observable<Blob>;
   }
 

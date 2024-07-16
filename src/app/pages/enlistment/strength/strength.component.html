@@ -30,7 +30,7 @@
 
                             <div class="lotti-row" *ngFor="let enlistment of getList()">
                                 <div class="cell">{{enlistment.cc}}</div>
-                                <div class="cell">{{enlistment.names}}</div>
+                                <div class="cell">{{enlistment.names | titlecase}}</div>
                                 <div class="cell">{{enlistment.test}}</div>
                                 <div class="cell">
                                     <button nbButton ghost hero status="primary" [routerLink]="['/pages/enlistment/strength-update/', enlistment.cc]" [disabled]="enlistment?.status === 'Concluido'">

@@ -5,17 +5,25 @@
                 <h5>Proceso Psicosocial</h5>
             </div>
         </div>
+        <br>
+        <div class="row">
+            <div class="col-md-5">
+                <label class="label">Buscar</label>
+                <input placeholder="Cédula o nombres..." type="text" nbInput [(ngModel)]="search" (keyup)="getList()" fullWidth>
+
+            </div>
+        </div>
     </nb-card-header>
 
     <nb-card-body>
         <div class="row">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
-                <div class="scroll-container-tables">
+                <div class="scroll-container">
                     <div class="table-full-width text-center">
                         <div class="lotti-table shadow p-3 mb-5 rounded">
                             <div class="lotti-row header">
                                 <div class="cell b-t-left">Fecha</div>
-                                <div class="cell">Documento</div>
+                                <div class="cell">Cédula</div>
                                 <div class="cell">Nombres</div>
                                 <div class="cell">Psicóloga/o</div>
                                 <!-- <div class="cell">Test</div> -->
@@ -23,21 +31,20 @@
                                 <div class="cell">Estado</div>
                                 <div class="cell b-t-right"></div>
                             </div>
-                            <div class="lotti-row" *ngFor="let interview of interviews">
+                            <div class="lotti-row" *ngFor="let interview of getList()">
                                 <div class="cell">{{interview.date | date:'yyyy-MM-dd HH:mm'}}</div>
                                 <div class="cell">{{interview.cc}}</div>
-                                <div class="cell">{{interview.names}}</div>
+                                <div class="cell">{{interview.names | titlecase}}</div>
                                 <div class="cell">{{interview.interview}}</div>
                                 <!-- <div class="cell">{{interview.test}}</div> -->
                                 <!-- <div class="cell">{{interview.review}}</div> -->
                                 <div class="cell">{{interview.status}}</div>
                                 <div class="cell">
-                                    <button nbButton ghost hero status="primary" [routerLink]="['/pages/enlistment/enlistment-stage/', interview.cc]" [disabled]="interview.status === 'Concluido'">
+                                    <button nbButton ghost hero status="primary"
+                                        [routerLink]="['/pages/enlistment/enlistment-stage/', interview.cc]"
+                                        [disabled]="interview.status === 'Concluido'">
                                         <nb-icon icon="checkmark-outline"></nb-icon>
                                     </button>
-                                    <!-- <button *ngIf="interview.status === 'Concluido  '" nbButton ghost hero status="danger" class="m-l-5">
-                                        <nb-icon icon="file-outline"></nb-icon>
-                                    </button> -->
                                 </div>
                             </div>
                         </div>
@@ -46,7 +53,7 @@
             </div>
         </div>
         <strong>Resultados: {{ interviews?.length }} </strong>
-        <div class="row justify-content-between">
+        <!-- <div class="row justify-content-between">
             <div class="col-auto">
                 <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="size" [maxSize]="3"
                     [rotate]="true" [ellipses]="false" [boundaryLinks]="true" (pageChange)="nextPage()">
@@ -55,23 +62,13 @@
             </div>
             <div class="col-auto">
                 <nb-select [(selected)]="selectedItem" [(ngModel)]="size" (ngModelChange)="nextPage()">
-                    <!-- <nb-option [value]="5">Mostrar 5</nb-option> -->
                     <nb-option [value]="10">Mostrar 10</nb-option>
                     <nb-option [value]="15">Mostrar 15</nb-option>
                 </nb-select>
             </div>
-        </div>
+        </div> -->
     </nb-card-body>
-
-    <!-- <nb-card-footer>
-        <div class="row">
-            <div class="col">
-                <button nbButton status="primary" (click)="create(dialog)" style="float: right;">Programar</button>
-            </div>
-        </div>
-    </nb-card-footer> -->
 </nb-card>
-
 
 <ng-template #dialog let-ref="dialogRef">
     <nb-card>
@@ -85,8 +82,10 @@
                     <div class="col-4">
                         <label class="label" for="">Fecha</label><br>
                         <!-- <input type="datetime-local" formControlName="date"> -->
-                        <input nbInput fullWidth placeholder="" [nbDatepicker]="dateTimePicker" formControlName="date" status="primary">
-                        <nb-date-timepicker #dateTimePicker locale="'es-CO'" format="dd/MM/yyyy HH:mm"></nb-date-timepicker>
+                        <input nbInput fullWidth placeholder="" [nbDatepicker]="dateTimePicker" formControlName="date"
+                            status="primary">
+                        <nb-date-timepicker #dateTimePicker locale="'es-CO'"
+                            format="dd/MM/yyyy HH:mm"></nb-date-timepicker>
 
                     </div>
                     <div class="col-4">
@@ -137,7 +136,8 @@
             <div class="row">
                 <div class="col center">
                     <button nbButton status="basic" (click)="ref.close()" class="t-t-c">Cerrar</button>
-                    <button [nbSpinner]="loading" nbSpinnerStatus="primary" nbButton status="primary" class="m-l-10 t-t-c" [disabled]="dataForm.invalid" (click)="createInterview()">Crear</button>
+                    <button [nbSpinner]="loading" nbSpinnerStatus="primary" nbButton status="primary"
+                        class="m-l-10 t-t-c" [disabled]="dataForm.invalid" (click)="createInterview()">Crear</button>
                 </div>
             </div>
         </nb-card-footer>

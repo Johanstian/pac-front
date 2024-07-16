@@ -1,5 +1,5 @@
 import { Component, OnInit, Optional } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { InterviewService } from 'src/app/core/services/interview.service';
@@ -20,6 +20,7 @@ export class EnlistmentStageComponent implements OnInit {
   collectionSize: number = 0;
   loading: boolean = false;
   tests: any;
+  search = '';
 
   constructor(
     private alertService: AlertService,
@@ -33,24 +34,8 @@ export class EnlistmentStageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.initForm();
     this.getInterviews();
   }
-
-  // initForm() {
-  //   this.dataForm = this.formBuilder.group({
-  //     names: ['', Validators.required],
-  //     cc: ['', Validators.required],
-  //     test: ['', Validators.required],
-  //     workExperience: ['', Validators.required],
-  //     sanity: ['', Validators.required],
-  //     aptitudes: ['', Validators.required],
-  //     nonVerbal: ['', Validators.required],
-  //     finalReport: ['', Validators.required],
-  //     strength: ['', Validators.required],
-  //     techConcept: ['', Validators.required],
-  //   })
-  // }
 
   create(dialog: any) {
     this.nbDialogRef = this.nbDialogService.open(dialog)
@@ -60,23 +45,35 @@ export class EnlistmentStageComponent implements OnInit {
     this.nbDialogRef.close()
   }
 
-  console() {
-  }
+  // getInterviews() {
+  //   this.interviewService.getAllInterviews(this.page, this.size).subscribe({
+  //     next: (data) => {
+  //       this.interviews = data.interviews
+  //         .filter((interview: any) => interview.initialInterview === "yes")
+  //         .sort((a: any, b: any) => {
+  //           return new Date(b.date).getTime() - new Date(a.date).getTime();
+  //         });
+  //       this.collectionSize = data.totalPages;
+  //     },
+  //     error: (err) => {
+  //     }
+  //   });
+  // }
 
   getInterviews() {
-    this.interviewService.getAllInterviews(this.page, this.size).subscribe({
-        next: (data) => {
-            this.interviews = data.interviews
-                .filter((interview: any) => interview.initialInterview === "yes")
-                .sort((a: any, b: any) => {
-                    return new Date(b.date).getTime() - new Date(a.date).getTime();
-                });
-            this.collectionSize = data.totalPages;
-        },
-        error: (err) => {
-        }
+    this.interviewService.allInterviews().subscribe({
+      next: (data) => {
+        this.interviews = data.tests
+          .filter((interview: any) => interview.initialInterview === "yes")
+          .sort((a: any, b: any) => {
+            return new Date(b.date).getTime() - new Date(a.date).getTime();
+          });
+        this.collectionSize = data.totalPages;
+      },
+      error: (err) => {
+      }
     });
-}
+  }
 
 
   getTests() {
@@ -105,6 +102,16 @@ export class EnlistmentStageComponent implements OnInit {
       }
     })
   }
+
+  getList() {
+    const searchLower = this.search.toLowerCase();  // Convertir el término de búsqueda a minúsculas
+  
+    return this.search !== '' ? this.interviews.filter((a: any) => 
+      a.cc.toString().toLowerCase().includes(searchLower) ||  // Convertir cc a cadena y a minúsculas
+      a.names.toLowerCase().includes(searchLower)  // Convertir names a minúsculas
+    ) : this.interviews;
+  }
+  
 
 
 }
