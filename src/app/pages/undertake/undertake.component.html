@@ -4,58 +4,80 @@
     </nb-card-header>
 
     <nb-card-body>
-        <div class="row">
-            <div class="col-md-6">
-                <label for="" class="label">Título</label><br>
-                <input type="text" nbInput fullWidth>
-            </div>
+        <form [formGroup]="dataForm">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="" class="label">Título</label><br>
+                    <input type="text" nbInput fullWidth formControlName="title">
+                </div>
 
-            <div class="col-md-6">
-                <label for="" class="label">Subtítulo</label><br>
-                <input type="text" nbInput fullWidth>
+                <div class="col-md-6">
+                    <label for="" class="label">Subtítulo</label><br>
+                    <input type="text" nbInput fullWidth formControlName="subtitle">
+                </div>
             </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-12">
-                <label for="" class="label">Descipción</label><br>
-                <input type="text" nbInput fullWidth>
-            </div>
-        </div>
-        <br>
-        <div class="row">
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="" class="label">E-mail</label><br>
+                    <input type="text" nbInput fullWidth formControlName="mail">
+                </div>
 
-            <div class="col-md-4">
-                <label for="" class="label">Whatsapp</label><br>
-                <input type="text" nbInput fullWidth>
+                <div class="col-md-6">
+                    <label for="" class="label">Dirección</label><br>
+                    <input type="text" nbInput fullWidth formControlName="address">
+                </div>
             </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="" class="label">Productos</label><br>
+                    <input type="text" nbInput fullWidth formControlName="products">
+                </div>
+            </div>
+            <br>
+            <div class="row">
 
-            <div class="col-md-4">
-                <label for="" class="label">Facebook</label><br>
-                <input type="text" nbInput fullWidth>
-            </div>
+                <div class="col-md-4">
+                    <label for="" class="label">Whatsapp</label><br>
+                    <input type="number" nbInput fullWidth formControlName="phone">
+                </div>
 
-            <div class="col-md-4">
-                <label for="" class="label">Instagram</label><br>
-                <input type="text" nbInput fullWidth>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-4">
-                <label for="" class="label">Imagen 1</label><br>
-                <input type="file" nbInput fullWidth>
-            </div>
+                <div class="col-md-4">
+                    <label for="" class="label">Facebook</label><br>
+                    <input type="text" nbInput fullWidth formControlName="facebook">
+                </div>
 
-            <div class="col-md-4">
-                <label for="" class="label">Imagen 2</label><br>
-                <input type="file" nbInput fullWidth>
+                <div class="col-md-4">
+                    <label for="" class="label">Instagram</label><br>
+                    <input type="text" nbInput fullWidth>
+                </div>
             </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="" class="label">Imagen 1</label><br>
+                    <input type="file" nbInput fullWidth (change)="onFileSelected($event)">
+                </div>
 
-            <div class="col-md-4">
-                <label for="" class="label">Imagen 3</label><br>
-                <input type="file" nbInput fullWidth>
+                <!-- <div class="col-md-4">
+                    <label for="" class="label">Imagen 2</label><br>
+                    <input type="file" nbInput fullWidth>
+                </div> -->
+
+                <!-- <div class="col-md-4">
+                    <label for="" class="label">Imagen 3</label><br>
+                    <input type="file" nbInput fullWidth>
+                </div> -->
             </div>
-        </div>
+        </form>
     </nb-card-body>
+
+    <nb-card-footer>
+        <div class="row">
+            <div class="col text-center">
+                <button nbButton status="primary" [disabled]="dataForm.invalid" (click)="create()">Crear</button>
+            </div>
+        </div>
+    </nb-card-footer>
 </nb-card>
