@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { UndertakeRoutingModule } from './undertake-routing.module';
 import { UndertakeComponent } from './undertake.component';
 import { ThemeModule } from 'src/app/theme/theme.module';
+import { NbDatepickerModule } from '@nebular/theme';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { ThemeModule } from 'src/app/theme/theme.module';
   imports: [
     CommonModule,
     UndertakeRoutingModule,
-    ThemeModule
+    ThemeModule,
+    NbDatepickerModule
   ]
 })
 export class UndertakeModule { }

@@ -10,6 +10,7 @@ import { GeneralService } from 'src/app/core/services/general.service';
 export class UndertakeComponent implements OnInit {
 
   dataForm!: FormGroup;
+  eventForm!: FormGroup;
   selectedFile: File | null = null;
 
   constructor(
@@ -21,6 +22,7 @@ export class UndertakeComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    this.initEventForm();
   }
 
   initForm() {
@@ -32,6 +34,14 @@ export class UndertakeComponent implements OnInit {
       products: [null, Validators.required],
       facebook: [null, Validators.required],
       mail: [null, Validators.required],
+    })
+  }
+
+  initEventForm() {
+    this.eventForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      event: ['', Validators.required],
+      date: ['', Validators.required],
     })
   }
 
@@ -64,6 +74,15 @@ export class UndertakeComponent implements OnInit {
       next: () => {
         alert('producto creado');
         this.dataForm.reset();
+      }
+    })
+  }
+
+  createTheEvent() {
+    this.generalService.createEvent(this.eventForm.value).subscribe({
+      next: () => {
+        alert('creado');
+        this.eventForm.reset();
       }
     })
   }

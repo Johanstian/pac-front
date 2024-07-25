@@ -81,3 +81,41 @@
         </div>
     </nb-card-footer>
 </nb-card>
+
+<nb-card>
+    <nb-card-header>
+        Crear evento
+    </nb-card-header>
+
+    <nb-card-body>
+        <form [formGroup]="eventForm">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="" class="label">Nombre</label>
+                    <input type="text" nbInput fullWidth formControlName="name">
+                </div>
+                <div class="col-md-6">
+                    <label for="" class="label">Fecha</label><br>
+                    <input nbInput fullWidth [nbDatepicker]="dateTimePicker" formControlName="date">
+                    <nb-date-timepicker withSeconds #dateTimePicker></nb-date-timepicker>
+                </div>
+            </div>
+            <br>
+            <div class="div">
+                <div class="row">
+                    <div class="col">
+                        <label for="" class="label">Evento</label>
+                        <input type="text" nbInput fullWidth formControlName="event">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+    <nb-card-footer>
+        <div class="row">
+            <div class="col text-center">
+                <button nbButton status="primary" [disabled]="eventForm.invalid" (click)="createTheEvent()">Crear</button>
+            </div>
+        </div>
+    </nb-card-footer>
+</nb-card>
