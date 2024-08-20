@@ -13,6 +13,7 @@ export class UndertakeComponent implements OnInit {
   dataForm!: FormGroup;
   eventForm!: FormGroup;
   homeForm!: FormGroup;
+  techForm!: FormGroup;
   selectedFile: File | null = null;
   remainingCharacters: any;
 
@@ -28,6 +29,7 @@ export class UndertakeComponent implements OnInit {
     this.initForm();
     this.initEventForm();
     this.initHomeForm();
+    this.initEventTechForm();
   }
 
   initForm() {
@@ -54,6 +56,15 @@ export class UndertakeComponent implements OnInit {
   initHomeForm() {
     this.homeForm = this.formBuilder.group({
       title: ['', Validators.required],
+    })
+  }
+
+  initEventTechForm() {
+    this.techForm = this.formBuilder.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      dateTechEvent: ['', Validators.required],
+      location: ['', Validators.required],
     })
   }
 
@@ -131,6 +142,23 @@ export class UndertakeComponent implements OnInit {
     const maxLength = 200;
     const currentLength = event.target.value.length;
     this.remainingCharacters = maxLength - currentLength;
+  }
+
+  createTechEvent() {
+    const formData = new FormData();
+    formData.append('title', this.techForm.get('title')!.value);
+    formData.append('description', this.techForm.get('description')!.value);
+    formData.append('dateTechEvent', this.techForm.get('dateTechEvent')!.value);
+    formData.append('location', this.techForm.get('location')!.value);
+    if (this.selectedFile) {
+      formData.append('imageUrl', this.selectedFile, this.selectedFile.name);
+    }
+    this.generalService.createTechEvent(formData).subscribe({
+      next: () => {
+        this.alertService.success('¡Correcto!', 'Evento Técnico de la App creado')
+        this.techForm.reset();
+      }
+    })
   }
 
 

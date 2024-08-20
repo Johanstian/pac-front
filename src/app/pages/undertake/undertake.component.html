@@ -1,6 +1,6 @@
 <nb-card>
     <nb-card-header>
-        Fomento emprende
+        Fomento emprende APP
     </nb-card-header>
 
     <nb-card-body>
@@ -96,11 +96,11 @@
         <form [formGroup]="homeForm">
             <div class="row">
                 <div class="col-md-6">
-                    <label for="" class="label">Título</label>
+                    <label for="" class="label">Título Banner</label>
                     <input type="text" nbInput fullWidth formControlName="title">
                 </div>
                 <div class="col-md-6">
-                    <label for="" class="label">Imagen 1</label><br>
+                    <label for="" class="label">Imagen Banner</label><br>
                     <input type="file" nbInput fullWidth (change)="fileForHome($event)">
                 </div>
             </div>
@@ -117,18 +117,17 @@
 
 <nb-card>
     <nb-card-header>
-        Crear evento rápido (negocios)
+        Crear Evento en Negocios
     </nb-card-header>
-
     <nb-card-body>
         <form [formGroup]="eventForm">
             <div class="row">
                 <div class="col-md-6">
-                    <label for="" class="label">Nombre</label>
+                    <label for="" class="label">Nombre Evento</label>
                     <input type="text" nbInput fullWidth formControlName="name">
                 </div>
                 <div class="col-md-6">
-                    <label for="" class="label">Fecha</label><br>
+                    <label for="" class="label">Fecha Evento</label><br>
                     <input nbInput fullWidth [nbDatepicker]="dateTimePicker" formControlName="date">
                     <nb-date-timepicker withSeconds #dateTimePicker></nb-date-timepicker>
                 </div>
@@ -137,7 +136,7 @@
             <div class="div">
                 <div class="row">
                     <div class="col">
-                        <label for="" class="label">Evento</label>
+                        <label for="" class="label">Descripción del Evento</label>
                         <input type="text" nbInput fullWidth formControlName="event">
                     </div>
                 </div>
@@ -148,6 +147,47 @@
         <div class="row">
             <div class="col text-center">
                 <button nbButton status="primary" [disabled]="eventForm.invalid" (click)="createTheEvent()">Crear</button>
+            </div>
+        </div>
+    </nb-card-footer>
+</nb-card>
+
+<nb-card>
+    <nb-card-header>
+        Crear Evento Técnico
+    </nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="techForm">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="" class="label">Nombre Evento</label>
+                    <input type="text" nbInput fullWidth formControlName="title">
+                </div>
+                <div class="col-md-4">
+                    <label for="" class="label">Fecha Evento</label><br>
+                    <input nbInput fullWidth [nbDatepicker]="dateTimePickera" formControlName="dateTechEvent">
+                    <nb-date-timepicker withSeconds #dateTimePickera></nb-date-timepicker>
+                </div>
+                <div class="col-md-4">
+                    <label for="" class="label">Locación Evento</label>
+                    <input type="text" nbInput fullWidth formControlName="location">
+                </div>
+            </div>
+            <br>
+            <div class="div">
+                <div class="row">
+                    <div class="col">
+                        <label for="" class="label">Descripción del Evento</label>
+                        <input type="text" nbInput fullWidth formControlName="description">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+    <nb-card-footer>
+        <div class="row">
+            <div class="col text-center">
+                <button nbButton status="primary" [disabled]="techForm.invalid" (click)="createTechEvent()">Crear</button>
             </div>
         </div>
     </nb-card-footer>

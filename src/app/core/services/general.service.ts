@@ -27,4 +27,8 @@ export class GeneralService {
     return this.httpClient.post<any>(this.devUrl + this.proUrl + '/general/createHome', request)
   }
 
+  createTechEvent(request: any): Observable<any> {
+    return this.httpClient.post<any>(this.devUrl + this.proUrl + '/eventos/createEvents', request)
+  }
+
 }
