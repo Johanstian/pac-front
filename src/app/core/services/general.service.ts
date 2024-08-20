@@ -23,4 +23,8 @@ export class GeneralService {
     return this.httpClient.post<any>(this.devUrl + this.proUrl + '/general/createEvent', request);
   }
 
+  createHome(request: any): Observable<any> {
+    return this.httpClient.post<any>(this.devUrl + this.proUrl + '/general/createHome', request)
+  }
+
 }

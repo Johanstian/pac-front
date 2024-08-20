@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AlertService } from 'src/app/core/services/alert.service';
 import { GeneralService } from 'src/app/core/services/general.service';
 
 @Component({
@@ -11,9 +12,12 @@ export class UndertakeComponent implements OnInit {
 
   dataForm!: FormGroup;
   eventForm!: FormGroup;
+  homeForm!: FormGroup;
   selectedFile: File | null = null;
+  remainingCharacters: any;
 
   constructor(
+    private alertService: AlertService,
     private formBuilder: FormBuilder,
     private generalService: GeneralService
   ) {
@@ -23,6 +27,7 @@ export class UndertakeComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.initEventForm();
+    this.initHomeForm();
   }
 
   initForm() {
@@ -32,7 +37,8 @@ export class UndertakeComponent implements OnInit {
       phone: [null, Validators.required],
       address: [null, Validators.required],
       products: [null, Validators.required],
-      facebook: [null, Validators.required],
+      facebook: [null],
+      instagram: [null],
       mail: [null, Validators.required],
     })
   }
@@ -42,6 +48,12 @@ export class UndertakeComponent implements OnInit {
       name: ['', Validators.required],
       event: ['', Validators.required],
       date: ['', Validators.required],
+    })
+  }
+
+  initHomeForm() {
+    this.homeForm = this.formBuilder.group({
+      title: ['', Validators.required],
     })
   }
 
@@ -56,7 +68,6 @@ export class UndertakeComponent implements OnInit {
     if (this.dataForm.invalid) {
       return;
     }
-
     const formData = new FormData();
     formData.append('title', this.dataForm.get('title')!.value);
     formData.append('subtitle', this.dataForm.get('subtitle')!.value);
@@ -74,6 +85,14 @@ export class UndertakeComponent implements OnInit {
       next: () => {
         alert('producto creado');
         this.dataForm.reset();
+        this.selectedFile = null;
+      
+        // Limpia el input de tipo file (si lo tienes en tu template)
+        const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+        if (fileInput) {
+          fileInput.value = ''; // Resetea el valor del input
+        }
+        this.remainingCharacters = null;
       }
     })
   }
@@ -81,10 +100,37 @@ export class UndertakeComponent implements OnInit {
   createTheEvent() {
     this.generalService.createEvent(this.eventForm.value).subscribe({
       next: () => {
-        alert('creado');
+        this.alertService.success('¡Correcto!', 'Evento rápido de Negocios de la App creado')
         this.eventForm.reset();
       }
     })
+  }
+
+  fileForHome(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+    }
+  }
+
+  createTheHome() {
+    const formData = new FormData();
+    formData.append('title', this.homeForm.get('title')!.value);
+    if (this.selectedFile) {
+      formData.append('avatar', this.selectedFile, this.selectedFile.name);
+    }
+    this.generalService.createHome(formData).subscribe({
+      next: () => {
+        this.alertService.success('¡Correcto!', 'Banner en el Inicio de la App creado')
+        this.homeForm.reset();
+      }
+    })
+  }
+  
+  productsLength(event: any) {
+    const maxLength = 200;
+    const currentLength = event.target.value.length;
+    this.remainingCharacters = maxLength - currentLength;
   }
 
 

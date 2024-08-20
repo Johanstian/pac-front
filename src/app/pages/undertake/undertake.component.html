@@ -12,7 +12,7 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label for="" class="label">Subtítulo</label><br>
+                    <label for="" class="label">Responsable</label><br>
                     <input type="text" nbInput fullWidth formControlName="subtitle">
                 </div>
             </div>
@@ -32,7 +32,12 @@
             <div class="row">
                 <div class="col-md-12">
                     <label for="" class="label">Productos</label><br>
-                    <input type="text" nbInput fullWidth formControlName="products">
+                    <input type="text" nbInput fullWidth formControlName="products" (input)="productsLength($event)">
+                    <div *ngIf="remainingCharacters !== undefined" style="color: red;">
+                        <small>
+                          Caracteres: {{ remainingCharacters }} / 200
+                        </small>
+                      </div>
                 </div>
             </div>
             <br>
@@ -50,14 +55,14 @@
 
                 <div class="col-md-4">
                     <label for="" class="label">Instagram</label><br>
-                    <input type="text" nbInput fullWidth>
+                    <input type="text" nbInput fullWidth formControlName="instagram">
                 </div>
             </div>
             <br>
             <div class="row">
                 <div class="col-md-6">
                     <label for="" class="label">Imagen 1</label><br>
-                    <input type="file" nbInput fullWidth (change)="onFileSelected($event)">
+                    <input type="file" #fileInput nbInput fullWidth (change)="onFileSelected($event)">
                 </div>
 
                 <!-- <div class="col-md-4">
@@ -84,7 +89,35 @@
 
 <nb-card>
     <nb-card-header>
-        Crear evento
+        Crear Banner en Inicio
+    </nb-card-header>
+
+    <nb-card-body>
+        <form [formGroup]="homeForm">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="" class="label">Título</label>
+                    <input type="text" nbInput fullWidth formControlName="title">
+                </div>
+                <div class="col-md-6">
+                    <label for="" class="label">Imagen 1</label><br>
+                    <input type="file" nbInput fullWidth (change)="fileForHome($event)">
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+    <nb-card-footer>
+        <div class="row">
+            <div class="col text-center">
+                <button nbButton status="primary" [disabled]="homeForm.invalid" (click)="createTheHome()">Crear</button>
+            </div>
+        </div>
+    </nb-card-footer>
+</nb-card>
+
+<nb-card>
+    <nb-card-header>
+        Crear evento rápido (negocios)
     </nb-card-header>
 
     <nb-card-body>

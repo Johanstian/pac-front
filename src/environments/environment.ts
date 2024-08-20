@@ -4,4 +4,5 @@ export const environment = {
     devUrl: '',
     // proUrl: ''
     proUrl: 'https://pac-backend-tsuo.onrender.com/api'
+    // proUrl: 'https://pack-back-production.up.railway.app'
 }
