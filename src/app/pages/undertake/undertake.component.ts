@@ -94,7 +94,7 @@ export class UndertakeComponent implements OnInit {
 
     this.generalService.createProduct(formData).subscribe({
       next: () => {
-        alert('producto creado');
+        this.alertService.success('¡Correcto!', 'Producto de la App creado');
         this.dataForm.reset();
         this.selectedFile = null;
       
@@ -155,8 +155,12 @@ export class UndertakeComponent implements OnInit {
     }
     this.generalService.createTechEvent(formData).subscribe({
       next: () => {
-        this.alertService.success('¡Correcto!', 'Evento Técnico de la App creado')
+        this.alertService.success('¡Correcto!', 'Evento Técnico de la App creado');
         this.techForm.reset();
+        const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+        if (fileInput) {
+          fileInput.value = ''; // Resetea el valor del input
+        }
       }
     })
   }

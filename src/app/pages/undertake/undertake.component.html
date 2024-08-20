@@ -35,9 +35,9 @@
                     <input type="text" nbInput fullWidth formControlName="products" (input)="productsLength($event)">
                     <div *ngIf="remainingCharacters !== undefined" style="color: red;">
                         <small>
-                          Caracteres: {{ remainingCharacters }} / 200
+                            Caracteres: {{ remainingCharacters }} / 200
                         </small>
-                      </div>
+                    </div>
                 </div>
             </div>
             <br>
@@ -146,7 +146,8 @@
     <nb-card-footer>
         <div class="row">
             <div class="col text-center">
-                <button nbButton status="primary" [disabled]="eventForm.invalid" (click)="createTheEvent()">Crear</button>
+                <button nbButton status="primary" [disabled]="eventForm.invalid"
+                    (click)="createTheEvent()">Crear</button>
             </div>
         </div>
     </nb-card-footer>
@@ -174,11 +175,18 @@
                 </div>
             </div>
             <br>
-            <div class="div">
-                <div class="row">
-                    <div class="col">
-                        <label for="" class="label">Descripción del Evento</label>
-                        <input type="text" nbInput fullWidth formControlName="description">
+            <div class="row">
+                <div class="col">
+                    <label for="" class="label">Descripción del Evento</label>
+                    <input type="text" nbInput fullWidth formControlName="description">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <div class="col-md-6">
+                        <label for="" class="label">Imagen 1</label><br>
+                        <input type="file" #fileInput nbInput fullWidth (change)="onFileSelected($event)">
                     </div>
                 </div>
             </div>
@@ -187,7 +195,8 @@
     <nb-card-footer>
         <div class="row">
             <div class="col text-center">
-                <button nbButton status="primary" [disabled]="techForm.invalid" (click)="createTechEvent()">Crear</button>
+                <button nbButton status="primary" [disabled]="techForm.invalid"
+                    (click)="createTechEvent()">Crear</button>
             </div>
         </div>
     </nb-card-footer>
