@@ -24,7 +24,7 @@ export class GeneralService {
   }
 
   createHome(request: any): Observable<any> {
-    return this.httpClient.post<any>(this.devUrl + this.proUrl + '/general/createHome', request)
+    return this.httpClient.post<any>(this.devUrl + this.proUrl + '/banner/createBanner', request)
   }
 
   createTechEvent(request: any): Observable<any> {
