@@ -128,7 +128,7 @@ export class UndertakeComponent implements OnInit {
     const formData = new FormData();
     formData.append('title', this.homeForm.get('title')!.value);
     if (this.selectedFile) {
-      formData.append('avatar', this.selectedFile, this.selectedFile.name);
+      formData.append('imageUrl', this.selectedFile, this.selectedFile.name);
     }
     this.generalService.createHome(formData).subscribe({
       next: () => {
