@@ -106,7 +106,7 @@ export class InductionComponent {
   }
 
   getList() {
-    return this.search !== '' ? this.enlistments.filter((a: any) => a.cc.toLocaleString().includes(this.search) || a.names.includes(this.search)) : this.enlistments
+    return this.search !== '' ? this.enlistments.filter((a: any) => a.cc.toString().toLowerCase().includes(this.search) || a.names.toString().toLowerCase().includes(this.search)) : this.enlistments
   }
 
 
