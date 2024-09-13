@@ -201,3 +201,29 @@
         </div>
     </nb-card-footer>
 </nb-card>
+
+
+<nb-card>
+    <nb-card-header>
+        Solicitud Registro Presupuestal
+    </nb-card-header>
+
+    <nb-card-body>
+        <div class="row">
+            <form (ngSubmit)="rp()">
+                <label for="field1">Campo 1:</label>
+                <input nbInput type="text" id="field1" name="field1" required>
+                
+                <label for="field2">Campo 2:</label>
+                <input nbInput type="text" id="field2" name="field2" required>
+              
+                <button nbButton type="submit">Enviar</button>
+              </form>
+              
+              <div *ngIf="pdfUrl">
+                <a [href]="pdfUrl" target="_blank">Ver PDF Generado</a>
+              </div>
+              
+        </div>
+    </nb-card-body>
+</nb-card>

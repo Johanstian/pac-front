@@ -14,8 +14,10 @@ export class UndertakeComponent implements OnInit {
   eventForm!: FormGroup;
   homeForm!: FormGroup;
   techForm!: FormGroup;
+  rpForm!: FormGroup;
   selectedFile: File | null = null;
   remainingCharacters: any;
+  pdfUrl: string = '';
 
   constructor(
     private alertService: AlertService,
@@ -30,6 +32,7 @@ export class UndertakeComponent implements OnInit {
     this.initEventForm();
     this.initHomeForm();
     this.initEventTechForm();
+    this.initRpForm();
   }
 
   initForm() {
@@ -68,6 +71,13 @@ export class UndertakeComponent implements OnInit {
     })
   }
 
+  initRpForm() {
+    this.rpForm = this.formBuilder.group({
+      field1: [''],
+      field2: [''],
+    })
+  }
+
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
@@ -97,7 +107,7 @@ export class UndertakeComponent implements OnInit {
         this.alertService.success('¡Correcto!', 'Producto de la App creado');
         this.dataForm.reset();
         this.selectedFile = null;
-      
+
         // Limpia el input de tipo file (si lo tienes en tu template)
         const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
         if (fileInput) {
@@ -137,7 +147,7 @@ export class UndertakeComponent implements OnInit {
       }
     })
   }
-  
+
   productsLength(event: any) {
     const maxLength = 200;
     const currentLength = event.target.value.length;
@@ -163,6 +173,16 @@ export class UndertakeComponent implements OnInit {
         }
       }
     })
+  }
+
+  rp() {
+    // this.http.post<{ message: string, pdfUrl: string }>('http://localhost:3000/pdf/fill', this.formData)
+    //   .subscribe(response => {
+    //     console.log(response.message);
+    //     this.pdfUrl = response.pdfUrl;
+    //   }, error => {
+    //     console.error('Error al generar el PDF:', error);
+    //   });
   }
 
 
