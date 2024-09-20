@@ -36,6 +36,12 @@ export class PagesComponent {
           home: true,
         },
         {
+          title: 'Administrativo',
+          link: '/pages/management',
+          icon: 'checkmark-square-2-outline',
+          home: true,
+        },
+        {
           title: 'Emprende',
           link: '/pages/undertake',
           icon: 'layout-outline',

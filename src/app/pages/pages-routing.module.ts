@@ -41,6 +41,10 @@ const routes: Routes = [
         loadChildren: () => import('./undertake/undertake.module').then(m => m.UndertakeModule)
       },
       {
+        path: 'management',
+        loadChildren: () => import('./management/management.module').then(m => m.ManagementModule)
+      },
+      {
         path: '**', pathMatch: 'full', redirectTo: 'home'
       }
     ]

@@ -1,0 +1,195 @@
+<nb-card>
+    <nb-card-header>
+        Solicitud Registro Presupuestal
+    </nb-card-header>
+    <nb-card-body>
+        <form (ngSubmit)="modifyPdf()">
+            <br>
+            <div class="row">
+                <div class="col-12">
+                    <label class="label" for="objeto">Objeto</label><br>
+                    <input nbInput fullWidth type="text" id="objeto" [(ngModel)]="user.objeto" name="objeto" required />
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="label" for="name">CDP</label><br>
+                    <input nbInput fullWidth type="text" id="cdp" [(ngModel)]="user.cdp" name="cdp" required />
+                </div>
+                <div class="col-md-3">
+                    <label class="label" for="res">Código RES</label><br>
+                    <nb-select fullWidth [(ngModel)]="user.res" name="res" required (selectedChange)="onResChange($event)">
+                      <nb-option *ngFor="let rubro of rubros" [value]="rubro.res">{{ rubro.res }}</nb-option>
+                    </nb-select>
+                  </div>
+
+                  <div class="col-6">
+                    <label class="label" for="rubro">Código Rubro</label><br>
+                    <input nbInput fullWidth id="rubro" [(ngModel)]="user.rubro" name="rubro" required readonly>
+                    <!-- <nb-select fullWidth [(ngModel)]="user.rubro" name="rubro" required
+                        (selectedChange)="onRubroChange($event)">
+                        <nb-option *ngFor="let rubro of rubros" [value]="rubro.code">{{ rubro.code }}</nb-option>
+                    </nb-select> -->
+                </div>
+
+             
+            </div>
+
+            <br>
+
+            <div class="row">
+                
+
+                <div class="col">
+                    <label class="label" for="nombrerubro">Nombre Rubro</label><br>
+                    <input nbInput fullWidth id="nombrerubro" [(ngModel)]="user.nombrerubro" name="nombrerubro" required
+                        readonly>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="row">
+                <div class="col-2">
+                    <label class="label" for="address">Valor</label><br>
+                    <input nbInput fullWidth type="text" id="value" [(ngModel)]="user.value" name="value" required />
+                </div>
+
+                <div class="col-6">
+                    <label class="label" for="address">Valor en letras</label><br>
+                    <input nbInput fullWidth type="text" id="letters" [(ngModel)]="user.letters" name="letters"
+                        required />
+                </div>
+
+                <div class="col-2">
+                    <label class="label" for="address">No. contrato</label><br>
+                    <input nbInput fullWidth type="text" id="contrato" [(ngModel)]="user.contrato" name="contrato"
+                        required />
+                </div>
+
+                <div class="col-2">
+                    <label class="label" for="address">No. proceso</label><br>
+                    <input nbInput fullWidth type="text" id="proceso" [(ngModel)]="user.proceso" name="proceso"
+                        required />
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-2">
+                    <label class="label" for="address">No. concepto jurídico</label><br>
+                    <input nbInput fullWidth type="text" id="noconcepto" [(ngModel)]="user.noconcepto" name="noconcepto"
+                        required />
+                </div>
+
+                <div class="col-3">
+                    <label class="label" for="address">Fecha concepto jurídico</label>
+                    <input nbInput fullWidth type="text" id="fechaconcepto" [(ngModel)]="user.fechaconcepto"
+                        name="fechaconcepto" required />
+                </div>
+
+                <div class="col-3">
+                    <label class="label" for="address">Cédula</label>
+                    <input nbInput fullWidth type="text" id="cc" [(ngModel)]="user.cc" name="cc" required />
+                </div>
+
+                <div class="col-4">
+                    <label class="label" for="tercero">Tercero</label>
+                    <input nbInput fullWidth type="text" id="tercero" [(ngModel)]="user.tercero" name="tercero"
+                        required />
+                </div>
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-6">
+                    <label class="label" for="tipocontrato">Tipo Contrato</label>
+                    <input nbInput fullWidth type="text" id="tipocontrato" [(ngModel)]="user.tipocontrato"
+                        name="tipocontrato" required />
+                </div>
+
+                <div class="col-6">
+                    <label class="label" for="elaborado">Elaborado</label>
+                    <input nbInput fullWidth type="text" id="elaborado" [(ngModel)]="user.elaborado" name="elaborado" required />
+                </div>
+            </div>
+            <br>
+            <div>
+                <button nbButton type="submit" status="danger" style="float: right;" [disabled]="!isFormValid()">Generar RP</button>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>
+
+
+<nb-card>
+    <nb-card-header>
+        Solicitud CDP / Regular
+    </nb-card-header>
+
+    <nb-card-body>
+        <form action="">
+            <div class="row">
+                <div class="col-2">
+                    <label class="label" for="aut">Autorización</label>
+                    <input nbInput fullWidth type="text" id="aut" [(ngModel)]="cdp.aut" name="aut" required />
+                </div>
+                <div class="col-10">
+                    <label class="label" for="objeto">Concepto</label>
+                    <input nbInput fullWidth type="text" id="objeto" [(ngModel)]="cdp.objeto" name="objeto" required />
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-3">
+                    <label class="label" for="elaborado">Fecha Autorización</label>
+                    <input nbInput fullWidth type="text" id="elaborado" [(ngModel)]="cdp.fechaaut" name="elaborado" required />
+                </div>
+
+                <div class="col-3">
+                    <label class="label" for="res">Código RES</label>
+                    <input nbInput fullWidth type="text" id="res" [(ngModel)]="cdp.res" name="res" required />
+                </div>
+                <div class="col-6">
+                    <label class="label" for="rubro">Código Rubro</label>
+                    <input nbInput fullWidth type="text" id="rubro" [(ngModel)]="cdp.rubro" name="rubro" required />
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-12">
+                    <label class="label" for="desrubro">Descripción Rubro</label>
+                    <input nbInput fullWidth type="text" id="desrubro" [(ngModel)]="cdp.desrubro" name="desrubro" required />
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-3">
+                    <label class="label" for="valor">Valor</label>
+                    <input nbInput fullWidth type="text" id="valor" [(ngModel)]="cdp.valor" name="valor" required />
+                </div>
+
+                <div class="col-6">
+                    <label class="label" for="valorletras">Valor en Letras</label>
+                    <input nbInput fullWidth type="text" id="valorletras" [(ngModel)]="cdp.valorletras" name="valorletras" required />
+                </div>
+
+                <div class="col-3">
+                    <label class="label" for="codproyecto">Código Proyecto</label>
+                    <input nbInput fullWidth type="text" id="codproyecto" [(ngModel)]="cdp.codproyecto" name="codproyecto" required />
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-12">
+                    <label class="label" for="nomproyecto">Nombre Proyecto</label>
+                    <input nbInput fullWidth type="text" id="nomproyecto" [(ngModel)]="cdp.nomproyecto" name="nomproyecto" required />
+                </div>
+            </div>
+            <br>
+            <div>
+                <button nbButton type="submit" status="danger" style="float: right;" (click)="createCdp()">Generar CDP</button>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>
