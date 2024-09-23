@@ -57,6 +57,7 @@ export class ManagementComponent {
     valor: '',
     valorletras: '',
     codproyecto: '',
+    nomproyecto: '',
   }
 
   cdpsi: any = {
@@ -167,7 +168,7 @@ export class ManagementComponent {
 
   async modifyPdf() {
     try {
-      const pdfUrl = 'assets/pdf/rp3.pdf';
+      const pdfUrl = 'assets/pdf/rp.pdf';
       const existingPdfBytes = await this.http.get(pdfUrl, { responseType: 'arraybuffer' }).toPromise() as Uint8Array;
       const modifiedPdfBytes = await this.generalService.modifyPdf(existingPdfBytes, this.user);
       const blob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });
@@ -207,7 +208,7 @@ export class ManagementComponent {
 
   async createCdp() {
     try {
-      const pdfUrl = 'assets/pdf/cdp2.pdf';
+      const pdfUrl = 'assets/pdf/cdp.pdf';
       const existingPdfBytes = await this.http.get(pdfUrl, { responseType: 'arraybuffer' }).toPromise() as Uint8Array;
       const modifiedPdfBytes = await this.generalService.cdp(existingPdfBytes, this.cdp);
       const blob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });
