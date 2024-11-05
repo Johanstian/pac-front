@@ -148,7 +148,6 @@ export class ManagementComponent {
       size: 50,
       font: helveticaFont,
       color: rgb(0.95, 0.1, 0.1),
-      // rotate: degrees(-45),
     })
     const pdfBytes = await pdfDoc.save()
   }
@@ -162,7 +161,7 @@ export class ManagementComponent {
       link.download = 'generated_pdf.pdf';
       link.click();
     } catch (error) {
-      console.error('Error generating PDF:', error);
+      alert(error)
     }
   }
 
@@ -177,7 +176,7 @@ export class ManagementComponent {
       link.download = 'RP.pdf';
       link.click();
     } catch (error) {
-      console.error('Error al generar el PDF, ponte en contacto con Johan:', error);
+      alert('Error al generar el PDF, ponte en contacto con Johan:');
     }
   }
 
@@ -208,7 +207,8 @@ export class ManagementComponent {
 
   async createCdp() {
     try {
-      const pdfUrl = 'assets/pdf/cdp.pdf';
+      // const pdfUrl = 'assets/pdf/cdp.pdf';
+      const pdfUrl = 'assets/pdf/CERTDIS.pdf';
       const existingPdfBytes = await this.http.get(pdfUrl, { responseType: 'arraybuffer' }).toPromise() as Uint8Array;
       const modifiedPdfBytes = await this.generalService.cdp(existingPdfBytes, this.cdp);
       const blob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });
@@ -217,7 +217,7 @@ export class ManagementComponent {
       link.download = 'CDP.pdf';
       link.click();
     } catch (error) {
-      console.error('Error al generar el PDF, ponte en contacto con Johan:', error);
+      alert('Error al generar el PDF, ponte en contacto con Johan:');
     }
   }
 

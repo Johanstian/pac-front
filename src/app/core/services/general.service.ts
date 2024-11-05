@@ -12,6 +12,10 @@ export class GeneralService {
   private devUrl = environment.devUrl;
   private proUrl = environment.proUrl;
 
+  private unidades = ['CERO', 'UN', 'DOS', 'TRES', 'CUATRO', 'CINCO', 'SEIS', 'SIETE', 'OCHO', 'NUEVE'];
+  private decenas = ['DIEZ', 'VEINTE', 'TREINTA', 'CUARENTA', 'CINCUENTA', 'SESENTA', 'SETENTA', 'OCHENTA', 'NOVENTA'];
+  private centenas = ['CIENTO', 'DOSCIENTOS', 'TRESCIENTOS', 'CUATROCIENTOS', 'QUINIENTOS', 'SEISCIENTOS', 'SETECIENTOS', 'OCHOCIENTOS', 'NOVECIENTOS'];
+
   constructor(private httpClient: HttpClient) {
 
   }
@@ -492,6 +496,18 @@ export class GeneralService {
       const { width, height } = firstPage.getSize();
       const fontSize = 10;
       const lineSpacing = 14;
+      // const valorNumerico = parseFloat(data.valor.replace(/\./g, '').replace(/,/g, '.'));
+      // data.valorletras = this.convertirNumeroALetras(valorNumerico);
+
+      // if (typeof data.valor === 'string') {
+      //   const valorNumerico = parseFloat(data.valor.replace(/\./g, '').replace(/,/g, '.'));
+      //   data.valorletras = this.convertirNumeroALetras(valorNumerico);
+      // } else if (typeof data.valor === 'number') {
+      //   data.valorletras = this.convertirNumeroALetras(data.valor);
+      // } else {
+      //   console.error('El tipo de data.valor no es compatible');
+      // }
+      
 
       const textObjeto = `${data.objeto}`;
       const widthObjeto = 550; // Maximum width of the text
@@ -598,26 +614,26 @@ export class GeneralService {
       const rubroTextnr = `${data.desrubro}`;
       const maxWidthnr = 295;
       let startingPositionnr = height - 314;
-      const leftMargin = 40;  // The starting X position
+      const leftMargin = 40;
       const wrapTextnr = (text: string, maxWidth: number, font: any, fontSize: number) => {
-          const words = text.split(' ');
-          let line = '';
-          let result = [];
-  
-          for (let i = 0; i < words.length; i++) {
-            const testLine = line + (line ? ' ' : '') + words[i];
-            const testWidth = font.widthOfTextAtSize(testLine, fontSize);
-  
-            if (testWidth > maxWidth) {
-              result.push(line);
-              line = words[i];
-            } else {
-              line = testLine;
-            }
+        const words = text.split(' ');
+        let line = '';
+        let result = [];
+
+        for (let i = 0; i < words.length; i++) {
+          const testLine = line + (line ? ' ' : '') + words[i];
+          const testWidth = font.widthOfTextAtSize(testLine, fontSize);
+
+          if (testWidth > maxWidth) {
+            result.push(line);
+            line = words[i];
+          } else {
+            line = testLine;
           }
-          result.push(line);
-          return result;
-        };
+        }
+        result.push(line);
+        return result;
+      };
 
 
       const wrappedTextLinesnr = wrapTextnr(rubroTextnr, maxWidthnr, timesRomanFont, fontSize);
@@ -639,44 +655,6 @@ export class GeneralService {
         });
         startingPositionnr -= lineSpacing;
       }
-
-
-      
-      // const wrappedTextObj = wrapTextObj(textObjeto, widthObjeto, timesRomanFont, fontSize);
-      // for (let i = 0; i < wrappedTextObj.length; i++) {
-      //   if (positionObj < 50) {
-      //     firstPage = pdfDoc.addPage([width, height]);
-      //     positionObj = height - 100;
-      //   }
-
-      //   const textWidth = timesRomanFont.widthOfTextAtSize(wrappedTextObj[i], fontSize);
-      //   const centeredX = (width - textWidth) / 2;
-
-      //   firstPage.drawText(wrappedTextObj[i], {
-      //     x: centeredX,
-      //     y: positionObj,
-      //     size: fontSize,
-      //     font: timesRomanFont,
-      //     color: rgb(0, 0, 0),
-      //   });
-      //   positionObj -= lineSpacing;
-      // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       //VALOR
       firstPage.drawText(`${data.valor}`, {
@@ -714,24 +692,27 @@ export class GeneralService {
       const rubroTextnp = `${data.nomproyecto}`;
       const maxWidthnp = 470;
       let startingPositionnp = height - 517;
-      const wrapTextnp = (text: string, width: number, font: any, fontSize: number) => {
+      const leftMarginnp = 40;
+      const wrapTextnp = (text: string, maxWidth: number, font: any, fontSize: number) => {
+        const words = text.split(' ');
         let line = '';
-        let result = '';
+        let result = [];
 
-        for (let i = 0; i < text.length; i++) {
-          const testLine = line + text[i];
+        for (let i = 0; i < words.length; i++) {
+          const testLine = line + (line ? ' ' : '') + words[i];
           const testWidth = font.widthOfTextAtSize(testLine, fontSize);
 
-          if (testWidth > width) {
-            result += line + '\n';
-            line = text[i];
+          if (testWidth > maxWidth) {
+            result.push(line);
+            line = words[i];
           } else {
             line = testLine;
           }
         }
-        result += line;
-        return result.split('\n');
+        result.push(line);
+        return result;
       };
+
 
       const wrappedTextLinesnp = wrapTextnp(rubroTextnp, maxWidthnp, timesRomanFont, fontSize);
       for (let i = 0; i < wrappedTextLinesnp.length; i++) {
@@ -739,8 +720,12 @@ export class GeneralService {
           firstPage = pdfDoc.addPage([width, height]);
           startingPositionnp = height - 100;
         }
+
+        const textWidth = timesRomanFont.widthOfTextAtSize(wrappedTextLinesnp[i], fontSize);
+        const centeredX = leftMarginnp + (width - textWidth) / 2;
+
         firstPage.drawText(wrappedTextLinesnp[i], {
-          x: 110,
+          x: centeredX,
           y: startingPositionnp,
           size: fontSize,
           font: timesRomanFont,
@@ -748,12 +733,113 @@ export class GeneralService {
         });
         startingPositionnp -= lineSpacing;
       }
+
+
+
+
+
+      // const rubroTextnp = `${data.nomproyecto}`;
+      // const maxWidthnp = 470;
+      // let startingPositionnp = height - 517;
+      // const wrapTextnp = (text: string, width: number, font: any, fontSize: number) => {
+      //   let line = '';
+      //   let result = '';
+
+      //   for (let i = 0; i < text.length; i++) {
+      //     const testLine = line + text[i];
+      //     const testWidth = font.widthOfTextAtSize(testLine, fontSize);
+
+      //     if (testWidth > width) {
+      //       result += line + '\n';
+      //       line = text[i];
+      //     } else {
+      //       line = testLine;
+      //     }
+      //   }
+      //   result += line;
+      //   return result.split('\n');
+      // };
+
+      // const wrappedTextLinesnp = wrapTextnp(rubroTextnp, maxWidthnp, timesRomanFont, fontSize);
+      // for (let i = 0; i < wrappedTextLinesnp.length; i++) {
+      //   if (startingPositionnp < 50) {
+      //     firstPage = pdfDoc.addPage([width, height]);
+      //     startingPositionnp = height - 100;
+      //   }
+      //   firstPage.drawText(wrappedTextLinesnp[i], {
+      //     x: 110,
+      //     y: startingPositionnp,
+      //     size: fontSize,
+      //     font: timesRomanFont,
+      //     color: rgb(0, 0, 0),
+      //   });
+      //   startingPositionnp -= lineSpacing;
+      // }
       return await pdfDoc.save();
     } catch (error) {
       console.error('Error modifying PDF:', error);
       throw error;
     }
+
+
+
+
+
   }
+
+
+  // convertirNumeroALetras(valor: number): string {
+  //   if (valor === 0) return 'Cero pesos';
+
+  //   let valorEnLetras = this.convertirGrupo(valor);
+
+  //   if (valorEnLetras.endsWith('MILLÓN') || valorEnLetras.endsWith('MILLONES')) {
+  //     valorEnLetras += ' DE PESOS';
+  //   } else {
+  //     valorEnLetras += ' PESOS';
+  //   }
+
+  //   return valorEnLetras.charAt(0).toUpperCase() + valorEnLetras.slice(1);
+  // }
+
+  // private convertirGrupo(valor: number): string {
+  //   let partes = [];
+
+  //   if (valor >= 1000000) {
+  //     let millones = Math.floor(valor / 1000000);
+  //     partes.push(this.convertirGrupo(millones) + (millones === 1 ? ' MILLÓN' : ' MILLONES'));
+  //     valor = valor % 1000000;
+  //   }
+
+  //   if (valor >= 1000) {
+  //     let miles = Math.floor(valor / 1000);
+  //     if (miles === 1) {
+  //       partes.push('mil');
+  //     } else {
+  //       partes.push(this.convertirGrupo(miles) + ' MIL');
+  //     }
+  //     valor = valor % 1000;
+  //   }
+
+  //   if (valor >= 100) {
+  //     let centenas = Math.floor(valor / 100);
+  //     partes.push(this.centenas[centenas - 1]);
+  //     valor = valor % 100;
+  //   }
+
+  //   if (valor >= 20) {
+  //     let decena = Math.floor(valor / 10);
+  //     partes.push(this.decenas[decena - 1]);
+  //     valor = valor % 10;
+  //   }
+
+  //   if (valor > 0) {
+  //     partes.push(this.unidades[valor]);
+  //   }
+
+  //   return partes.join(' ');
+  // }
+
 
 
 

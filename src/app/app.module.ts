@@ -12,6 +12,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import es from '@angular/common/locales/es'
 import locale from '@angular/common/locales/es-CO';
 import { DatePipe, registerLocaleData } from '@angular/common';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 registerLocaleData(locale);
 
 @NgModule({
@@ -34,6 +35,7 @@ registerLocaleData(locale);
     NbEvaIconsModule,
     ThemeModule,
     NgbModule,
+    CurrencyMaskModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'es-CO' },
