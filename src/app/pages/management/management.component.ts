@@ -207,7 +207,6 @@ export class ManagementComponent {
 
   async createCdp() {
     try {
-      // const pdfUrl = 'assets/pdf/cdp.pdf';
       const pdfUrl = 'assets/pdf/CERTDIS.pdf';
       const existingPdfBytes = await this.http.get(pdfUrl, { responseType: 'arraybuffer' }).toPromise() as Uint8Array;
       const modifiedPdfBytes = await this.generalService.cdp(existingPdfBytes, this.cdp);
@@ -216,6 +215,7 @@ export class ManagementComponent {
       link.href = window.URL.createObjectURL(blob);
       link.download = 'CDP.pdf';
       link.click();
+      this.dataForm.reset();
     } catch (error) {
       alert('Error al generar el PDF, ponte en contacto con Johan:');
     }
