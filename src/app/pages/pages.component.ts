@@ -37,6 +37,7 @@ export class PagesComponent {
         },
         {
           title: 'Administrativo',
+          hidden: !isAdmin,
           link: '/pages/management',
           icon: 'checkmark-square-2-outline',
           home: true,
