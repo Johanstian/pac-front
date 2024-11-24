@@ -1,0 +1,106 @@
+<nb-card>
+    <nb-card-header>
+        <div class="row">
+            <div class="col">
+                <h5>CDP</h5>
+            </div>
+            <div class="col d-flex justify-content-end">
+                <button nbButton status="primary" [routerLink]="['/pages/management/cdp-create/']">+ CREAR CDP</button>
+            </div>
+        </div>
+    </nb-card-header>
+
+    <nb-card-body>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <label for="">Buscar</label>
+                <input nbInput fullWidth type="text" [(ngModel)]="search" (keyup.enter)="bySearch()" placeholder="Nombres...">
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12"><br>
+                <button nbButton status="primary" (click)="bySearch()">Buscar</button>
+                <!-- <label for="">Filtro</label><br>
+                <nb-select fullWidth placeholder="...">
+                    <nb-option></nb-option>
+                </nb-select> -->
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
+                <div class="scroll-container-tables">
+                    <div class="table-full-width text-center">
+                        <div class="lotti-table shadow p-3 mb-5 rounded">
+                            <div class="lotti-row header">
+                              <div class="cell b-t-left">
+                                <input
+                                  type="checkbox"
+                                  [(ngModel)]="selectAll"
+                                  (change)="toggleAllChecks()"
+                                /> <!-- Select all -->
+                                Todos
+                              </div>
+                              <div class="cell">Documento</div>
+                              <div class="cell">Nombres</div>
+                              <div class="cell">Autorización</div>
+                              <div class="cell">Fecha</div>
+                              <div class="cell">Valor</div>
+                              <div class="cell b-t-right">Acciones</div>
+                            </div>
+                            <div class="lotti-row" *ngFor="let cdp of cdps">
+                              <div class="cell">
+                                <input
+                                  type="checkbox"
+                                  [(ngModel)]="cdp.selected"
+                                  (change)="updateSelectAllState()"
+                                />
+                              </div>
+                              <div class="cell">{{ cdp.documento }}</div>
+                              <div class="cell">{{ cdp.nombres | titlecase }}</div>
+                              <div class="cell">{{ cdp.autorizacion }}</div>
+                              <div class="cell">{{ cdp.fecha }}</div>
+                              <div class="cell">{{ cdp.valor | currency:'COP':'symbol':'1.0-1' }}</div>
+                              <div class="cell">
+                                <button nbButton status="primary" size="small" nbTooltip="Actualizar" nbTooltipPlacement="bottom" [routerLink]="['/pages/management/cdp-update/' + cdp._id]">
+                                    <nb-icon icon="checkmark"></nb-icon>
+                                </button>
+                                <button class="ms-1" nbButton status="danger" size="small" (click)="generate(cdp)" nbTooltip="PDF" nbTooltipPlacement="bottom">
+                                    <nb-icon icon="file-outline"></nb-icon>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <strong>CDP: {{ collectionSize }} </strong>
+        <div class="row justify-content-between">
+            <div class="col-auto">
+                <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="size" [maxSize]="3"
+                    [rotate]="true" [ellipses]="false" [boundaryLinks]="true" (pageChange)="nextPage()">
+                    <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+                </ngb-pagination>
+            </div>
+            <div class="col-auto">
+                <nb-select [(selected)]="selectedItem" [(ngModel)]="size" (ngModelChange)="nextPage()">
+                    <nb-option [value]="5">Mostrar 5</nb-option>
+                    <nb-option [value]="10">Mostrar 10</nb-option>
+                    <nb-option [value]="15">Mostrar 15</nb-option>
+                </nb-select>
+            </div>
+        </div> -->
+    </nb-card-body>
+
+    <nb-card-footer>
+        <div class="row">
+            <!-- <div class="col">
+                <button nbButton status="primary" (click)="excel()" style="float: right;">Excel</button>
+            </div> -->
+            <div class="col">
+                <div style="float: right;">
+                    <button nbButton status="danger" nbTooltip="Todos" nbTooltipPlacement="bottom" (click)="generateSelected()">PDFs</button>
+                </div>
+            </div>
+        </div>
+    </nb-card-footer>
+</nb-card>

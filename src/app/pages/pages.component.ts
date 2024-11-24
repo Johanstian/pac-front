@@ -38,9 +38,41 @@ export class PagesComponent {
         {
           title: 'Administrativo',
           hidden: !isAdmin,
-          link: '/pages/management',
           icon: 'checkmark-square-2-outline',
-          home: true,
+          children: [
+            {
+              title: 'CDP',
+              link: '/pages/management/cdp-list',
+              hidden: !isAdmin && !userRoles.includes('Arlfomento'),
+            },
+            {
+              title: 'RP',
+              link: '/pages/management/management-list',
+              hidden: !isAdmin && !userRoles.includes('Arlfomento'),
+            },
+          ]
+        },
+        {
+          title: 'Jurídico',
+          hidden: !isAdmin,
+          icon: 'book-open-outline',
+          children: [
+            {
+              title: 'Contratistas',
+              link: '/pages/legal/contractors/contractors-list',
+              hidden: !isAdmin && !userRoles.includes('Arlfomento'),
+            },
+            {
+              title: 'Solicitud Autorización',
+              link: '/pages/legal/authorization',
+              hidden: !isAdmin && !userRoles.includes('Arlfomento'),
+            },
+            {
+              title: 'Invitación',
+              link: '/pages/legal/invitation',
+              hidden: !isAdmin && !userRoles.includes('Arlfomento'),
+            }
+          ]
         },
         {
           title: 'Emprende',

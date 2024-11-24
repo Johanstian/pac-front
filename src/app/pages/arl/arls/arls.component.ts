@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ArlService } from 'src/app/core/services/arl.service';
+import { ContractService } from 'src/app/core/services/contract.service';
 
 @Component({
   selector: 'app-arls',
@@ -15,7 +17,14 @@ export class ArlsComponent implements OnInit {
   collectionSize: number = 0;
   loading: boolean = false;
 
-  constructor(private arlService: ArlService) {
+  userId = '668960d39e4e37f5bf24c2d4';
+  error: string | null = null;
+
+  constructor(
+    private arlService: ArlService,
+    private contractService: ContractService,
+    private httpClient: HttpClient
+  ) {
 
   }
 
@@ -52,5 +61,7 @@ export class ArlsComponent implements OnInit {
       },
     );
   }
+
+ 
 
 }

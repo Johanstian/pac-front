@@ -1,0 +1,98 @@
+<nb-card>
+    <nb-card-header>
+        Crear Certificado de Disponibilidad Presupuestal
+    </nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="cdpForm">
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="label" for="objeto">Nombres</label><br>
+                    <input nbInput fullWidth type="text" formControlName="nombres"/>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="label" for="objeto">Documento</label><br>
+                    <input nbInput fullWidth type="text" formControlName="documento"/>
+                </div>
+                <div class="col-md-4">
+                    <label class="label" for="objeto">Autorización</label><br>
+                    <input nbInput fullWidth type="text" formControlName="autorizacion"/>
+                </div>
+                <div class="col-md-4">
+                    <label class="label" for="name">Fecha</label><br>
+                    <input nbInput fullWidth type="text" formControlName="fecha"/>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="label" for="res">Concepto</label><br>
+                    <input nbInput fullWidth type="text" formControlName="concepto">
+                    <!-- <nb-select fullWidth [(ngModel)]="user.res" name="res" required
+                        (selectedChange)="onResChange($event)">
+                        <nb-option *ngFor="let rubro of rubros" [value]="rubro.res">{{ rubro.res }}</nb-option>
+                    </nb-select> -->
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="label" for="rubro">Código Resumido</label><br>
+                    <input nbInput fullWidth formControlName="resumido">
+                    <!-- <nb-select fullWidth [(ngModel)]="user.rubro" name="rubro" required
+                        (selectedChange)="onRubroChange($event)">
+                        <nb-option *ngFor="let rubro of rubros" [value]="rubro.code">{{ rubro.code }}</nb-option>
+                    </nb-select> -->
+                </div>
+                <div class="col-md-6">
+                    <label class="label" for="nombrerubro">Código Rubro (largo)</label><br>
+                    <input nbInput fullWidth formControlName="largo">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="label" for="address">Nombre Rubro</label><br>
+                    <input nbInput fullWidth type="text" formControlName="nombrerubro"/>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="label" for="address">Valor</label><br>
+                    <input nbInput fullWidth type="text" formControlName="valor"/>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="label" for="address">Valor letras</label><br>
+                    <input nbInput fullWidth type="text" formControlName="valorletras"/>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="label" for="address">Código Proyecto</label><br>
+                    <input nbInput fullWidth type="text" formControlName="codigo"/>
+                </div>
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-6">
+                    <label class="label" for="elaborado">Proyecto</label>
+                    <input nbInput fullWidth type="text" formControlName="nombreproyecto"/>
+                </div>
+                <div class="col-6">
+                    <label class="label" for="elaborado">Elaborado</label>
+                    <input nbInput fullWidth type="text" required />
+                </div>
+            </div>
+            <br>
+            <div class="d-flex justify-content-center">
+                <button nbButton type="submit" class="sw" (click)="back()">Volver</button>
+                <button nbButton type="submit" status="primary" class="ms-1 sw" (click)="update()" [disabled]="cdpForm.invalid">Actualizar</button>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

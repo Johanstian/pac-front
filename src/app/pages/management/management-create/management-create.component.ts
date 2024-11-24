@@ -1,18 +1,19 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { GeneralService } from 'src/app/core/services/general.service';
 import { saveAs } from 'file-saver';
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib'
 import { ContractService } from 'src/app/core/services/contract.service';
+import { CdpService } from 'src/app/core/services/cdp.service';
 
 @Component({
-  selector: 'app-management',
-  templateUrl: './management.component.html',
-  styleUrls: ['./management.component.scss']
+  selector: 'app-management-create',
+  templateUrl: './management-create.component.html',
+  styleUrls: ['./management-create.component.scss']
 })
-export class ManagementComponent {
+export class ManagementCreateComponent {
 
   rubros = [
     { code: '2.3.2.02.02.008.4301001.83990.31.3101.206', name: 'Realizar La Gestion Tecnica Y Administrativa Para El Fomento Del Deporte Formativo, Social Comunitario, Recreacion Y Actividad Fisica En El Valle Del Cauca.', res: '3167' },
@@ -48,39 +49,11 @@ export class ManagementComponent {
     elaborado: ''
   };
 
-  cdp: any = {
-    aut: '',
-    fechaaut: '',
-    objeto: '',
-    res: '',
-    rubro: '',
-    desrubro: '',
-    valor: '',
-    valorletras: '',
-    codproyecto: '',
-    nomproyecto: '',
-  }
-
-  cdpsi: any = {
-    aut: '',
-    fechaaut: '',
-    objeto: '',
-    res: '',
-    rubro: '',
-    desrubro: '',
-    valor: '',
-    valorletras: '',
-    codproyecto: '',
-    nomproyecto: '',
-    documento: '',
-    tercero: '',
-    mensual: '',
-    mensualletras: '',
-  }
+  cdpForm!: FormGroup;
 
   constructor(
     private alertService: AlertService,
-    private contractService: ContractService,
+    private cdpService: CdpService,
     private formBuilder: FormBuilder,
     private generalService: GeneralService,
     private http: HttpClient
@@ -89,6 +62,17 @@ export class ManagementComponent {
   }
 
   ngOnInit(): void {
+    this.initCdpForm();
+  }
+
+  initCdpForm() {
+    this.cdpForm = this.formBuilder.group({
+      documento: [],
+      autorizacion: [],
+      fecha: [],
+      concepto: [],
+      valor: []
+    })
   }
 
   onFileSelected(event: Event): void {
@@ -207,27 +191,12 @@ export class ManagementComponent {
     }
   }
 
-  async createCdp() {
-    try {
-      const pdfUrl = 'assets/pdf/CERTDIS.pdf';
-      const existingPdfBytes = await this.http.get(pdfUrl, { responseType: 'arraybuffer' }).toPromise() as Uint8Array;
-      const modifiedPdfBytes = await this.generalService.cdp(existingPdfBytes, this.cdp);
-      const blob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });
-      const link = document.createElement('a');
-      link.href = window.URL.createObjectURL(blob);
-      link.download = 'CDP.pdf';
-      link.click();
-      this.dataForm.reset();
-    } catch (error) {
-      alert('Error al generar el PDF, ponte en contacto con Johan:');
-    }
+  cdp() {
+    this.cdpService.createCdp(this.cdpForm.value).subscribe({
+      next: (data) => {
+      }
+    })
   }
-
-  isCdpValid(): boolean {
-    return this.cdp.rubro.trim() !== '' && this.cdp.nombrerubro.trim() !== '';
-  }
-
-
 
 
 }

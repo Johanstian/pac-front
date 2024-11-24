@@ -1,0 +1,99 @@
+<nb-card>
+
+    <nb-card-header>
+        <div class="row">
+            <div class="col">
+                <h5>Crear contratistas</h5>
+            </div>
+        </div>
+    </nb-card-header>
+
+    <nb-card-body>
+        <form [formGroup]="dataForm">
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="label" for="">Documento</label><span class="req"> *</span>
+                    <input nbInput fullWidth formControlName="documento">
+                </div>
+
+                <div class="col-md-4">
+                    <label class="label" for="">Contratista</label><span class="req"> *</span>
+                    <input nbInput fullWidth formControlName="contratista">
+                </div>
+
+                <div class="col-md-4">
+                    <label class="label" for="">Invitación</label><span class="req"> *</span><br>
+                    <nb-select fullWidth formControlName="invitacion">
+                        <nb-option value="Señor">Señor</nb-option>
+                        <nb-option value="Señora">Señora</nb-option>
+                    </nb-select>
+                    <!-- <input nbInput fullWidth formControlName="invitacion"> -->
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="label" for="">Identificado con</label><span class="req"> *</span><br>
+                    <nb-select fullWidth formControlName="identificado">
+                        <nb-option value="identificado con cédula de ciudadanía No.">identificado con cédula de
+                            ciudadanía No.</nb-option>
+                        <nb-option value="identificado con cédula de extrajanería No.">identificado con cédula de
+                            extrajanería No.</nb-option>
+                    </nb-select>
+                    <!-- <input nbInput fullWidth formControlName="invitacion"> -->
+                </div>
+
+                <div class="col-md-4">
+                    <label class="label" for="">Oficiio</label><span class="req"> *</span>
+                    <input nbInput fullWidth formControlName="oficio">
+                </div>
+
+                <div class="col-md-4">
+                    <label class="label" for="">Fecha CDP</label><span class="req"> *</span>
+                    <input nbInput fullWidth formControlName="fechacdp">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="label" for="">Actividad</label><span class="req"> *</span>
+                    <input nbInput fullWidth formControlName="actividad">
+                </div>
+                <div class="col-md-4">
+                    <label class="label" for="">Tipo</label><span class="req"> *</span>
+                    <input nbInput fullWidth formControlName="tipo">
+                </div>
+                <div class="col-md-4">
+                    <label class="label" for="">Requisito Estudios</label><span class="req"> *</span>
+                    <input nbInput fullWidth formControlName="requisitoestudios">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="label" for="">Requisito Experiencia</label><span class="req"> *</span>
+                    <input nbInput fullWidth formControlName="requisitoexperiencia">
+                </div>
+                <div class="col-md-4">
+                    <label class="label" for="">Alternativa Estudio</label><span class="req"> *</span>
+                    <input nbInput fullWidth formControlName="alternativaestudio">
+                </div>
+                <div class="col-md-4">
+                    <label class="label" for="">Alternativa Experiencia</label><span class="req"> *</span>
+                    <input nbInput fullWidth formControlName="alternativaexperiencia">
+                </div>
+            </div>
+
+        </form>
+    </nb-card-body>
+
+    <nb-card-footer>
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <button nbButton (click)="back()">Volver</button>
+                <button nbButton status="primary" class="ms-2" [disabled]="dataForm.invalid"
+                    (click)="createContractor()">Crear</button>
+            </div>
+        </div>
+    </nb-card-footer>
+</nb-card>
