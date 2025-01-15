@@ -40,6 +40,7 @@ export class ContractorsCreateComponent implements OnInit {
       requisitoexperiencia: [null, Validators.required],
       alternativaestudio: [null, Validators.required],
       alternativaexperiencia: [null, Validators.required],
+      plazo: [null, Validators.required],
     })
   }
 

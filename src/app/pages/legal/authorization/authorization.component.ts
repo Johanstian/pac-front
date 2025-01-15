@@ -55,16 +55,24 @@ export class AuthorizationComponent implements OnInit {
           const doc = new Docxtemplater(zip, {
             paragraphLoop: true,
             linebreaks: true,
+            parser: require("docxtemplater/expressions")
           });
-          doc.render({
-            fecha: contractor?.cdpInfo?.fecha,
+
+          const data = {
             documento: contractor.documento,
             contratista: contractor.contratista,
             invitacion: contractor.invitacion,
-            valor: contractor.cdpInfo?.valor,
-            objeto: contractor.cdpInfo?.objeto,
-            nombrerubro: contractor.cdpInfo?.nombrerubro,
-          });
+            cdp: contractor.cdp
+              ? {
+                fecha: contractor.cdp.fecha || "Feno disponible",
+                valor: parseInt(contractor.cdp.valor, 10) || 0,
+                objeto: contractor.cdp.objeto || "Noespecificado",
+                nombrerubro: contractor.cdp.nombrerubro || "Noespecificado",
+              }
+              : null,
+
+          };
+          doc.render(data);
 
           const out = doc.getZip().generate({
             type: 'blob',
@@ -81,6 +89,7 @@ export class AuthorizationComponent implements OnInit {
   getAllAuthorizations() {
     this.contractService.allContractors().subscribe({
       next: (data) => {
+        console.log(data)
         this.contractors = data
       }
     })

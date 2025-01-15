@@ -8,39 +8,37 @@ import { environment } from 'src/environments/environment';
 })
 export class ContractService {
 
-  private devUrl = environment.devUrl + '/contractor';
-  private proUrl = environment.proUrl + '/contractor';
-
-  // private apiUrl = 'http://localhost:3000';
+  // private proUrl = environment.proUrl + '/contractor';
+  private proUrl = 'http://localhost:3000/api/contractor';
 
   constructor(private httpClient: HttpClient) {
 
   }
 
   createContractor(request: any): Observable<any> {
-    return this.httpClient.post<any>(this.devUrl + this.proUrl + '/createContractor', request);
+    return this.httpClient.post<any>(this.proUrl + '/createContractor', request);
   }
 
   getContractorsPaginated(page: number, limit: number): Observable<any> {
     let params = new HttpParams().set('page', page).set('limit', limit);
-    return this.httpClient.get<any>(this.devUrl + this.proUrl + '/contractors', { params: params })
+    return this.httpClient.get<any>(this.proUrl + '/contractors', { params: params })
   }
 
   getOneContractor(cc: any): Observable<any> {
-    return this.httpClient.get<any>(this.devUrl + this.proUrl + '/contractors/' + cc);
+    return this.httpClient.get<any>(this.proUrl + '/contractors/' + cc);
   }
 
   updateContractor(documento: any, request: any): Observable<any> {
-    return this.httpClient.put<any>(this.devUrl + this.proUrl + '/update-contractor/' + documento, request)
+    return this.httpClient.put<any>(this.proUrl + '/update-contractor/' + documento, request)
   }
 
   allContractors(): Observable<any> {
-    return this.httpClient.get<any>(this.devUrl + this.proUrl + '/all')
+    return this.httpClient.get<any>(this.proUrl + '/all')
   }
 
   getBySearch(search: any): Observable<any> {
     let params = new HttpParams().set('search', search);
-    return this.httpClient.get<any>(this.devUrl + this.proUrl + '/search', { params })
+    return this.httpClient.get<any>(this.proUrl + '/search', { params })
   }
 
 

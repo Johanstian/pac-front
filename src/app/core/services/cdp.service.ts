@@ -8,33 +8,32 @@ import { environment } from 'src/environments/environment';
 })
 export class CdpService {
 
-  private devUrl = environment.devUrl + '/cdp';
-  private proUrl = environment.proUrl + '/cdp';
-  // private apiUrl = 'http://localhost:3000/api';
+  // private proUrl = environment.proUrl;
+  private proUrl = 'http://localhost:3000/api';
 
   constructor(private httpClient: HttpClient) {
 
   }
 
   createCdp(request: any): Observable<any> {
-    return this.httpClient.post<any>(this.devUrl + this.proUrl + '/create', request);
+    return this.httpClient.post<any>(this.proUrl + '/cdp/create', request);
   }
 
   getCdpPaginated(page: number, limit: number): Observable<any> {
     let params = new HttpParams().set('page', page).set('limit', limit);
-    return this.httpClient.get<any>(this.devUrl + this.proUrl + '/paginated', { params: params });
+    return this.httpClient.get<any>(this.proUrl + '/cdp/paginated', { params: params });
   }
 
   getAllCdps() {
-    return this.httpClient.get<any>(this.devUrl + this.proUrl + '/all');
+    return this.httpClient.get<any>(this.proUrl + '/cdp/all');
   }
 
   getCdpByDocumentp(id: any): Observable<any>  {
-    return this.httpClient.get<any>(this.devUrl + this.proUrl + '/get-cdp/' + id)
+    return this.httpClient.get<any>(this.proUrl + '/cdp/get-cdp/' + id)
   }
 
   updateCdp(id: any, request: any): Observable<any> {
-    return this.httpClient.put<any>(this.devUrl + this.proUrl + '/update/' + id, request)
+    return this.httpClient.put<any>(this.proUrl + '/cdp/update/' + id, request)
   }
 
   getBySearch(search: any) {
@@ -42,7 +41,7 @@ export class CdpService {
      if (search.trim()) {
       params = params.set('search', search);
     }
-    return this.httpClient.get<any>(this.devUrl + this.proUrl + '/search', { params })
+    return this.httpClient.get<any>(this.proUrl + '/cdp/search', { params })
   }
 
 

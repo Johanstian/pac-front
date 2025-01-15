@@ -63,6 +63,7 @@ export class CpdListComponent implements OnInit {
   bySearch() {
     this.cdpService.getBySearch(this.search).subscribe({
       next: (data) => {
+        console.log(data)
         this.cdps = data
       }
     })
@@ -116,6 +117,7 @@ export class CpdListComponent implements OnInit {
           });
           const fileName = `${cdp.nombres}.docx`;
           saveAs(out, fileName);
+          this.selectAll = false;
         }
       );
     } else {
