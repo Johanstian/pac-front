@@ -16,8 +16,8 @@ export class ArlsComponent implements OnInit {
   selectedItem: number = 10;
   collectionSize: number = 0;
   loading: boolean = false;
+  download: boolean = false;
 
-  userId = '668960d39e4e37f5bf24c2d4';
   error: string | null = null;
 
   constructor(
@@ -33,12 +33,16 @@ export class ArlsComponent implements OnInit {
   }
 
   getAllArlsByPaging() {
+    this.loading = true;
     this.arlService.getAllArls(this.page, this.size).subscribe({
       next: (data) => {
         this.arls = data.arls;
-        this.collectionSize = data.totalPages;
+        this.collectionSize = data.totalDocuments || data.totalPages;
+        this.loading = false;
       },
-      error: () => {
+      error: (error) => {
+        console.error('🔍 Frontend - Error:', error);
+        this.loading = false;
       }
     })
   }
@@ -48,8 +52,9 @@ export class ArlsComponent implements OnInit {
   }
 
   excel() {
-    this.arlService.getExcel().subscribe(
-      (excelBlob: Blob) => {
+    this.download = true;
+    this.arlService.getExcel().subscribe({
+      next: (excelBlob: Blob) => {
         const blob = new Blob([excelBlob], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -58,8 +63,13 @@ export class ArlsComponent implements OnInit {
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
+        this.download = false; // ✅ Descarga completada
       },
-    );
+      error: (error) => {
+        console.error('Error al descargar Excel:', error);
+        this.download = false;
+      }
+    });
   }
 
  

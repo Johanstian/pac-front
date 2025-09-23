@@ -11,6 +11,7 @@ import { ArlService } from 'src/app/core/services/arl.service';
 export class ArlAffiliationComponent implements OnInit {
 
   arlForm!: FormGroup;
+  isLoading = false;
 
   constructor(
     private alertService: AlertService,
@@ -44,13 +45,16 @@ export class ArlAffiliationComponent implements OnInit {
   }
 
   create() {
+    this.isLoading = true;
     this.arlService.createArl(this.arlForm.value).subscribe({
       next: () => {
         this.alertService.success('¡Correcto!', 'Información para la afiliación a la ARL enviada')
         this.arlForm.reset();
+        this.isLoading = false;
       },
       error: (err) => {
         this.alertService.error('¡Error!', err.error.message)
+        this.isLoading = false;
       }
     })
   }

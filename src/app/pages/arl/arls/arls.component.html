@@ -1,74 +1,91 @@
 <nb-card>
-    <nb-card-header>
-        <div class="row">
-            <div class="col">
-                <h5>Listado ARL</h5>
-            </div>
-        </div>
-    </nb-card-header>
+  <nb-card-header>
+    <div class="row">
+      <div class="col">
+        <h5>Listado ARL</h5>
+      </div>
+    </div>
+  </nb-card-header>
 
-    <nb-card-body>
-        <div class="row">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
-                <div class="scroll-container-tables">
-                    <div class="table-full-width text-center">
-                        <div class="lotti-table shadow p-3 mb-5 rounded">
-                            <div class="lotti-row header">
-                                <div class="cell b-t-left">Documento</div>
-                                <div class="cell">P. Nombre</div>
-                                <div class="cell">S. Nombre</div>
-                                <div class="cell">P. Apellido</div>
-                                <div class="cell">S. Apellido</div>
-                                <div class="cell">F. Nac</div>
-                                <div class="cell">Celular</div>
-                                <div class="cell b-t-right"></div>
-                            </div>
-                            <div class="lotti-row" *ngFor="let arl of arls">
-                                <div class="cell">{{arl.cc}}</div>
-                                <div class="cell">{{arl.firstName | titlecase}}</div>
-                                <div class="cell">{{arl.secondName | titlecase}}</div>
-                                <div class="cell">{{arl.firstSurname | titlecase}}</div>
-                                <div class="cell">{{arl.secondSurname | titlecase}}</div>
-                                <div class="cell">{{arl.birthday | date:'yyyy-MM-dd'}}</div>
-                                <div class="cell">{{arl.cellphone}}</div>
-                                <div class="cell">{{arl.review}}</div>
-                                <!-- <div class="cell">
-                                    <button nbButton ghost hero status="primary" [routerLink]="['/pages/enlistment/enlistment-stage/', arl.cc]">
-                                        <nb-icon icon="checkmark-outline"></nb-icon>
-                                    </button>
-                                    <button nbButton ghost status="danger" class="m-l-5">
-                                        <nb-icon icon="close-circle-outline"></nb-icon>
-                                    </button>
-                                </div> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 table-responsive">
+        <div class="scroll-container-tables">
+          <div class="table-full-width text-center">
+            <div class="lotti-table shadow p-3 mb-5 rounded">
+              <div class="lotti-row header">
+                <div class="cell b-t-left">Documento</div>
+                <div class="cell">P. Nombre</div>
+                <div class="cell">S. Nombre</div>
+                <div class="cell">P. Apellido</div>
+                <div class="cell">S. Apellido</div>
+                <div class="cell">F. Nac</div>
+                <div class="cell">Celular</div>
+                <div class="cell b-t-right"></div>
+              </div>
+              <div *ngIf="arls?.length === 0" class="text-center p-4">
+                <p>No hay datos para mostrar</p>
+              </div>
+              <div class="lotti-row" *ngFor="let arl of arls; let i = index">
+                <div class="cell">{{ arl.cc }}</div>
+                <div class="cell">{{ arl.firstName | titlecase }}</div>
+                <div class="cell">{{ arl.secondName | titlecase }}</div>
+                <div class="cell">{{ arl.firstSurname | titlecase }}</div>
+                <div class="cell">{{ arl.secondSurname | titlecase }}</div>
+                <div class="cell">{{ arl.birthday | date : "yyyy-MM-dd" }}</div>
+                <div class="cell">{{ arl.cellphone }}</div>
+                <div class="cell">{{ arl.review }}</div>
+              </div>
             </div>
+          </div>
         </div>
-        <strong>ARL: {{ collectionSize }} </strong>
-        <div class="row justify-content-between">
-            <div class="col-auto">
-                <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="size" [maxSize]="3"
-                    [rotate]="true" [ellipses]="false" [boundaryLinks]="true" (pageChange)="nextPage()">
-                    <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
-                </ngb-pagination>
-            </div>
-            <div class="col-auto">
-                <nb-select [(selected)]="selectedItem" [(ngModel)]="size" (ngModelChange)="nextPage()">
-                    <!-- <nb-option [value]="5">Mostrar 5</nb-option> -->
-                    <nb-option [value]="10">Mostrar 10</nb-option>
-                    <nb-option [value]="15">Mostrar 15</nb-option>
-                </nb-select>
-            </div>
-        </div>
-    </nb-card-body>
+      </div>
+      <div *ngIf="!arls || arls.length === 0" style="text-align: center;">
+        <nb-spinner message="Cargando información..."></nb-spinner>
+    </div>
+    </div>
+    <strong>ARL: {{ collectionSize }} </strong>
+    <div class="row justify-content-between">
+      <div class="col-auto">
+        <ngb-pagination
+          [collectionSize]="collectionSize"
+          [(page)]="page"
+          [pageSize]="size"
+          [maxSize]="3"
+          [rotate]="true"
+          [ellipses]="false"
+          [boundaryLinks]="true"
+          (pageChange)="nextPage()"
+        >
+          <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+        </ngb-pagination>
+      </div>
+      <div class="col-auto">
+        <nb-select
+          [(selected)]="selectedItem"
+          [(ngModel)]="size"
+          (ngModelChange)="nextPage()"
+        >
+          <nb-option [value]="10">Mostrar 10</nb-option>
+          <nb-option [value]="15">Mostrar 15</nb-option>
+        </nb-select>
+      </div>
+    </div>
+  </nb-card-body>
 
-    <nb-card-footer>
-        <div class="row">
-            <div class="col">
-                <button nbButton status="primary" (click)="excel()" style="float: right;">Excel</button>
-            </div>
-        </div>
-    </nb-card-footer>
+  <nb-card-footer>
+    <div class="row">
+      <div class="col">
+         <button
+           nbButton
+           status="primary"
+           [disabled]="download"
+           (click)="excel()"
+           style="float: right; width: 100px;"
+         >
+           {{ download ? '...' : 'Excel' }}
+         </button>
+      </div>
+    </div>
+  </nb-card-footer>
 </nb-card>
