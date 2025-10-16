@@ -16,18 +16,16 @@ export class SignInComponent {
   password: any;
   user: any;
   roles: any;
-
   showPassword = false;
-
-
-  socialLinks: any
+  socialLinks: any;
+  isLoading = false;
+  loading = false;
 
   constructor(
     private alertService: AlertService,
     private formBuilder: FormBuilder,
     private identityService: IdentityService,
     private router: Router) {
-
   }
 
   ngOnInit(): void {
@@ -45,9 +43,6 @@ export class SignInComponent {
     this.showPassword = !this.showPassword;
   }
 
-
-
-
   initForm() {
     this.signInForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(5)]],
@@ -56,6 +51,7 @@ export class SignInComponent {
   }
 
   signIn() {
+    this.loading = true;
     this.identityService.login(this.signInForm.value).subscribe({
       next: (data) => {
         this.user = data;
@@ -65,10 +61,11 @@ export class SignInComponent {
         this.roles = this.identityService.getUser().role;
         this.identityService.saveUser(this.user);
         this.alertService.success('Inicio de sesión correcto', 'OK');
-
+        this.loading = false;
       },
       error: (err) => {
         this.alertService.error('¡Error!', err.error.message);
+        this.loading = false;
       }
     })
   }
@@ -83,7 +80,6 @@ export class SignInComponent {
         this.roles = this.identityService.getUser().role;
         this.identityService.saveUser(this.user);
         this.alertService.success('Inicio de sesión correcto', 'OK');
-
       },
       error: (err) => {
         this.alertService.error('¡Error!', err.error.message);
@@ -93,6 +89,11 @@ export class SignInComponent {
 
   getConfigValue(key: string): any {
 
+  }
+
+  toggleLoadingAnimation() {
+    this.loading = true;
+    setTimeout(() => this.loading = false, 3000);
   }
 
 

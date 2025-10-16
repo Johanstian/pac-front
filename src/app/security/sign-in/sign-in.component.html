@@ -1,48 +1,82 @@
 <div class="container">
-    <nb-card>
-        <nb-card-header>
-            <img src="assets/logo.png" alt="" style="width: 340px; height: 322px; margin-bottom: 50px;">
-        </nb-card-header>
+  <nb-card>
+    <nb-card-header>
+      <img
+        src="assets/logo.png"
+        alt=""
+        style="width: 340px; height: 322px; margin-bottom: 50px"
+      />
+    </nb-card-header>
 
-        <nb-card-body>
-            <form [formGroup]="signInForm">
-              <div class="row text-center">
-                <p>Proceso de Asginación de Contratistas</p>
-              </div>
-                <div class="row">
-                    <nb-form-field>
-                        <nb-icon style="margin-top: 20px;" nbPrefix icon="person" pack="eva"></nb-icon>
-                        <label for="">Usuario</label><br>
-                        <input nbInput fullWidth formControlName="username" type="text">
-                    </nb-form-field>
-                </div>
-                <br>
-                <div class="row">
-                    <nb-form-field>
-                        <nb-icon style="margin-top: 20px;" nbPrefix icon="lock" pack="eva"></nb-icon>
-                        <label for="">Contraseña</label>
-                        <input [type]="getInputType()" nbInput fullWidth formControlName="password">
-                        <button style="margin-top: 20px;" nbSuffix nbButton ghost (click)="toggleShowPassword()">
-                            <nb-icon [icon]="showPassword ? 'eye' : 'eye-off'"
-                                     pack="eva"
-                                     [attr.aria-label]="showPassword ? 'hide password' : 'show password'">
-                            </nb-icon>
-                        </button>
-                    </nb-form-field>
-                    
-                </div>
-            </form>
-        </nb-card-body>
-        <nb-card-footer>
-            <div class="row" class="d-flex justify-content-center">
-                <button nbButton status="primary" [disabled]="signInForm.invalid" (click)="signIn()">Ingresar</button>
-            </div>
-        </nb-card-footer>
-    </nb-card>
+    <nb-card-body>
+      <form [formGroup]="signInForm">
+        <div class="row text-center">
+          <p>Proceso de Asginación de Contratistas</p>
+        </div>
+        <div class="row">
+          <nb-form-field>
+            <nb-icon
+              style="margin-top: 20px"
+              nbPrefix
+              icon="person"
+              pack="eva"
+            ></nb-icon>
+            <label for="">Usuario</label><br />
+            <input nbInput fullWidth formControlName="username" type="text" />
+          </nb-form-field>
+        </div>
+        <br />
+        <div class="row">
+          <nb-form-field>
+            <nb-icon
+              style="margin-top: 20px"
+              nbPrefix
+              icon="lock"
+              pack="eva"
+            ></nb-icon>
+            <label for="">Contraseña</label>
+            <input
+              [type]="getInputType()"
+              nbInput
+              fullWidth
+              formControlName="password"
+            />
+            <button
+              style="margin-top: 20px"
+              nbSuffix
+              nbButton
+              ghost
+              (click)="toggleShowPassword()"
+            >
+              <nb-icon
+                [icon]="showPassword ? 'eye' : 'eye-off'"
+                pack="eva"
+                [attr.aria-label]="
+                  showPassword ? 'hide password' : 'show password'
+                "
+              >
+              </nb-icon>
+            </button>
+          </nb-form-field>
+        </div>
+      </form>
+    </nb-card-body>
+    <nb-card-footer>
+      <div class="row" class="d-flex justify-content-center">
+        <button
+          [nbSpinner]="loading"
+          nbSpinnerStatus="primary"
+          nbButton
+          status="primary"
+          [disabled]="signInForm.invalid || loading"
+          (click)="signIn()"
+        >
+          Ingresar
+        </button>
+      </div>
+    </nb-card-footer>
+  </nb-card>
 </div>
-
-
-
 
 <!-- <h1 id="title" class="title">Login</h1>
 <p class="sub-title">Hello! Log in with your email.</p>

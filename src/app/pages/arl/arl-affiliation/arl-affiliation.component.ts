@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { ArlService } from 'src/app/core/services/arl.service';
 
@@ -12,16 +13,19 @@ export class ArlAffiliationComponent implements OnInit {
 
   arlForm!: FormGroup;
   isLoading = false;
+  cities: any[] = [];
 
   constructor(
     private alertService: AlertService,
     private arlService: ArlService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private httpClient: HttpClient
   ) {
   }
 
   ngOnInit(): void {
     this.initForm();
+    this.fetchCities();
   }
 
   initForm() {
@@ -44,6 +48,17 @@ export class ArlAffiliationComponent implements OnInit {
     })
   }
 
+  fetchCities() {
+    this.httpClient.get<any[]>('https://api-colombia.com/api/v1/Department/31/cities').subscribe({
+      next: (cities) => {
+        this.cities = cities.sort((a, b) => a.name.localeCompare(b.name));
+      },
+      error: (error) => {
+        this.alertService.error('Error', 'No se pudieron cargar las ciudades');
+      }
+    });
+  }
+
   create() {
     this.isLoading = true;
     this.arlService.createArl(this.arlForm.value).subscribe({
@@ -58,5 +73,6 @@ export class ArlAffiliationComponent implements OnInit {
       }
     })
   }
+
 
 }

@@ -95,7 +95,9 @@
                 </div>
                 <div class="col-md-6">
                     <label class="label" for="">Ciudad</label><span class="req"> *</span>
-                    <input nbInput fullWidth formControlName="city" type="text">
+                    <nb-select fullWidth formControlName="city">
+                        <nb-option *ngFor="let city of cities" [value]="city.name">{{ city.name }}</nb-option>
+                    </nb-select>
                 </div>
             </div>
             <br>
