@@ -19,8 +19,21 @@ export class ArlService {
     return this.httpClient.post<any>(this.devUrl + this.proUrl + '/arl/createArl', request);
   }
 
-  getAllArls(page: number, limit: number): Observable<any> {
-    const params = new HttpParams().set('page', page).set('limit', limit);
+  // getAllArls(page: number, limit: number): Observable<any> {
+  //   const params = new HttpParams().set('page', page).set('limit', limit);
+  //   return this.httpClient.get<any>(this.devUrl + this.proUrl + '/arl/getAllArls', {params: params});
+  // }
+
+  getAllArls(page: number, limit: number, cc?: string): Observable<any> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('limit', limit.toString());
+    
+    // Si hay un término de búsqueda, agregarlo a los parámetros
+    if (cc && cc.trim() !== '') {
+      params = params.set('cc', cc.trim());
+    }
+    
     return this.httpClient.get<any>(this.devUrl + this.proUrl + '/arl/getAllArls', {params: params});
   }
 
