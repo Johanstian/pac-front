@@ -23,9 +23,6 @@
                 <div class="cell">Celular</div>
                 <div class="cell b-t-right"></div>
               </div>
-              <div *ngIf="arls?.length === 0" class="text-center p-4">
-                <p>No hay datos para mostrar</p>
-              </div>
               <div class="lotti-row" *ngFor="let arl of arls; let i = index">
                 <div class="cell">{{ arl.cc }}</div>
                 <div class="cell">{{ arl.firstName | titlecase }}</div>
@@ -40,9 +37,12 @@
           </div>
         </div>
       </div>
-      <div *ngIf="!arls || arls.length === 0" style="text-align: center;">
+      <div *ngIf="loading" style="text-align: center;">
         <nb-spinner message="Cargando información..."></nb-spinner>
-    </div>
+      </div>
+      <div *ngIf="!loading && (!arls || arls.length === 0)" style="text-align: center; padding: 2rem;">
+        <p>No hay ARLs creadas</p>
+      </div>
     </div>
     <strong>ARL: {{ collectionSize }} </strong>
     <div class="row justify-content-between">
