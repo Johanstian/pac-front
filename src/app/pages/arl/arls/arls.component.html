@@ -35,7 +35,7 @@
                 <div class="cell">S. Apellido</div>
                 <div class="cell">F. Nac</div>
                 <div class="cell">Celular</div>
-                <div class="cell b-t-right"></div>
+                <div class="cell b-t-right">Acciones</div>
               </div>
               <div class="lotti-row" *ngFor="let arl of arls; let i = index">
                 <div class="cell">{{ arl.cc }}</div>
@@ -45,7 +45,30 @@
                 <div class="cell">{{ arl.secondSurname | titlecase }}</div>
                 <div class="cell">{{ arl.birthday | date : "yyyy-MM-dd" }}</div>
                 <div class="cell">{{ arl.cellphone }}</div>
-                <div class="cell">{{ arl.review }}</div>
+                <div class="cell">
+                  <button
+                    nbButton
+                    status="primary"
+                    size="small"
+                    (click)="editArl(arl._id)"
+                    nbTooltip="Actualizar"
+                    nbTooltipPlacement="bottom"
+                    style="margin: 0 0.25rem; padding: 0.5rem;"
+                  >
+                    <nb-icon icon="edit-outline"></nb-icon>
+                  </button>
+                  <button
+                    nbButton
+                    status="danger"
+                    size="small"
+                    (click)="deleteArl(arl._id, arl.firstName, arl.firstSurname)"
+                    nbTooltip="Eliminar"
+                    nbTooltipPlacement="bottom"
+                    style="margin: 0 0.25rem; padding: 0.5rem;"
+                  >
+                    <nb-icon icon="trash-2-outline"></nb-icon>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -55,7 +78,13 @@
         <nb-spinner message="Cargando información..."></nb-spinner>
       </div>
       <div
-        *ngIf="!loading && (!arls || arls.length === 0)"
+        *ngIf="!loading && (!arls || arls.length === 0) && searchTerm && searchTerm.trim() !== ''"
+        style="text-align: center; padding: 2rem"
+      >
+        <p>No se encontró ninguna afiliación con la Cédula de Ciudadanía "{{ searchTerm }}"</p>
+      </div>
+      <div
+        *ngIf="!loading && (!arls || arls.length === 0) && (!searchTerm || searchTerm.trim() === '')"
         style="text-align: center; padding: 2rem"
       >
         <p>No hay ARLs creadas</p>

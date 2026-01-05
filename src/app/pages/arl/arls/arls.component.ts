@@ -114,8 +114,12 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { NbDialogService } from '@nebular/theme';
 import { ArlService } from 'src/app/core/services/arl.service';
 import { ContractService } from 'src/app/core/services/contract.service';
+import { AlertService } from 'src/app/core/services/alert.service';
+import { DeleteConfirmDialogComponent } from './delete-confirm-dialog.component';
 
 @Component({
   selector: 'app-arls',
@@ -139,7 +143,10 @@ export class ArlsComponent implements OnInit, OnDestroy {
   constructor(
     private arlService: ArlService,
     private contractService: ContractService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private router: Router,
+    private alertService: AlertService,
+    private dialogService: NbDialogService
   ) {
 
   }
@@ -163,7 +170,19 @@ export class ArlsComponent implements OnInit, OnDestroy {
       },
       error: (error) => {
         console.error('🔍 Frontend - Error:', error);
-        this.error = error.error?.message || 'Error al cargar las afiliaciones';
+        
+        // Si es un error 400 relacionado con "no se encontraron afiliaciones", tratarlo como sin resultados
+        const errorMessage = error.error?.message || '';
+        if (error.status === 400 && errorMessage.includes('No se encontraron afiliaciones')) {
+          // Limpiar la lista y mostrar mensaje de "sin resultados"
+          this.arls = [];
+          this.collectionSize = 0;
+          this.error = null; // No es un error, es simplemente "sin resultados"
+        } else {
+          // Para otros errores, mostrar el mensaje de error
+          this.error = errorMessage || 'Error al cargar las afiliaciones';
+        }
+        
         this.loading = false;
       }
     })
@@ -213,6 +232,38 @@ export class ArlsComponent implements OnInit, OnDestroy {
       error: (error) => {
         console.error('Error al descargar Excel:', error);
         this.download = false;
+      }
+    });
+  }
+
+  editArl(id: string) {
+    this.router.navigate(['/pages/arl/arl-update', id]);
+  }
+
+  deleteArl(id: string, firstName: string, firstSurname: string) {
+    const nombre = `${firstName} ${firstSurname}`;
+    const confirmMessage = `¿Está seguro de que desea eliminar la afiliación de ${nombre}? Esta acción no se puede deshacer.`;
+    
+    this.dialogService.open(DeleteConfirmDialogComponent, {
+      context: {
+        message: confirmMessage
+      }
+    }).onClose.subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.arlService.deleteArl(id).subscribe({
+          next: (response) => {
+            this.alertService.success('¡Correcto!', response.message || 'Afiliación eliminada correctamente');
+            // Limpiar búsqueda y recargar la ruta
+            this.searchTerm = '';
+            this.page = 1;
+            this.router.navigate(['/pages/arl/arl-list']).then(() => {
+              this.getAllArlsByPaging();
+            });
+          },
+          error: (error) => {
+            this.alertService.error('¡Error!', error.error?.message || 'Error al eliminar la afiliación');
+          }
+        });
       }
     });
   }

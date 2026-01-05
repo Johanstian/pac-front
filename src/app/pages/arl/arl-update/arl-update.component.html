@@ -1,0 +1,199 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="arlForm">
+            <ng-template #labelOne>Información</ng-template>
+            <h5>Actualizar Afiliación a la Administradora de Riesgos Laborales - ARL</h5><br>
+            <!-- <p style="text-align: justify;">Por favor, complete todos los apartados del formulario de afiliación con
+                información clara y precisa. La
+                información que proporcione será utilizada por la subgerencia para su afiliación a la ARL. Su
+                colaboración es vital. ¡Gracias!</p> -->
+            <br>
+            <div *ngIf="loadingArl" style="text-align: center; padding: 2rem;">
+                <nb-spinner message="Cargando información..."></nb-spinner>
+            </div>
+            <div *ngIf="!loadingArl">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="label" for="">ARL</label><span class="req"> *</span>
+                        <nb-select fullWidth formControlName="arlName">
+                            <nb-option value="Positiva">Positiva</nb-option>
+                            <nb-option value="SURA">Sura</nb-option>
+                            <nb-option value="Colmena">Colmena</nb-option>
+                            <nb-option value="Colpatria">Colpatria</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="label" for="">Tipo de Documento</label><span class="req"> *</span>
+                        <div class="form-group">
+                            <nb-select fullWidth formControlName="documentType">
+                                <nb-option value="C">Cédula de Ciudadanía</nb-option>
+                                <nb-option value="E">Cédula de Extranjería</nb-option>
+                                <nb-option value="L">Permiso Temportal</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="label" for="">Cédula</label><span class="req"> *</span>
+                        <input nbInput fullWidth formControlName="cc" type="text">
+                    </div>
+                </div>
+
+
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="label" for="">Primer nombre</label><span class="req"> *</span>
+                        <input nbInput fullWidth formControlName="firstName" type="text">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="label" for="">Segundo nombre</label><span class="req"> *</span>
+                        <input nbInput fullWidth formControlName="secondName" type="text">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="label" for="">Primer apellido</label><span class="req"> *</span>
+                        <input nbInput fullWidth formControlName="firstSurname" type="text">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="label" for="">Segundo apellido</label><span class="req"> *</span>
+                        <input nbInput fullWidth formControlName="secondSurname" type="text">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="label" for="">Fecha de Nacimiento</label><span class="req"> *</span>
+                        <input nbInput fullWidth placeholder="" type="date" formControlName="birthday">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="label" for="">Sexo</label><span class="req"> *</span>
+                        <nb-select fullWidth formControlName="sex">
+                            <nb-option value="F">F. Femenino</nb-option>
+                            <nb-option value="M">M. Masculino</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="label" for="">Correo electrónico</label><span class="req"> *</span>
+                        <input nbInput fullWidth formControlName="email" type="text">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="label" for="">Celular</label><span class="req"> *</span>
+                        <input nbInput fullWidth formControlName="cellphone" type="text">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="label" for="">Dirección de Residencia</label><span class="req"> *</span>
+                        <input nbInput fullWidth formControlName="address" type="text">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="label" for="">Ciudad</label><span class="req"> *</span>
+                        <nb-select fullWidth formControlName="city">
+                            <nb-option *ngFor="let city of cities" [value]="city.name">{{ city.name }}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="label" for="">EPS</label><span class="req"> *</span>
+                        <nb-select fullWidth formControlName="eps">
+                            <nb-option value="CCF007">CCF007 - COMFAMILIAR CARTAGENA</nb-option>
+                            <nb-option value="CCF027">CCF027 - CAJA DE COMPENSACIÓN FAMILIAR DE NARIÑO</nb-option>
+                            <nb-option value="CCF049">CCF049 - COMFAORIENTE</nb-option>
+                            <nb-option value="CCF102">CCF102 - CAJA DE COMPENSACIÓN FAMILIAR DEL CHOCÓ</nb-option>
+                            <nb-option value="CCFC09">CCFC09 - COMFABOY</nb-option>
+                            <nb-option value="CCFC10">CCFC10 - CCF COLSUBSIDIO</nb-option>
+                            <nb-option value="CCFC15">CCFC15 - CCF DE CORDOBA COMFACOR EPS-S</nb-option>
+                            <nb-option value="CCFC18">CCFC18 - CAFAM EPS REGIMEN SUBSIDIADO</nb-option>
+                            <nb-option value="CCFC20">CCFC20 - CCF DEL CHOCO COMFACHOCO EPSS</nb-option>
+                            <nb-option value="CCFC23">CCFC23 - CCF DE LA GUAJIRA</nb-option>
+                            <nb-option value="CCFC24">CCFC24 - COMFAMILIAR HUILA</nb-option>
+                            <nb-option value="CCFC27">CCFC27 - COMFAMILIAR NARIÑO</nb-option>
+                            <nb-option value="CCFC33">CCFC33 - COMFAMILIAR SUCRE</nb-option>
+                            <nb-option value="CCFC53">CCFC53 - COMFACUNDI</nb-option>
+                            <nb-option value="CCFC55">CCFC55 - CAJACOPI EPS</nb-option>
+                            <nb-option value="EAS016">EAS016 - EMPRESAS PUBLICAS DE MEDELLIN</nb-option>
+                            <nb-option value="EAS027">EAS027 - FONDO DE PASIVO SOCIAL DE LOS FERROCARRILES NACIONALES</nb-option>
+                            <nb-option value="EPS001">EPS001 - COLMEDICA E.P.S. - ALIANSALUD</nb-option>
+                            <nb-option value="EPS002">EPS002 - SALUD TOTAL S.A. E.P.S.</nb-option>
+                            <nb-option value="EPS005">EPS005 - E.P.S. SANITAS S.A.</nb-option>
+                            <nb-option value="EPS008">EPS008 - COMPENSAR E.P.S.</nb-option>
+                            <nb-option value="EPS009">EPS009 - E.P.S. PROGRAMA COMFENALCO ANTIOQUIA</nb-option>
+                            <nb-option value="EPS010">EPS010 - SUSALUD - SURA - SURAMERICANA E.P.S.</nb-option>
+                            <nb-option value="EPS012">EPS012 - COMFENALCO VALLE E.P.S.</nb-option>
+                            <nb-option value="EPS014">EPS014 - HUMANA - VIVIR S.A. E.P.S.</nb-option>
+                            <nb-option value="EPS015">EPS015 - SALUD COLPATRIA E.P.S.</nb-option>
+                            <nb-option value="EPS016">EPS016 - COOMEVA E.P.S. S.A.</nb-option>
+                            <nb-option value="EPS017">EPS017 - E.P.S. FAMISANAR LIMITADA CAFAM-COLSUBSIDIO</nb-option>
+                            <nb-option value="EPS018">EPS018 - E.P.S. SERVICIO OCCIDENTAL DE SALUD S.A. S.O.S.</nb-option>
+                            <nb-option value="EPS023">EPS023 - CRUZ BLANCA E.P.S. S.A.</nb-option>
+                            <nb-option value="EPS026">EPS026 - SOLSALUD E.P.S. S.A.</nb-option>
+                            <nb-option value="EPS031">EPS031 - SELVASALUD S.A. E.P.S.</nb-option>
+                            <nb-option value="EPS033">EPS033 - SALUDVIDA S.A. E.P.S.</nb-option>
+                            <nb-option value="EPS037">EPS037 - NUEVA EPS</nb-option>
+                            <nb-option value="EPS039">EPS039 - GOLDEN GROUP</nb-option>
+                            <nb-option value="EPS040">EPS040 - SAVIA SALUD EPS</nb-option>
+                            <nb-option value="EPS044">EPS044 - MEDIMAS EPS S.A.S</nb-option>
+                            <nb-option value="EPS046">EPS046 - FUNDACION SALUDMIA EPS</nb-option>
+                            <nb-option value="EPS101">EPS101 - UNISALUD</nb-option>
+                            <nb-option value="EPS103">EPS103 - FOSYGA - ADRES</nb-option>
+                            <nb-option value="EPSC20">EPSC20 - EPS CAPRECOM</nb-option>
+                            <nb-option value="EPSC22">EPSC22 - CONVIDA</nb-option>
+                            <nb-option value="EPSC25">EPSC25 - CAPRESOCA EPS</nb-option>
+                            <nb-option value="EPSC34">EPSC34 - CAPITAL SALUD</nb-option>
+                            <nb-option value="EPSI05">EPSI05 - MALLAMAS EPS INDIGENA</nb-option>
+                            <nb-option value="EPSIC1">EPSIC1 - DUSAKAWI EPSI</nb-option>
+                            <nb-option value="EPSIC2">EPSIC2 - MANEXKA EPS INDIGENA</nb-option>
+                            <nb-option value="EPSIC3">EPSIC3 - ASOCIACION INDIGENA DEL CAUCA</nb-option>
+                            <nb-option value="EPSIC4">EPSIC4 - ANASWAYUU</nb-option>
+                            <nb-option value="EPSIC5">EPSIC5 - MALLAMAS</nb-option>
+                            <nb-option value="EPSIC6">EPSIC6 - PIJAOS SALUD EPSI</nb-option>
+                            <nb-option value="ESSC02">ESSC02 - EMDISALUD</nb-option>
+                            <nb-option value="ESSC07">ESSC07 - ASOCIACIÓN MUTUAL SER EMPRESA SOLIDARIA DE SALUD A.R.S.</nb-option>
+                            <nb-option value="ESSC18">ESSC18 - ASOCIACION MUTUAL EMPRESA SOLIDARIA DE SALUD EMSSANAR EPS</nb-option>
+                            <nb-option value="ESSC24">ESSC24 - COOSALUD</nb-option>
+                            <nb-option value="ESSC33">ESSC33 - COMPARTA EPS-S</nb-option>
+                            <nb-option value="ESSC62">ESSC62 - ASMET SALUD</nb-option>
+                            <nb-option value="ESSC76">ESSC76 - AMBUQ EPS ESS</nb-option>
+                            <nb-option value="ESSC91">ESSC91 - ECOOPSOS</nb-option>
+                            <nb-option value="RES011">RES011 - EPS UNIVERSIDAD DE ANTIOQUIA</nb-option>
+                        </nb-select>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <label class="label" for="">Pensión</label><span class="req"> *</span>
+                        <nb-select fullWidth formControlName="afp">
+                            <nb-option value="0">0 - SIN AFP (PENSIONADOS o NO OBLIGADOS A COTIZAR PENSION)</nb-option>
+                            <nb-option value="2">2 - PROTECCION</nb-option>
+                            <nb-option value="3">3 - PORVENIR</nb-option>
+                            <nb-option value="4">4 - COLFONDOS S.A. PENSIONES Y CESANTIAS</nb-option>
+                            <nb-option value="7">7 - OLD MUTUAL (ANTES SKANDIA)</nb-option>
+                            <nb-option value="14">14 - COLPENSIONES ADMINISTRADORA COLOMBIANA DE PENSIONES</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <br>
+                <nb-card-footer>
+                    <button nbButton status="primary" style="float: right; width: 150px; margin-left: 10px;" [disabled]="arlForm.invalid || isLoading" (click)="update()">
+                        {{ isLoading ? 'Actualizando...' : 'Actualizar' }}
+                    </button>
+                    <button nbButton status="basic" (click)="goBack()" style="float: right; width: 150px;">
+                        Volver
+                    </button>
+                   
+                </nb-card-footer>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>
+

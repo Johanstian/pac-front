@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ArlComponent } from './arl.component';
 import { ArlAffiliationComponent } from './arl-affiliation/arl-affiliation.component';
 import { ArlsComponent } from './arls/arls.component';
+import { ArlUpdateComponent } from './arl-update/arl-update.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
       {
         path: 'arl-affiliation',
         component: ArlAffiliationComponent
+      },
+      {
+        path: 'arl-update/:id',
+        component: ArlUpdateComponent
       }
     ]
   }

@@ -53,5 +53,16 @@ export class ArlService {
     return this.httpClient.get<any>(this.devUrl + this.proUrl + '/arl/exportToExcel', options) as Observable<Blob>;
   }
 
+  getArlById(id: string): Observable<any> {
+    return this.httpClient.get<any>(this.devUrl + this.proUrl + '/arl/getArlById/' + id);
+  }
+
+  updateArl(id: string, request: any): Observable<any> {
+    return this.httpClient.put<any>(this.devUrl + this.proUrl + '/arl/updateArl/' + id, request);
+  }
+
+  deleteArl(id: string): Observable<any> {
+    return this.httpClient.delete<any>(this.devUrl + this.proUrl + '/arl/deleteArl/' + id);
+  }
 
 }
