@@ -18,6 +18,7 @@ export class EnlistmentStagePermanentUpdateComponent implements OnInit {
   contractor: any;
   isShow: boolean = false;
   selectedOption: any = new FormControl()
+  loading: boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -72,13 +73,16 @@ export class EnlistmentStagePermanentUpdateComponent implements OnInit {
   }
 
   createEnlistment() {
+    this.loading = true;
     this.enlistmentService.create(this.dataForm.value).subscribe({
       next: () => {
         this.alertService.success('¡Correcto!', 'Reporte de ' + this.contractor?.names + ' creado.');
         this.return();
+        this.loading = false;
       },
       error: (err) => {
         this.alertService.error('¡Error!', err.error.message);
+        this.loading = false;
       }
     })
   }

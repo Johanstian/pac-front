@@ -90,7 +90,7 @@
         <div class="row">
             <div class="col d-flex justify-content-center">
                 <button nbButton status="basic" (click)="return()">Volver</button>
-                <button nbButton status="primary" class="m-l-5" [disabled]="dataForm.invalid"
+                <button [nbSpinner]="loading" nbSpinnerStatus="primary" nbButton status="primary" class="m-l-5" [disabled]="dataForm.invalid || loading"
                     (click)="createEnlistment()">Reporte</button>
             </div>
         </div>

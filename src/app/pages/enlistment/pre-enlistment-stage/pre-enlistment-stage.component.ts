@@ -87,14 +87,17 @@ export class PreEnlistmentStageComponent implements OnInit {
   }
 
   createInterview() {
-    this.loading;
+    this.loading = true;
     this.interviewService.create(this.dataForm.value).subscribe({
-      next: (data) => {
-        this.loading = true;
+      next: () => {
         this.nbDialogRef.close();
         this.getInterviews();
         this.dataForm.reset();
-        this.alertService.success('¡Correcto!', 'Entrevista creada.')
+        this.alertService.success('¡Correcto!', 'Entrevista creada.');
+        this.loading = false;
+      },
+      error: (err) => {
+        this.loading = false;
       }
     })
   }
