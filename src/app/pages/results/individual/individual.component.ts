@@ -3,7 +3,8 @@ import { LegendPosition } from '@swimlane/ngx-charts';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { EnlistmentService } from 'src/app/core/services/enlistment.service';
 import { TestService } from 'src/app/core/services/test.service';
-declare const html2pdf: any;
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 @Component({
   selector: 'app-individual',
@@ -45,6 +46,8 @@ export class IndividualComponent {
   };
 
   loading: boolean = false;
+  loadingSearch: boolean = false;
+  generatingPdf: boolean = false;
   testData1: any;
   savedData: any;
   cc: any;
@@ -87,10 +90,17 @@ export class IndividualComponent {
     if (!this.value) {
       return;
     }
+    
+    if (this.loadingSearch) {
+      return; // Evitar múltiples llamados
+    }
+    
+    this.loadingSearch = true;
     this.loading = false;
     this.testService.getGeneralTest(this.value).subscribe({
       next: (data) => {
         this.loading = true;
+        this.loadingSearch = false;
         this.result = data;
         this.ccResult = data.averageCC;
         this.ceResult = data.averageCE;
@@ -187,6 +197,7 @@ export class IndividualComponent {
         }
       },
       error: (error) => {
+        this.loadingSearch = false;
         this.alertService.error('¡Error!', error.error.message)
       }
     })
@@ -201,18 +212,321 @@ export class IndividualComponent {
     this.averageValue = null;
   }
 
-  pdfReport() {
-      const contentHtml = this.reportContent.nativeElement.innerHTML;
-      const contentElement = document.createElement('div');
-      contentElement.innerHTML = contentHtml;
-      const opt = {
-        margin: 10,
-        filename: 'Análisis de Resultados - ' + this.result!.names + ' - ' + this.result!.cc + '.pdf',
-        image: { type: 'jpeg', quality: 0.8 },
-        html2canvas: { scale: 2, scrollY: 0 },
-        jsPDF: { unit: 'mm', format: 'a3', orientation: 'portrait', compress: false }
+  // Método simple para descargar PDF ligero con texto real (frontend)
+  pdfReportFromBackend() {
+    if (!this.result) {
+      this.alertService.error('Error', 'No hay datos para generar el PDF.');
+      return;
+    }
+
+    this.generatingPdf = true;
+
+    try {
+      const pdf = new jsPDF('p', 'mm', 'a3');
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const margin = 15;
+      let yPos = margin;
+
+      // Función auxiliar para agregar texto
+      const addText = (text: string, fontSize: number, isBold: boolean = false, align: 'left' | 'center' | 'right' = 'left') => {
+        pdf.setFontSize(fontSize);
+        pdf.setFont('helvetica', isBold ? 'bold' : 'normal');
+        const lines = pdf.splitTextToSize(text, pageWidth - (2 * margin));
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        const lineHeight = fontSize * 0.5;
+        
+        lines.forEach((line: string) => {
+          if (yPos + lineHeight > pageHeight - margin) {
+            pdf.addPage();
+            yPos = margin;
+          }
+          // Calcular posición X según la alineación
+          let xPos = margin;
+          if (align === 'center') {
+            xPos = pageWidth / 2;
+          } else if (align === 'right') {
+            xPos = pageWidth - margin;
+          }
+          pdf.text(line, xPos, yPos, { align });
+          yPos += lineHeight;
+        });
       };
-      html2pdf().set(opt).from(contentElement).save();
+
+      // Encabezado
+      addText('ANÁLISIS DE RESULTADOS', 20, true, 'center');
+      yPos += 5;
+      pdf.setFontSize(10);
+      const dateText = 'Impresión: ' + this.currentDate;
+      pdf.text(dateText, pageWidth - margin - pdf.getTextWidth(dateText), yPos);
+      yPos += 10;
+
+      // Información del paciente (en cursiva)
+      pdf.setFontSize(12);
+      pdf.setFont('helvetica', 'italic');
+      pdf.text('Nombre: ' + this.result.names, margin, yPos);
+      yPos += 6;
+      pdf.text('C.C.: ' + this.result.cc, margin, yPos);
+      yPos += 6;
+      pdf.text('Test: ' + this.result.type, margin, yPos);
+      yPos += 10;
+
+      // Variables para layout de dos columnas
+      const tableWidth = (pageWidth - (3 * margin)) / 2;
+      const resultStartX = pageWidth / 2 + margin / 2;
+      const leftColumnCenter = margin + tableWidth / 2;
+      const rightColumnCenter = resultStartX + tableWidth / 2;
+
+      // Competencias Comunes (centrado en su columna izquierda)
+      const sectionTitleY = yPos;
+      pdf.setFontSize(16);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('Competencias Comunes', leftColumnCenter, sectionTitleY, { align: 'center' });
+      
+      // Subtítulo "Resultado" centrado en su columna derecha, al mismo nivel que el título
+      pdf.setFontSize(16);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('Resultado', rightColumnCenter, sectionTitleY, { align: 'center' });
+      
+      yPos += 8;
+      
+      // Tabla a la izquierda (mitad izquierda de la página)
+      const ccTableData = this.ccData.map((item: any) => [item.name, item.value.toString()]);
+      autoTable(pdf, {
+        head: [['Competencia Común', 'Puntaje']],
+        body: ccTableData,
+        startY: yPos,
+        margin: { left: margin, right: margin + tableWidth },
+        tableWidth: tableWidth,
+        styles: { fontSize: 10 },
+        headStyles: { fillColor: [255, 255, 255], textColor: 0, fontStyle: 'bold' },
+        columnStyles: { 1: { halign: 'right' } }
+      });
+      
+      const tableEndY = (pdf as any).lastAutoTable.finalY;
+      yPos = tableEndY + 5;
+      
+      // Promedio debajo de la tabla
+      pdf.setFontSize(12);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('Promedio: ' + this.result.averageCC + ' - ' + this.ccStringResult, margin, yPos);
+      
+      // Resultado a la derecha (mitad derecha de la página)
+      const resultStartY = yPos - (tableEndY - sectionTitleY - 8); // Alinear con el inicio de la tabla
+      pdf.setFontSize(11);
+      pdf.setFont('helvetica', 'normal');
+      const resultText = this.getResultParagraph();
+      const resultLines = pdf.splitTextToSize(resultText, tableWidth);
+      pdf.text(resultLines, resultStartX, resultStartY);
+      
+      yPos = Math.max(yPos, resultStartY + (resultLines.length * 4)) + 15;
+
+      // Competencias Específicas (centrado en su columna izquierda)
+      const sectionTitleY2 = yPos;
+      pdf.setFontSize(16);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('Competencias Específicas', leftColumnCenter, sectionTitleY2, { align: 'center' });
+      
+      // Subtítulo "Resultado" centrado en su columna derecha
+      pdf.setFontSize(16);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('Resultado', rightColumnCenter, sectionTitleY2, { align: 'center' });
+      
+      yPos += 8;
+      
+      // Tabla a la izquierda
+      const ceTableData = this.ceData.map((item: any) => [item.name, item.value.toString()]);
+      autoTable(pdf, {
+        head: [['Competencia Específica', 'Puntaje']],
+        body: ceTableData,
+        startY: yPos,
+        margin: { left: margin, right: margin + tableWidth },
+        tableWidth: tableWidth,
+        styles: { fontSize: 10 },
+        headStyles: { fillColor: [255, 255, 255], textColor: 0, fontStyle: 'bold' },
+        columnStyles: { 1: { halign: 'right' } }
+      });
+      
+      const tableEndY2 = (pdf as any).lastAutoTable.finalY;
+      yPos = tableEndY2 + 5;
+      
+      // Promedio debajo de la tabla
+      pdf.setFontSize(12);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('Promedio: ' + this.result.averageCE + ' - ' + this.ccStringResult, margin, yPos);
+      
+      // Resultado a la derecha
+      const resultStartY2 = yPos - (tableEndY2 - sectionTitleY2 - 8);
+      pdf.setFontSize(11);
+      pdf.setFont('helvetica', 'normal');
+      const resultText2 = this.getResultParagraph();
+      const resultLines2 = pdf.splitTextToSize(resultText2, tableWidth);
+      pdf.text(resultLines2, resultStartX, resultStartY2);
+      
+      yPos = Math.max(yPos, resultStartY2 + (resultLines2.length * 4)) + 15;
+
+      // Test de Mesquite (centrado en su columna izquierda)
+      const sectionTitleY3 = yPos;
+      pdf.setFontSize(16);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('Test de Mesquite', leftColumnCenter, sectionTitleY3, { align: 'center' });
+      
+      // Subtítulo "Resultado" centrado en su columna derecha
+      pdf.setFontSize(16);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('Resultado', rightColumnCenter, sectionTitleY3, { align: 'center' });
+      
+      yPos += 8;
+      
+      // Tabla a la izquierda
+      const tdmTableData = this.tdmData.map((item: any) => [item.name, item.value.toString()]);
+      autoTable(pdf, {
+        head: [['Respuestas', 'Puntaje']],
+        body: tdmTableData,
+        startY: yPos,
+        margin: { left: margin, right: margin + tableWidth },
+        tableWidth: tableWidth,
+        styles: { fontSize: 10 },
+        headStyles: { fillColor: [255, 255, 255], textColor: 0, fontStyle: 'bold' },
+        columnStyles: { 1: { halign: 'right' } }
+      });
+      
+      const tableEndY3 = (pdf as any).lastAutoTable.finalY;
+      yPos = tableEndY3 + 5;
+      
+      // Total debajo de la tabla
+      pdf.setFontSize(12);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('Total: ' + this.result.totalM + ' - ' + this.tdmStringResult, margin, yPos);
+      
+      // Resultado a la derecha
+      const resultStartY3 = yPos - (tableEndY3 - sectionTitleY3 - 8);
+      pdf.setFontSize(11);
+      pdf.setFont('helvetica', 'normal');
+      const mesquiteText = this.getMesquite();
+      const mesquiteLines = pdf.splitTextToSize(mesquiteText, tableWidth);
+      pdf.text(mesquiteLines, resultStartX, resultStartY3);
+      
+      yPos = Math.max(yPos, resultStartY3 + (mesquiteLines.length * 4)) + 15;
+
+      // Ansiedad y Depresión (centrado en su columna izquierda)
+      const sectionTitleY4 = yPos;
+      pdf.setFontSize(16);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('Ansiedad y Depresión', leftColumnCenter, sectionTitleY4, { align: 'center' });
+      
+      // Subtítulo "Resultado" centrado en su columna derecha
+      pdf.setFontSize(16);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('Resultado', rightColumnCenter, sectionTitleY4, { align: 'center' });
+      
+      yPos += 8;
+      
+      // Tabla a la izquierda
+      const aydTableData = this.formattedData.map((item: any) => [item.name, item.value.toString()]);
+      autoTable(pdf, {
+        head: [['Respuestas', 'Puntaje']],
+        body: aydTableData,
+        startY: yPos,
+        margin: { left: margin, right: margin + tableWidth },
+        tableWidth: tableWidth,
+        styles: { fontSize: 10 },
+        headStyles: { fillColor: [255, 255, 255], textColor: 0, fontStyle: 'bold' },
+        columnStyles: { 1: { halign: 'right' } }
+      });
+      
+      const tableEndY4 = (pdf as any).lastAutoTable.finalY;
+      yPos = tableEndY4 + 5;
+      
+      // Promedio debajo de la tabla
+      pdf.setFontSize(12);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('Promedio: ' + this.result.averageAyd + ' - ' + this.aydStringResult, margin, yPos);
+      
+      // Resultado a la derecha
+      const resultStartY4 = yPos - (tableEndY4 - sectionTitleY4 - 8);
+      pdf.setFontSize(11);
+      pdf.setFont('helvetica', 'normal');
+      const behaviorText = this.getBehavior();
+      const behaviorLines = pdf.splitTextToSize(behaviorText, tableWidth);
+      pdf.text(behaviorLines, resultStartX, resultStartY4);
+
+      // Guardar PDF
+      pdf.save('Análisis de Resultados - ' + this.result.names + ' - ' + this.result.cc + '.pdf');
+    } catch (error: any) {
+      console.error('Error al generar PDF:', error);
+      this.alertService.error('Error', 'No se pudo generar el PDF.');
+    } finally {
+      this.generatingPdf = false;
+    }
+  }
+
+  // Método original usando html2pdf.js (frontend)
+  // Método usando html2pdf.js (frontend) - mantener como respaldo
+  async pdfReport() {
+      if (!this.reportContent || !this.reportContent.nativeElement) {
+        this.alertService.error('Error', 'El contenido del reporte no está disponible.');
+        return;
+      }
+
+      if (!this.result) {
+        this.alertService.error('Error', 'No hay datos para generar el PDF.');
+        return;
+      }
+
+      this.generatingPdf = true;
+
+      try {
+        const element = this.reportContent.nativeElement;
+        const filename = 'Análisis de Resultados - ' + this.result.names + ' - ' + this.result.cc + '.pdf';
+
+        // Crear un elemento temporal visible fuera de la vista para html2pdf
+        const tempElement = document.createElement('div');
+        tempElement.style.position = 'absolute';
+        tempElement.style.left = '-9999px';
+        tempElement.style.top = '0';
+        tempElement.style.width = '210mm';
+        tempElement.style.backgroundColor = 'white';
+        tempElement.style.padding = '20px';
+        
+        // Clonar el contenido HTML
+        tempElement.innerHTML = element.innerHTML;
+        
+        // Agregar al DOM temporalmente
+        document.body.appendChild(tempElement);
+
+        // Esperar un momento para que el DOM se actualice
+        await new Promise(resolve => setTimeout(resolve, 100));
+
+        const opt: any = {
+          margin: 10,
+          filename: filename,
+          image: { type: 'jpeg', quality: 0.6 }, // Calidad reducida para PDF más ligero
+          html2canvas: { 
+            scale: 1.5, // Escala reducida para PDF más ligero
+            scrollY: 0,
+            useCORS: true,
+            logging: false,
+            backgroundColor: '#ffffff'
+          },
+          jsPDF: { 
+            unit: 'mm', 
+            format: 'a3', 
+            orientation: 'portrait',
+            compress: true // Habilitar compresión
+          }
+        };
+
+        // Usar la API Promise-based de html2pdf.js
+        // await html2pdf().set(opt).from(tempElement).save();
+
+        // Limpiar el elemento temporal
+        document.body.removeChild(tempElement);
+      } catch (error: any) {
+        console.error('Error al generar PDF:', error);
+        this.alertService.error('Error', 'No se pudo generar el PDF: ' + (error.message || 'Error desconocido'));
+      } finally {
+        this.generatingPdf = false;
+      }
   }
 
   getResultParagraph(): string {

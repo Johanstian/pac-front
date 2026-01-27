@@ -11,8 +11,17 @@
                     </div>
                 </div>
                 <div class="col-md-3 justify-content-center">
-                    <button nbButton status="basic" (click)="reset()">Limpiar</button>
-                    <button nbButton status="primary" class="m-l-5" [disabled]="!value" (click)="searching()">Buscar</button>
+                    <button nbButton status="basic" (click)="reset()" [disabled]="loadingSearch">Limpiar</button>
+                    <button 
+                        [nbSpinner]="loadingSearch" 
+                        nbSpinnerStatus="primary" 
+                        nbButton 
+                        status="primary" 
+                        class="m-l-5" 
+                        [disabled]="!value || loadingSearch" 
+                        (click)="searching()">
+                        Buscar
+                    </button>
                 </div>
 
                 <div class="col-md-6">
@@ -126,17 +135,19 @@
     <nb-card-footer *ngIf="loading && result">
         <div class="row">
             <div class="col" style="display: flex; justify-content: center;">
-                <button nbButton status="danger" (click)="pdfReport()">PDF</button>
+                <button 
+                    [nbSpinner]="generatingPdf" 
+                    nbSpinnerStatus="danger" 
+                    nbButton 
+                    status="danger" 
+                    (click)="pdfReportFromBackend()" 
+                    [disabled]="generatingPdf">
+                    PDF
+                </button>
             </div>
         </div>
     </nb-card-footer>
 </nb-card>
-
-
-
-
-
-
 
 
 <div [hidden]="true" #reportContent *ngIf="result">
